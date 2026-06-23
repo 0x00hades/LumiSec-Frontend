@@ -302,7 +302,7 @@ export default function CampaignCreate() {
 
               }
 
-                <label className="text-secondary mb-2" htmlFor="">
+                <label className="text-secondary mb-2" htmlFor="name">
 
                   Campaign Name
 
@@ -315,7 +315,7 @@ export default function CampaignCreate() {
                   className="form-control header-search-input ps-2"
 
                   name="name"
-                  id=""
+                  id="name"
 
                   placeholder="Campaign Name..."
 
@@ -365,7 +365,7 @@ export default function CampaignCreate() {
               }
 
 
-                <label className="text-secondary mb-2">
+                <label className="text-secondary mb-2" htmlFor="templete">
 
                   Email Template
 
@@ -378,6 +378,8 @@ export default function CampaignCreate() {
                   className="form-select scanType-select border-0 ps-2"
 
                   name="templateId"
+
+                  id="templete"
 
                   value={
 
@@ -465,7 +467,7 @@ export default function CampaignCreate() {
 
               }
 
-                <label className="text-secondary mb-2">
+                <label className="text-secondary mb-2" htmlFor="landingPage">
 
                   Landing Page
 
@@ -478,6 +480,8 @@ export default function CampaignCreate() {
                   className="form-select scanType-select border-0 ps-2"
 
                   name="landingPageId"
+
+                  id="landingPage"
 
                   value={
 

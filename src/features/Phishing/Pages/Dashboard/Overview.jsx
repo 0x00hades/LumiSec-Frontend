@@ -38,7 +38,7 @@ export default function Overview() {
 
       <PhishingAlert type="danger" message={error} isMock={isMock} onRetry={reload} />
 
-      <div className="row justify-content-between align-items-center mb-3">
+      <div className="row gy-3 justify-content-between align-items-center mb-3">
         <DashboardCard4 title="Active Campaigns"
           icon={analysisIcon} 
           Statistics={formatNumber(data?.activeCampaigns)} 
@@ -68,7 +68,7 @@ export default function Overview() {
       </div>
 
       <div className="row justify-content-between m-0">
-        <div className="col-7 dashboard-card mb-3"><CampaignTrendChart /></div>
+        <div className="col-lg-7 dashboard-card mb-3"><CampaignTrendChart /></div>
         <div className="col dashboard-card mb-3 ms-2"><CampaignFunnel /></div>
       </div>
 

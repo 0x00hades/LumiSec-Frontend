@@ -27,7 +27,7 @@ export default function EventTimeline({ events = [], live = false }) {
   return (
     <div className="siem-event-stream" ref={ref}>
       {live && (
-        <div className="p-2 border-bottom border-secondary">
+        <div className="p-2 border-bottom  border-secondary">
           <span className="badge" style={{ background: "#10B981" }}>
             <i className="fa-solid fa-circle me-1" style={{ fontSize: 8 }} />
             LIVE
@@ -40,7 +40,7 @@ export default function EventTimeline({ events = [], live = false }) {
       )}
       {events.map((ev) => (
         <div key={ev.id} className={`siem-event-row ${eventClass(ev)}`}>
-          <span className="siem-event-time">
+          <span className="siem-event-time pe-2">
             {new Date(ev.timestamp).toLocaleTimeString()}
           </span>
           <span className={`siem-event-type siem-event-type-${ev.type}`}>

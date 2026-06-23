@@ -155,13 +155,14 @@ export default function LandingPageEditor() {
               </div>
             )}
 
-            <label className="text-secondary mb-2">
+            <label className="text-secondary mb-2" htmlFor="name">
               Name
             </label>
 
             <input
               className="form-control header-search-input ps-2"
               name="name"
+              id="name"
               value={formik.values.name}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -176,13 +177,14 @@ export default function LandingPageEditor() {
               </div>
             )}
 
-            <label className="text-secondary mb-2">
+            <label className="text-secondary mb-2" htmlFor="url">
               URL Path
             </label>
 
             <input
               className="form-control header-search-input ps-2"
               name="url"
+              id="url"
               value={formik.values.url}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -198,7 +200,7 @@ export default function LandingPageEditor() {
               </div>
             )}
 
-            <label className="text-secondary mb-2">
+            <label className="text-secondary mb-2" htmlFor="content">
               HTML Content
             </label>
 
@@ -206,6 +208,7 @@ export default function LandingPageEditor() {
               className="form-control header-search-input ps-2"
               rows={14}
               name="html"
+              id="content"
               value={formik.values.html}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -221,13 +224,14 @@ export default function LandingPageEditor() {
                 </div>
               )}
 
-            <label className="text-secondary mb-2">
+            <label className="text-secondary mb-2" htmlFor="category">
               Category
             </label>
 
             <select
               className="form-select scanType-select border-0 ps-2"
               name="category"
+              id="category"
               value={formik.values.category}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}

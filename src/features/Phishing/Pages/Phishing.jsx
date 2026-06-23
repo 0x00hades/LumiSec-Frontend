@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, Outlet, Link, useNavigate } from "react-router-dom";
+import logo from "../../../assets/LumiSecLogoB 1.png";
 import profile from "../../../assets/prrofile.png";
 import "./Phishing.css";
 import {
@@ -35,9 +36,12 @@ export default function Phishing() {
           </button>
           <div className="d-flex justify-content-between align-items-center">
             <Link to="/Phishing" className="text-decoration-none">
-              <h1 className="logo m-0">LumiSec</h1>
+            <figure className="w-75 m-0">
+              <img className="w-100" src={logo} alt="logo" />
+            </figure>
+              {/* <h1 className="logo m-0">LumiSec</h1> */}
             </Link>
-            <span className="role-badge mt-3 mb-1 ms-2 d-none d-md-inline ">{role.replace("_", " ")}</span>
+            <span className="role-badge mt-3 mb-1 ms-2 py-2 d-none d-md-inline ">{role.replace("_", " ")}</span>
           </div>
         </div>
 
@@ -57,7 +61,9 @@ export default function Phishing() {
             <i className="fa-solid fa-plus me-2" />
             New Campaign
           </button> */}
-          <i className="fa-regular fa-bell notification-icon fs-5" />
+          <Link to={""}>
+            <i className="fa-regular fa-bell notification-icon fs-5" />
+          </Link>
           <figure className="profile-figure mb-0">
             <img src={profile} alt="profile" />
           </figure>

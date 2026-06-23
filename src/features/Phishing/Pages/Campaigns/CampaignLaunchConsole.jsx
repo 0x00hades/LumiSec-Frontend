@@ -55,7 +55,7 @@ export default function CampaignLaunchConsole() {
         <PhishingAlert type="danger" message={error || actionError} isMock={isMock} />
 
         <div className="row g-3 mb-3">
-          <div className="col-lg-8 dashboard-card p-3">
+          <div className="col-lg mx-2 dashboard-card p-3">
             <div className="d-flex justify-content-between mb-2">
               <span className="text-white">Queue Progress</span>
               <span className="text-secondary">{progress}% — {queue?.sent ?? 0}/{queue?.total ?? 0} sent</span>
@@ -84,7 +84,7 @@ export default function CampaignLaunchConsole() {
             </div>
           </div>
 
-          <div className="col-lg-4 dashboard-card p-3">
+          <div className="col-lg-5 dashboard-card p-3">
             <h6 className="text-white mb-3">Live Events</h6>
             <EventTimeline events={events.slice(0, 8)} live />
           </div>

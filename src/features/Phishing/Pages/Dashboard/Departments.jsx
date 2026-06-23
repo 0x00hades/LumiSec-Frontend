@@ -44,7 +44,7 @@ export default function Departments() {
             <Bar data={chartData} options={{ responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }} />
           </div>
         </div>
-        <div className="col-lg dashboard-card ms-3 px-3">
+        <div className="col dashboard-card px-3">
           <DepartmentRisk />
         </div>
       </div>

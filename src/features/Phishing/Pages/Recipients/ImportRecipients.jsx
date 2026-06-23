@@ -33,7 +33,7 @@ export default function ImportRecipients() {
       <div className="phishing-soc-page">
         <div className="d-flex justify-content-between mb-3">
           <h5 className="text-white">Import Recipients (CSV)</h5>
-          <Link to="/Phishing/Recipients" className="btn integration-btn">Back</Link>
+          <Link to="/Phishing/Recipients" className="btn import-btn text-white">Back</Link>
         </div>
         <PhishingAlert type="danger" message={error} />
         {success && <PhishingAlert type="success" message="Recipients imported successfully." />}

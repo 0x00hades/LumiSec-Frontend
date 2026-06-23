@@ -140,13 +140,14 @@ export default function TemplateEditor() {
               </div>
             )}
             
-            <label className="text-secondary mb-2">
+            <label className="text-secondary mb-2" htmlFor="name">
               Name
             </label>
 
             <input
               className="form-control header-search-input ps-2"
               name="name"
+              id="name"
               value={formik.values.name}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -165,13 +166,14 @@ export default function TemplateEditor() {
               </div>
             )}
 
-            <label className="text-secondary mb-2">
+            <label className="text-secondary mb-2" htmlFor="subject">
               Subject
             </label>
 
             <input
               className="form-control header-search-input ps-2"
               name="subject"
+              id="subject"
               value={formik.values.subject}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -189,13 +191,14 @@ export default function TemplateEditor() {
                 </div>
               )}
 
-            <label className="text-secondary mb-2">
+            <label className="text-secondary mb-2" htmlFor="category">
               Category
             </label>
 
             <select
               className="form-select scanType-select border-0 ps-2"
               name="category"
+              id="category"
               value={formik.values.category}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -208,7 +211,7 @@ export default function TemplateEditor() {
 
           {/* Body */}
           <div className="mb-3">
-            <label className="text-secondary mb-2">
+            <label className="text-secondary mb-2" htmlFor="htmlBody">
               HTML Body
             </label>
 
@@ -216,6 +219,7 @@ export default function TemplateEditor() {
               className="form-control header-search-input ps-2"
               rows={12}
               name="body"
+              id="htmlBody"
               value={formik.values.body}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}

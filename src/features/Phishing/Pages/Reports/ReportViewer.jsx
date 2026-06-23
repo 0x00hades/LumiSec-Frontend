@@ -73,7 +73,9 @@ export default function ReportViewer() {
 
         <div className="dashboard-card">
           <h6 className="text-white mb-2">Push Results to Integrations</h6>
-          <PhishingIntegrationActions campaign={{ id: "report", name: "Phishing Report", submitted: stats?.highRiskUsers }} />
+          <div className="">
+            <PhishingIntegrationActions campaign={{ id: "report", name: "Phishing Report", submitted: stats?.highRiskUsers }} />
+          </div>
         </div>
       </div>
     </RoleGate>

@@ -43,12 +43,12 @@ export default function PhishingIntegrationActions({ campaign, compact = false }
           {feedback.text}
         </small>
       )}
-      <div className="integration-actions">
+      <div className="integration-actions row">
         {ACTIONS.map((action) => (
           <button
             key={action.key}
             type="button"
-            className="btn import-btn text-white border-0 me-3"
+            className="btn col-lg col-sm-12 import-btn text-white border-0 me-3"
             disabled={loadingKey !== null}
             onClick={() => handleAction(action)}
           >

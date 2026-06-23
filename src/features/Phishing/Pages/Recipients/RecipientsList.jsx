@@ -35,8 +35,8 @@ export default function RecipientsList() {
         <input className="form-control header-search-input rounded-3" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
       </div> */}
 
-      <div className="dashboard-card p-0">
-        <table className="w-100 discover-tabel">
+      <div className="dashboard-card p-0 d-block overflow-x-auto">
+        <table className="w-100 discover-tabel overflow-hidden">
           <thead><tr><th>Name</th><th>Email</th><th className="text-center">Department</th><th>Valid</th><th>Actions</th></tr></thead>
           <tbody>
             {recipients.map((r) => (
