@@ -19,35 +19,35 @@ export default function RecipientsList() {
 
   return (
     <div className="phishing-soc-page">
-      <div className="d-flex justify-content-between mb-3">
+      <div className="d-flex justify-content-between align-items-center mb-3">
         <div>
           <h5 className="text-white">Recipients</h5>
           <p className="dashboard-desc">{recipients.length} recipients</p>
         </div>
         <RoleGate allow={canManageRecipients}>
-          <Link to="/Phishing/Recipients/import" className="btn integration-btn me-2">Import CSV</Link>
+          <Link to="/Phishing/Recipients/import" className="btn import-btn text-white me-2">Import CSV</Link>
         </RoleGate>
       </div>
       <PhishingAlert type="danger" message={error} isMock={isMock} onRetry={reload} />
-
-      <div className="search-container mb-3">
+{/* 
+      <div className="search-container ms-0 mb-3">
         <i className="fa-brands fa-sistrix discover-search-icon" />
         <input className="form-control header-search-input rounded-3" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
-      </div>
+      </div> */}
 
-      <div className="dashboard-card p-0">
-        <table className="w-100 discover-tabel">
-          <thead><tr><th>Name</th><th>Email</th><th>Department</th><th>Valid</th><th>Actions</th></tr></thead>
+      <div className="dashboard-card p-0 d-block overflow-x-auto">
+        <table className="w-100 discover-tabel overflow-hidden">
+          <thead><tr><th>Name</th><th>Email</th><th className="text-center">Department</th><th>Valid</th><th>Actions</th></tr></thead>
           <tbody>
             {recipients.map((r) => (
               <tr key={r.id}>
-                <td className="text-white">{r.name}</td>
-                <td>{r.email}</td>
-                <td>{r.department}</td>
-                <td>{r.valid ? <span className="phishing-risk-low px-2 rounded">Valid</span> : <span className="phishing-risk-high px-2 rounded">Invalid</span>}</td>
+                <td className="text-white p-3">{r.name}</td>
+                <td className="text-secondary">{r.email}</td>
+                <td className="text-secondary text-center">{r.department}</td>
+                <td className="text-secondary">{r.valid ? <span className="phishing-risk-low px-2 rounded">Valid</span> : <span className="phishing-risk-high px-2 rounded">Invalid</span>}</td>
                 <td>
                   <RoleGate allow={canManageRecipients}>
-                    <button type="button" className="btn btn-sm integration-btn" onClick={() => handleDelete(r.id)}>Delete</button>
+                    <button type="button" className="btn btn-sm import-btn text-danger" onClick={() => handleDelete(r.id)}>Delete</button>
                   </RoleGate>
                 </td>
               </tr>

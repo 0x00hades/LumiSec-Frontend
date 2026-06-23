@@ -35,12 +35,12 @@ export default function CampaignDetails() {
           </RoleGate>
           <RoleGate allow={canLaunchCampaigns}>
             {campaign?.status === "active" && (
-              <button type="button" className="btn integration-btn" onClick={() => handleControl(pauseCampaign)}>Pause</button>
+              <button type="button" className="btn btn-warning" onClick={() => handleControl(pauseCampaign)}>Pause</button>
             )}
             {campaign?.status === "paused" && (
-              <button type="button" className="btn integration-btn" onClick={() => handleControl(resumeCampaign)}>Resume</button>
+              <button type="button" className="btn btn-success" onClick={() => handleControl(resumeCampaign)}>Resume</button>
             )}
-            <button type="button" className="btn integration-btn" onClick={() => handleControl(stopCampaign)}>Stop</button>
+            <button type="button" className="btn btn-danger" onClick={() => handleControl(stopCampaign)}>Stop</button>
           </RoleGate>
         </div>
       </div>
@@ -48,10 +48,10 @@ export default function CampaignDetails() {
       <PhishingAlert type="danger" message={error} isMock={isMock} onRetry={reload} />
 
       <div className="row g-3 mb-3">
-        <div className="col-md-3 dashboard-card p-3"><p className="text-secondary mb-1">Recipients</p><h4 className="text-white">{campaign?.recipientsCount}</h4></div>
-        <div className="col-md-3 dashboard-card p-3"><p className="text-secondary mb-1">Opened</p><h4 className="text-white">{campaign?.opened}</h4></div>
-        <div className="col-md-3 dashboard-card p-3"><p className="text-secondary mb-1">Clicked</p><h4 className="text-warning">{campaign?.clicked}</h4></div>
-        <div className="col-md-3 dashboard-card p-3"><p className="text-secondary mb-1">Submitted</p><h4 className="text-danger">{campaign?.submitted}</h4></div>
+        <div className="col-md mx-2 dashboard-card p-3"><p className="text-secondary mb-1">Recipients</p><h4 className="text-white">{campaign?.recipientsCount}</h4></div>
+        <div className="col-md mx-2 dashboard-card p-3"><p className="text-secondary mb-1">Opened</p><h4 className="text-white">{campaign?.opened}</h4></div>
+        <div className="col-md mx-2 dashboard-card p-3"><p className="text-secondary mb-1">Clicked</p><h4 className="text-warning">{campaign?.clicked}</h4></div>
+        <div className="col-md mx-2 dashboard-card p-3"><p className="text-secondary mb-1">Submitted</p><h4 className="text-danger">{campaign?.submitted}</h4></div>
       </div>
 
       <RoleGate allow={canManageCampaigns}>

@@ -31,7 +31,7 @@ export default function ReportViewer() {
   return (
     <RoleGate allow={canViewReports} fallback={<p className="text-danger p-3">Report access denied.</p>}>
       <div className="phishing-soc-page">
-        <div className="d-flex justify-content-between mb-3">
+        <div className="d-flex justify-content-between align-items-center mb-3">
           <div>
             <h5 className="text-white">Campaign Reports</h5>
             <p className="dashboard-desc">Summary analytics & risk breakdown</p>
@@ -41,33 +41,41 @@ export default function ReportViewer() {
               {generating ? "Generating..." : "Generate Report"}
             </button>
             {reportId && (
-              <Link to={`/Phishing/Reports/download/${reportId}`} className="btn integration-btn">Download</Link>
+              <Link to={`/Phishing/Reports/download/${reportId}`} className="btn import-btn text-white">Download</Link>
             )}
           </div>
         </div>
         <PhishingAlert type="danger" message={error} isMock={isMock} onRetry={reload} />
 
         <div className="row g-3 mb-4">
-          <div className="col-md-3 dashboard-card p-3"><p className="text-secondary">Campaigns</p><h4 className="text-white">{formatNumber(stats?.campaigns)}</h4></div>
-          <div className="col-md-3 dashboard-card p-3"><p className="text-secondary">Recipients</p><h4 className="text-white">{formatNumber(stats?.totalRecipients)}</h4></div>
-          <div className="col-md-3 dashboard-card p-3"><p className="text-secondary">Avg Click Rate</p><h4 className="text-warning">{stats?.avgClickRate}%</h4></div>
-          <div className="col-md-3 dashboard-card p-3"><p className="text-secondary">High Risk Users</p><h4 className="text-danger">{formatNumber(stats?.highRiskUsers)}</h4></div>
+          <div className="col-md dashboard-card mx-2 p-3"><p className="text-secondary">Campaigns</p><h4 className="text-white">{formatNumber(stats?.campaigns)}</h4></div>
+          <div className="col-md dashboard-card mx-2 p-3"><p className="text-secondary">Recipients</p><h4 className="text-white">{formatNumber(stats?.totalRecipients)}</h4></div>
+          <div className="col-md dashboard-card mx-2 p-3"><p className="text-secondary">Avg Click Rate</p><h4 className="text-warning">{stats?.avgClickRate}%</h4></div>
+          <div className="col-md dashboard-card mx-2 p-3"><p className="text-secondary">High Risk Users</p><h4 className="text-danger">{formatNumber(stats?.highRiskUsers)}</h4></div>
         </div>
 
         <div className="dashboard-card p-3 mb-3">
           <h6 className="text-white mb-3">User Behavior Summary</h6>
           <table className="w-100 discover-tabel">
-            <thead><tr><th>Metric</th><th>Value</th><th>Status</th></tr></thead>
+            <thead>
+              <tr>
+                <th className="py-2">Metric</th>
+                <th className="py-2 text-center">Value</th>
+                <th className="py-2">Status</th>
+              </tr>
+            </thead>
             <tbody>
-              <tr><td className="text-white">Average Submit Rate</td><td>{stats?.avgSubmitRate}%</td><td className={stats?.avgSubmitRate > 15 ? "text-danger" : "text-success"}>{stats?.avgSubmitRate > 15 ? "Above threshold" : "Within threshold"}</td></tr>
-              <tr><td className="text-white">High Risk Users</td><td>{stats?.highRiskUsers}</td><td className="text-danger">Requires training</td></tr>
+              <tr><td className="text-white p-2">Average Submit Rate</td><td className="text-secondary text-center">{stats?.avgSubmitRate}%</td><td className={stats?.avgSubmitRate > 15 ? "text-danger" : "text-success"}>{stats?.avgSubmitRate > 15 ? "Above threshold" : "Within threshold"}</td></tr>
+              <tr><td className="text-white p-2">High Risk Users</td><td className="text-secondary text-center">{stats?.highRiskUsers}</td><td className="text-danger">Requires training</td></tr>
             </tbody>
           </table>
         </div>
 
-        <div className="dashboard-card p-3">
+        <div className="dashboard-card">
           <h6 className="text-white mb-2">Push Results to Integrations</h6>
-          <PhishingIntegrationActions campaign={{ id: "report", name: "Phishing Report", submitted: stats?.highRiskUsers }} />
+          <div className="">
+            <PhishingIntegrationActions campaign={{ id: "report", name: "Phishing Report", submitted: stats?.highRiskUsers }} />
+          </div>
         </div>
       </div>
     </RoleGate>

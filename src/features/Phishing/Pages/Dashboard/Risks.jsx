@@ -18,12 +18,12 @@ export default function Risks() {
 
       <div className="row g-3 mb-4">
         {data.map((user) => (
-          <div key={user.id} className="col-md-6 col-lg-4">
-            <div className={`dashboard-card p-3 heatmap-cell ${riskLevelClass(user.level)}`}>
+          <div key={user.id} className="col-md-6 col-lg-3">
+            <div className={`dashboard-card border-3 heatmap-cell`}>
               <p className="text-white fw-medium mb-1">{user.name}</p>
               <p className="text-secondary mb-2">{user.email}</p>
               <p className="mb-1">Dept: {user.department}</p>
-              <h4 className="mb-0">Score: {user.score}</h4>
+              <h4 className={`mb-0 border-0 bg-transparent ${riskLevelClass(user.level)}`}>Score: {user.score}</h4>
               <span className="badge mt-2 text-capitalize">{user.level} risk</span>
             </div>
           </div>

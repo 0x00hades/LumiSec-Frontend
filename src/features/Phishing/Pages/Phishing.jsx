@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { NavLink, Outlet, Link, useNavigate } from "react-router-dom";
-import "./Phishing.css";
+import logo from "../../../assets/LumiSecLogoB 1.png";
 import profile from "../../../assets/prrofile.png";
+import "./Phishing.css";
 import {
   LayoutGrid,
   Mail,
@@ -13,11 +14,13 @@ import {
   Settings,
   Menu,
   Shield,
+  ClipboardClock,
+  Radio,
 } from "lucide-react";
 import { getPhishingRole, ROLES, setPhishingRole } from "../utils/roles";
 
 export default function Phishing() {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const navigate = useNavigate();
   const role = getPhishingRole();
 
@@ -31,14 +34,19 @@ export default function Phishing() {
           <button className="btn text-white border-0 p-0 d-none d-lg-block" onClick={() => setCollapsed(!collapsed)}>
             <Menu size={28} />
           </button>
-          <Link to="/Phishing" className="text-decoration-none">
-            <h1 className="logo m-0">LumiSec</h1>
-          </Link>
-          <span className="role-badge ms-2 d-none d-md-inline">{role.replace("_", " ")}</span>
+          <div className="d-flex justify-content-between align-items-center">
+            <Link to="/Phishing" className="text-decoration-none">
+            <figure className="w-75 m-0">
+              <img className="w-100" src={logo} alt="logo" />
+            </figure>
+              {/* <h1 className="logo m-0">LumiSec</h1> */}
+            </Link>
+            <span className="role-badge mt-3 mb-1 ms-2 py-2 d-none d-md-inline ">{role.replace("_", " ")}</span>
+          </div>
         </div>
 
         <div className="right-section">
-          <select
+          {/* <select
             className="form-select scanType-select border-0 me-2 d-none d-md-block"
             style={{ width: 160 }}
             value={role}
@@ -52,8 +60,10 @@ export default function Phishing() {
           <button type="button" className="btn add-btn text-white border-0" onClick={() => navigate("/Phishing/Campaigns/create")}>
             <i className="fa-solid fa-plus me-2" />
             New Campaign
-          </button>
-          <i className="fa-regular fa-bell notification-icon fs-5" />
+          </button> */}
+          <Link to={""}>
+            <i className="fa-regular fa-bell notification-icon fs-5" />
+          </Link>
           <figure className="profile-figure mb-0">
             <img src={profile} alt="profile" />
           </figure>
@@ -62,7 +72,7 @@ export default function Phishing() {
 
       <div className="main-layout">
         <aside className="d-none d-lg-block">
-          <div className={collapsed ? "sidebar collapsed" : "sidebar"}>
+          <div className={collapsed ? "sidebar phishing collapsed" : "sidebar phishing"}>
             <SidebarLinks collapsed={collapsed} />
           </div>
         </aside>
@@ -91,7 +101,7 @@ function SidebarLinks({ collapsed }) {
       <NavItem to="/Phishing/Templates" icon={<FileText size={22} />} text="Templates" collapsed={collapsed} />
       <NavItem to="/Phishing/LandingPages" icon={<Globe size={22} />} text="Landing Pages" collapsed={collapsed} />
       <NavItem to="/Phishing/Recipients" icon={<Users size={22} />} text="Recipients" collapsed={collapsed} />
-      <NavItem to="/Phishing/Tracking/Timeline" icon={<Activity size={22} />} text="Live Timeline" collapsed={collapsed} />
+      <NavItem to="/Phishing/Tracking/Timeline" icon={<Radio size={22} />} text="Live Timeline" collapsed={collapsed} />
       <NavItem to="/Phishing/Tracking/Logs" icon={<Activity size={22} />} text="Tracking Logs" collapsed={collapsed} />
       <NavItem to="/Phishing/Reports" icon={<BarChart3 size={22} />} text="Reports" collapsed={collapsed} />
       <NavItem to="/Phishing/Settings" icon={<Settings size={22} />} text="Settings" collapsed={collapsed} />

@@ -11,6 +11,7 @@
     "axios": "^1.17.0",
     "bootstrap": "^5.3.8",
     "chart.js": "^4.5.1",
+    "formik": "^2.4.9",
     "json-server": "^1.0.0-beta.15",
     "lucide": "^1.16.0",
     "lucide-react": "^1.16.0",

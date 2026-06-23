@@ -19,10 +19,10 @@ export default function RecentCampaignsTabel() {
     <thead>
       <tr>
         <th>Campaign</th>
-        <th>Sent</th>
-        <th>Open Rate</th>
-        <th>Click Rate</th>
-        <th>Submit Rate</th>
+        <th className='text-center'>Sent</th>
+        <th className='text-center'>Open Rate</th>
+        <th className='text-center'>Click Rate</th>
+        <th className='text-center'>Submit Rate</th>
         <th>Status</th>
       </tr>
     </thead>
@@ -31,7 +31,7 @@ export default function RecentCampaignsTabel() {
 
         
     <tr>
-            <td className='ip-address text-white fw-medium px-1'>Microsoft Password Reset</td>
+            <td className='ip-address text-white fw-medium px-2'>Microsoft Password Reset</td>
             <td className='mac-address text-secondary text-center'>420</td>
             <td className='text-white text-center'><p className='purple-number mb-0'>68%</p></td>
             <td className='text-white text-center'><p className='orange-number mb-0'>31%</p></td>
@@ -41,7 +41,7 @@ export default function RecentCampaignsTabel() {
 
 
     <tr>
-            <td className='ip-address text-white fw-medium px-1'>HR Salary Update</td>
+            <td className='ip-address text-white fw-medium px-2'>HR Salary Update</td>
             <td className='mac-address text-secondary text-center'>310</td>
             <td className='text-white text-center'><p className='purple-number mb-0'>74%</p></td>
             <td className='text-white text-center'><p className='orange-number mb-0'>44%</p></td>
@@ -52,7 +52,7 @@ export default function RecentCampaignsTabel() {
 
 
     <tr>
-            <td className='ip-address text-white fw-medium px-1'>Netflix Billing Alert</td>
+            <td className='ip-address text-white fw-medium px-2'>Netflix Billing Alert</td>
             <td className='mac-address text-secondary text-center'>280</td>
             <td className='text-white text-center'><p className='purple-number mb-0'>61%</p></td>
             <td className='text-white text-center'><p className='orange-number mb-0'>27%</p></td>
@@ -64,7 +64,7 @@ export default function RecentCampaignsTabel() {
 
 
     <tr>
-            <td className='ip-address text-white fw-medium px-1'>VPN Login Required</td>
+            <td className='ip-address text-white fw-medium px-2'>VPN Login Required</td>
             <td className='mac-address text-secondary text-center'>195</td>
             <td className='text-white text-center'><p className='purple-number mb-0'>55%</p></td>
             <td className='text-white text-center'><p className='orange-number mb-0'>19%</p></td>

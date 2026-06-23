@@ -26,8 +26,10 @@ export default function TemplatesList() {
           <p className="dashboard-desc">{templates.length} templates available</p>
         </div>
         <RoleGate allow={canEditTemplates}>
-          <Link to="/Phishing/Templates/new/edit" className="btn add-btn text-white border-0">
-            <i className="fa-solid fa-plus me-2" />Create Template
+          <Link to="/Phishing/Templates/new/edit">
+            <button className="btn add-btn text-white border-0">
+              <i className="fa-solid fa-plus me-2"></i>Create Template
+            </button>
           </Link>
         </RoleGate>
       </div>
@@ -39,11 +41,11 @@ export default function TemplatesList() {
             <div className="dashboard-card p-3 h-100">
               <h6 className="text-white">{t.name}</h6>
               <p className="text-secondary small">{t.subject}</p>
-              <span className="badge mb-2">{t.category}</span>
+              <span className="badge mb-3">{t.category}</span>
               <div className="d-flex gap-2">
-                <Link to={`/Phishing/Templates/${t.id}/edit`} className="btn btn-sm integration-btn">Edit</Link>
+                <Link to={`/Phishing/Templates/${t.id}/edit`} className="btn btn-sm text-white import-btn">Edit</Link>
                 <RoleGate allow={canEditTemplates}>
-                  <button type="button" className="btn btn-sm integration-btn text-danger" onClick={() => handleDelete(t.id)}>Delete</button>
+                  <button type="button" className="btn btn-sm import-btn text-danger" onClick={() => handleDelete(t.id)}>Delete</button>
                 </RoleGate>
               </div>
             </div>

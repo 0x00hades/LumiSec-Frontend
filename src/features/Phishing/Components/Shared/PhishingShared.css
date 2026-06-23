@@ -32,7 +32,10 @@
   border: 1px solid #2A3042;
   border-radius: 8px;
   max-height: 480px;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: auto;
   font-family: "Courier New", Consolas, monospace;
   font-size: 12px;
 }
@@ -138,3 +141,9 @@
   color: #A5B4FC;
   border: 1px solid #539BFF;
 }
+
+
+.import-btn{
+  background-color: #242C3D !important;
+}
+

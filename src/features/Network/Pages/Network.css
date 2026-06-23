@@ -114,15 +114,15 @@
     height: stretch;
 }
 
-.sidebar{
+.sidebar.network{
     width: 260px;
     min-width: 260px;
 
-    height: stretch;
+    min-height: calc(100vh - 70px);
 
     background-image: url("../../../assets/background.png");
     background-size: cover;
-    background-position: center;
+    background-position: center center;
 
     border-right: 2px solid #2A3042;
 

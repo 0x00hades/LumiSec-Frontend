@@ -79,7 +79,7 @@ export default function Network() {
                 {/* DESKTOP SIDEBAR */}
                 <aside className='d-none d-lg-block'>
 
-                    <div className={collapsed ? "sidebar collapsed" : "sidebar"}>
+                    <div className={collapsed ? "sidebar network collapsed" : "sidebar network"}>
 
                         <SidebarLinks collapsed={collapsed} />
 

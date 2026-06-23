@@ -43,8 +43,20 @@ export default function Trends() {
             options={{
               responsive: true,
               maintainAspectRatio: false,
-              plugins: { legend: { labels: { color: "#9DA3B0" } } },
-              scales: {
+              plugins: {
+                legend: {
+                  labels: {
+                    color: "#9DA3B0",
+                    usePointStyle: true,
+                    pointStyle: "line",
+                  },
+                },
+          
+                tooltip: {
+                  mode: "index",
+                  intersect: false,
+                },
+              },              scales: {
                 x: { ticks: { color: "#6b7280" }, grid: { color: "#1f2937" } },
                 y: { ticks: { color: "#6b7280" }, grid: { color: "#1f2937" } },
               },

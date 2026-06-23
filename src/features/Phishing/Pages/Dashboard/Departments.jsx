@@ -38,29 +38,29 @@ export default function Departments() {
       <PhishingAlert type="danger" message={error} isMock={isMock} onRetry={reload} />
 
       <div className="row g-3">
-        <div className="col-lg-8 dashboard-card p-3">
+        <div className="col-lg-7 dashboard-card me-3 px-3">
           <h6 className="text-white mb-3">Department Vulnerability</h6>
           <div style={{ height: 320 }}>
             <Bar data={chartData} options={{ responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }} />
           </div>
         </div>
-        <div className="col-lg-4 dashboard-card p-3">
+        <div className="col dashboard-card px-3">
           <DepartmentRisk />
         </div>
       </div>
 
-      <div className="dashboard-card p-3 mt-3">
-        <table className="w-100 discover-tabel">
+      <div className="dashboard-card row p-3 mt-3">
+        <table className="col discover-tabel">
           <thead>
-            <tr><th>Department</th><th>Employees</th><th>Clicked</th><th>Vulnerability</th></tr>
+            <tr><th>Department</th><th className="text-center">Employees</th><th className="text-center">Clicked</th><th className="text-center">Vulnerability</th></tr>
           </thead>
           <tbody>
             {data.map((d) => (
               <tr key={d.department}>
-                <td className="text-white">{d.department}</td>
-                <td>{d.employees}</td>
-                <td>{d.clicked}</td>
-                <td><span className={d.vulnerability >= 70 ? "phishing-risk-high px-2 rounded" : d.vulnerability >= 50 ? "phishing-risk-medium px-2 rounded" : "phishing-risk-low px-2 rounded"}>{d.vulnerability}%</span></td>
+                <td className="text-white p-2">{d.department}</td>
+                <td className="text-secondary text-center">{d.employees}</td>
+                <td className="text-secondary text-center">{d.clicked}</td>
+                <td className="text-secondary text-center"><span className={d.vulnerability >= 70 ? "phishing-risk-high px-2 rounded" : d.vulnerability >= 50 ? "phishing-risk-medium px-2 rounded" : "phishing-risk-low px-2 rounded"}>{d.vulnerability}%</span></td>
               </tr>
             ))}
           </tbody>

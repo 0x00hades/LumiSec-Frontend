@@ -80,7 +80,7 @@ export default function GRC() {
                 {/* DESKTOP SIDEBAR */}
                 <aside className='d-none d-lg-block'>
 
-                    <div className={collapsed ? "sidebar collapsed" : "sidebar"}>
+                    <div className={collapsed ? "sidebar grc collapsed" : "sidebar grc"}>
 
                         <SidebarLinks collapsed={collapsed} />
 
