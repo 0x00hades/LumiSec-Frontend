@@ -12,14 +12,13 @@ export default function useTemplates(templateId) {
   const [template, setTemplate] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isMock, setIsMock] = useState(false);
 
   const loadList = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await listTemplates();
-      setTemplates(res.data);
-      setIsMock(res.isMock);
+      const data = await listTemplates();
+      setTemplates(data);
+      setError(null);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -31,9 +30,9 @@ export default function useTemplates(templateId) {
     if (!id || id === "new") return;
     setLoading(true);
     try {
-      const res = await getTemplate(id);
-      setTemplate(res.data);
-      setIsMock(res.isMock);
+      const data = await getTemplate(id);
+      setTemplate(data);
+      setError(null);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -51,7 +50,6 @@ export default function useTemplates(templateId) {
     template,
     loading,
     error,
-    isMock,
     reload: templateId ? () => loadOne(templateId) : loadList,
     createTemplate,
     updateTemplate,

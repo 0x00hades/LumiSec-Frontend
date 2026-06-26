@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useAuth } from "../../../auth/context/AuthContext";
 import {
   buildIntegrationPayload,
   pushToGrc,
@@ -6,7 +7,7 @@ import {
   pushToSiem,
   pushToSoar,
 } from "../../services/phishingApi";
-import { canUseIntegrations } from "../../utils/roles";
+import { canUseIntegrations, resolvePhishingRole } from "../../utils/roles";
 import "./PhishingShared.css";
 
 const ACTIONS = [
@@ -17,10 +18,12 @@ const ACTIONS = [
 ];
 
 export default function PhishingIntegrationActions({ campaign, compact = false }) {
+  const { user } = useAuth();
+  const role = resolvePhishingRole(user);
   const [loadingKey, setLoadingKey] = useState(null);
   const [feedback, setFeedback] = useState(null);
 
-  if (!canUseIntegrations()) return null;
+  if (!canUseIntegrations(role)) return null;
 
   const handleAction = async (action) => {
     setLoadingKey(action.key);

@@ -39,7 +39,7 @@ export default function ImportRecipients() {
         {success && <PhishingAlert type="success" message="Recipients imported successfully." />}
 
         <form onSubmit={handleImport} className="dashboard-card p-4">
-          <p className="text-secondary">CSV columns: email, name, department</p>
+          <p className="text-secondary">CSV columns: name, email, department</p>
           <input type="file" accept=".csv" className="form-control mb-3" onChange={(e) => setFile(e.target.files?.[0])} />
           <button type="submit" className="btn add-btn text-white border-0" disabled={!file || loading}>
             {loading ? "Importing..." : "Upload & Import"}

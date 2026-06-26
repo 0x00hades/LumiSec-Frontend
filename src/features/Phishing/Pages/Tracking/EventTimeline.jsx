@@ -8,7 +8,7 @@ import useTracking from "../../hooks/useTracking";
 import "../../Components/Shared/PhishingShared.css";
 
 export default function EventTimelinePage() {
-  const { events, loading, error, isMock, reload } = useTracking(null, true);
+  const { events, loading, error, reload } = useTracking(null, true, "timeline");
 
   return (
     <RoleGate allow={canViewTracking} fallback={<p className="text-danger p-3">Tracking access denied.</p>}>
@@ -20,7 +20,7 @@ export default function EventTimelinePage() {
           </div>
           <span className="badge" style={{ background: "#10B981" }}>POLLING 2s</span>
         </div>
-        <PhishingAlert type="danger" message={error} isMock={isMock} onRetry={reload} />
+        <PhishingAlert type="danger" message={error} onRetry={reload} />
         {loading && !events.length ? (
           <PhishingLoading message="Connecting to event stream..." />
         ) : (

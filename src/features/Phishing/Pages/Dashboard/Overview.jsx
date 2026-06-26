@@ -12,15 +12,27 @@ import CampaignFunnel from "../../Components/CampaignFunnel/CampaignFunnel";
 import RecentCampaignsTabel from "../../Components/RecentCampaignsTabel/RecentCampaignsTabel";
 import PhishingAlert from "../../Components/Shared/PhishingAlert";
 import PhishingLoading from "../../Components/Shared/PhishingLoading";
-import { useDashboardOverview } from "../../hooks/usePhishingDashboard";
+import { useDashboardOverview, useDashboardTrends } from "../../hooks/usePhishingDashboard";
+import useCampaigns from "../../hooks/useCampaigns";
 import { formatNumber, formatPercent } from "../../utils/normalizers";
 import "../../Components/Shared/PhishingShared.css";
 import "../../Pages/PhishingDashboard.css";
 
 export default function Overview() {
-  const { data, loading, error, isMock, reload } = useDashboardOverview();
+  const { data, loading, error, reload } = useDashboardOverview();
+  const { data: trends } = useDashboardTrends();
+  const { campaigns } = useCampaigns();
 
   if (loading && !data) return <PhishingLoading message="Loading phishing overview..." skeleton rows={4} />;
+
+  const funnel = data?.funnel ?? {
+    sent: data?.emailsSent ?? 0,
+    opened: Math.round((data?.emailsSent ?? 0) * ((data?.openRate ?? 0) / 100)),
+    clicked: Math.round((data?.emailsSent ?? 0) * ((data?.clickRate ?? 0) / 100)),
+    submitted: Math.round((data?.emailsSent ?? 0) * ((data?.submitRate ?? 0) / 100)),
+  };
+
+  const recentCampaigns = data?.recentCampaigns?.length ? data.recentCampaigns : campaigns;
 
   return (
     <div className="phishing-soc-page">
@@ -36,23 +48,23 @@ export default function Overview() {
         </div>
       </div>
 
-      <PhishingAlert type="danger" message={error} isMock={isMock} onRetry={reload} />
+      <PhishingAlert type="danger" message={error} onRetry={reload} />
 
       <div className="row justify-content-between align-items-center mb-3">
         <DashboardCard4 title="Active Campaigns" icon={analysisIcon} Statistics={formatNumber(data?.activeCampaigns)} text2={`Success rate: ${formatPercent(data?.successRate)}`} />
         <DashboardCard4 title="Emails Sent" icon={sendIcon} Statistics={formatNumber(data?.emailsSent)} text2="across all campaigns" />
-        <DashboardCard4 title="Open Rate" icon={emailIcon} Statistics={formatPercent(data?.openRate)} text2={`Industry avg: ${data?.industryOpenAvg}%`} />
-        <DashboardCard4 title="Click Rate" icon={clickIcon} Statistics={formatPercent(data?.clickRate)} text2={`Industry avg: ${data?.industryClickAvg}%`} />
-        <DashboardCard4 title="Submit Rate" icon={databaseIcon} Statistics={formatPercent(data?.submitRate)} text2={`Threshold: ${data?.criticalThreshold}%`} text3={data?.submitRate > data?.criticalThreshold ? "▲ Above" : "▼ Below"} text4="critical threshold" />
+        <DashboardCard4 title="Open Rate" icon={emailIcon} Statistics={formatPercent(data?.openRate)} text2={`Industry avg: ${data?.industryOpenAvg ?? 0}%`} />
+        <DashboardCard4 title="Click Rate" icon={clickIcon} Statistics={formatPercent(data?.clickRate)} text2={`Industry avg: ${data?.industryClickAvg ?? 0}%`} />
+        <DashboardCard4 title="Submit Rate" icon={databaseIcon} Statistics={formatPercent(data?.submitRate)} text2={`Threshold: ${data?.criticalThreshold ?? 15}%`} text3={data?.submitRate > (data?.criticalThreshold ?? 15) ? "▲ Above" : "▼ Below"} text4="critical threshold" />
         <DashboardCard4 title="Risks Created" icon={infoIcon} Statistics={formatNumber(data?.risksCreated)} text2="In GRC pipeline" />
       </div>
 
       <div className="row justify-content-between m-0">
-        <div className="col-7 dashboard-card mb-3"><CampaignTrendChart /></div>
-        <div className="col dashboard-card mb-3 ms-2"><CampaignFunnel /></div>
+        <div className="col-7 dashboard-card mb-3"><CampaignTrendChart trends={data?.trends ?? trends} /></div>
+        <div className="col dashboard-card mb-3 ms-2"><CampaignFunnel funnel={funnel} overview={data} /></div>
       </div>
 
-      <div className="col dashboard-card mb-3"><RecentCampaignsTabel /></div>
+      <div className="col dashboard-card mb-3"><RecentCampaignsTabel campaigns={recentCampaigns} /></div>
     </div>
   );
 }

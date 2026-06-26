@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import PhishingAlert from "../../Components/Shared/PhishingAlert";
 import RoleGate from "../../Components/Shared/RoleGate";
 import { canViewReports } from "../../utils/roles";
-import { downloadReport } from "../../services/phishingApi";
+import { downloadReport, saveReportBlob } from "../../services/phishingApi";
 import "../../Components/Shared/PhishingShared.css";
 
 export default function ReportDownload() {
@@ -14,7 +14,8 @@ export default function ReportDownload() {
   useEffect(() => {
     const run = async () => {
       try {
-        await downloadReport(id);
+        const res = await downloadReport(id);
+        saveReportBlob(id, res.data);
         setDone(true);
       } catch (err) {
         setError(err.message);
@@ -30,11 +31,11 @@ export default function ReportDownload() {
         {done ? (
           <>
             <i className="fa-solid fa-circle-check text-success fs-1 mb-3" />
-            <h5 className="text-white">Report download started</h5>
+            <h5 className="text-white">Report downloaded</h5>
             <Link to="/Phishing/Reports" className="btn add-btn text-white border-0 mt-3">Back to Reports</Link>
           </>
         ) : (
-          <p className="text-secondary">Preparing PDF export...</p>
+          !error && <p className="text-secondary">Preparing PDF export...</p>
         )}
       </div>
     </RoleGate>

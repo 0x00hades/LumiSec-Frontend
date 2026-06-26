@@ -8,7 +8,7 @@ import useTemplates from "../../hooks/useTemplates";
 import "../../Components/Shared/PhishingShared.css";
 
 export default function TemplatesList() {
-  const { templates, loading, error, isMock, reload, deleteTemplate } = useTemplates();
+  const { templates, loading, error, reload, deleteTemplate } = useTemplates();
 
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this template?")) return;
@@ -31,7 +31,7 @@ export default function TemplatesList() {
           </Link>
         </RoleGate>
       </div>
-      <PhishingAlert type="danger" message={error} isMock={isMock} onRetry={reload} />
+      <PhishingAlert type="danger" message={error} onRetry={reload} />
 
       <div className="row g-3">
         {templates.map((t) => (

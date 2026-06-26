@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import PhishingAlert from "../../Components/Shared/PhishingAlert";
 import useCampaigns from "../../hooks/useCampaigns";
 import useTemplates from "../../hooks/useTemplates";
-import useLandingPages from "../../hooks/useLandingPages";
 import useRecipients from "../../hooks/useRecipients";
 import RoleGate from "../../Components/Shared/RoleGate";
 import { canManageCampaigns } from "../../utils/roles";
@@ -15,11 +14,10 @@ export default function CampaignCreate() {
   const navigate = useNavigate();
   const { createCampaign, attachCampaignRecipients } = useCampaigns();
   const { templates } = useTemplates();
-  const { pages } = useLandingPages();
   const { allRecipients } = useRecipients();
   const [step, setStep] = useState(0);
   const [error, setError] = useState(null);
-  const [form, setForm] = useState({ name: "", templateId: "", landingPageId: "" });
+  const [form, setForm] = useState({ name: "", description: "", templateId: "" });
   const [selectedRecipients, setSelectedRecipients] = useState([]);
 
   const toggleRecipient = (id) => {
@@ -31,12 +29,13 @@ export default function CampaignCreate() {
   const handleCreate = async () => {
     setError(null);
     try {
-      const res = await createCampaign(form);
-      const id = res.data?.id ?? res.data?.campaign?.id;
-      if (selectedRecipients.length) {
-        await attachCampaignRecipients(id, selectedRecipients);
+      const created = await createCampaign(form);
+      const campaignId = created?.id;
+      const recipientPayload = allRecipients.filter((r) => selectedRecipients.includes(r.id));
+      if (recipientPayload.length && campaignId) {
+        await attachCampaignRecipients(campaignId, recipientPayload);
       }
-      navigate(`/Phishing/Campaigns/${id}/launch`);
+      navigate(`/Phishing/Campaigns/${campaignId}/launch`);
     } catch (err) {
       setError(err.message);
     }
@@ -61,17 +60,14 @@ export default function CampaignCreate() {
               <input className="form-control header-search-input" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
             </div>
             <div className="mb-3">
+              <label className="text-secondary">Description (optional)</label>
+              <textarea className="form-control header-search-input" rows={2} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+            </div>
+            <div className="mb-3">
               <label className="text-secondary">Email Template</label>
               <select className="form-select scanType-select border-0" value={form.templateId} onChange={(e) => setForm({ ...form, templateId: e.target.value })}>
                 <option value="">Select template</option>
                 {templates.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}
-              </select>
-            </div>
-            <div className="mb-3">
-              <label className="text-secondary">Landing Page</label>
-              <select className="form-select scanType-select border-0" value={form.landingPageId} onChange={(e) => setForm({ ...form, landingPageId: e.target.value })}>
-                <option value="">Select landing page</option>
-                {pages.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
               </select>
             </div>
             <button type="button" className="btn add-btn text-white border-0" onClick={() => setStep(1)} disabled={!form.name || !form.templateId}>Next</button>

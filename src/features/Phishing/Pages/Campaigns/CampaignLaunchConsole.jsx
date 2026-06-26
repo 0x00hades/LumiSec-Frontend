@@ -11,7 +11,7 @@ import "../../Components/Shared/PhishingShared.css";
 
 export default function CampaignLaunchConsole() {
   const { id } = useParams();
-  const { campaign, queue, loading, error, isMock, loadQueue, launchCampaign, pauseCampaign, resumeCampaign, stopCampaign, reload } = useCampaigns(id);
+  const { campaign, queue, loading, error, loadQueue, launchCampaign, pauseCampaign, resumeCampaign, stopCampaign, reload } = useCampaigns(id);
   const { events } = useTracking(id, true);
   const [launching, setLaunching] = useState(false);
   const [actionError, setActionError] = useState(null);
@@ -23,7 +23,7 @@ export default function CampaignLaunchConsole() {
     return () => clearInterval(interval);
   }, [id, loadQueue]);
 
-  const progress = queue ? Math.round((queue.sent / queue.total) * 100) : 0;
+  const progress = queue?.progress ?? (queue ? Math.round((queue.sent / queue.total) * 100) : 0);
 
   const handleLaunch = async () => {
     setLaunching(true);
@@ -52,7 +52,7 @@ export default function CampaignLaunchConsole() {
           <Link to={`/Phishing/Campaigns/${id}`} className="btn integration-btn">Back to Details</Link>
         </div>
 
-        <PhishingAlert type="danger" message={error || actionError} isMock={isMock} />
+        <PhishingAlert type="danger" message={error || actionError} />
 
         <div className="row g-3 mb-3">
           <div className="col-lg-8 dashboard-card p-3">

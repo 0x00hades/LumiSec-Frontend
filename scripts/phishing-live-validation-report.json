@@ -1,0 +1,352 @@
+{
+  "summary": {
+    "passed": 49,
+    "failed": 0,
+    "total": 49
+  },
+  "results": [
+    {
+      "endpoint": "POST /phishing/templates",
+      "consumer": "TemplateEditor / useTemplates",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "GET /phishing/templates",
+      "consumer": "TemplatesList / useTemplates",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "GET /phishing/templates/:id",
+      "consumer": "TemplateEditor / useTemplates",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "PATCH /phishing/templates/:id",
+      "consumer": "TemplateEditor / useTemplates",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "POST /phishing/landing-pages",
+      "consumer": "LandingPageEditor / useLandingPages",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "GET /phishing/landing-pages",
+      "consumer": "LandingPagesList / useLandingPages",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "GET /phishing/landing-pages/:id",
+      "consumer": "LandingPageEditor / useLandingPages",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "PATCH /phishing/landing-pages/:id",
+      "consumer": "LandingPageEditor / useLandingPages",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "POST /phishing/recipients/import",
+      "consumer": "ImportRecipients / useRecipients",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "GET /phishing/recipients",
+      "consumer": "RecipientsList / useRecipients",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "GET /phishing/recipients/:id",
+      "consumer": "RecipientDetails / useRecipients",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "PATCH /phishing/recipients/:id",
+      "consumer": "RecipientEdit / useRecipients",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "POST /phishing/campaigns",
+      "consumer": "CampaignCreate / useCampaigns",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "GET /phishing/campaigns",
+      "consumer": "CampaignList / useCampaigns",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "GET /phishing/campaigns/:id",
+      "consumer": "CampaignDetails / useCampaigns",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "PATCH /phishing/campaigns/:id",
+      "consumer": "CampaignEdit / useCampaigns",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "POST /phishing/campaigns/:id/recipients",
+      "consumer": "CampaignCreate / attachCampaignRecipients",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "POST /phishing/campaigns/:id/launch",
+      "consumer": "CampaignLaunchConsole / useCampaigns",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "POST /phishing/campaigns/:id/pause",
+      "consumer": "CampaignLaunchConsole / useCampaigns",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "POST /phishing/campaigns/:id/resume",
+      "consumer": "CampaignLaunchConsole / useCampaigns",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "GET /phishing/track/open/:trackingId",
+      "consumer": "phishingApi.trackOpen",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "GET /phishing/track/click/:trackingId",
+      "consumer": "phishingApi.trackClick",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "POST /phishing/track/visit/:trackingId",
+      "consumer": "phishingApi.trackVisit",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "POST /phishing/track/submit/:trackingId",
+      "consumer": "phishingApi.trackSubmit",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "POST /phishing/track/download/:trackingId",
+      "consumer": "phishingApi.trackDownload",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "POST /phishing/campaigns/:id/stop",
+      "consumer": "CampaignLaunchConsole / useCampaigns",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "GET /phishing/reports/:campaignId/stats",
+      "consumer": "ReportViewer / useReports",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "POST /phishing/reports/:campaignId/generate",
+      "consumer": "ReportViewer / useReports",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "GET /phishing/reports/:campaignId/download",
+      "consumer": "ReportDownload / useReports",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "GET /phishing/dashboard/overview",
+      "consumer": "Overview / useDashboardOverview",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "GET /phishing/dashboard/risks",
+      "consumer": "Risks / useDashboardRisks",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "GET /phishing/dashboard/departments",
+      "consumer": "Departments / useDashboardDepartments",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "GET /phishing/dashboard/trends",
+      "consumer": "Trends / useDashboardTrends",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "POST /phishing/integrations/grc/risk",
+      "consumer": "PhishingIntegrationActions",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "POST /phishing/integrations/soar/incident",
+      "consumer": "PhishingIntegrationActions",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "POST /phishing/integrations/siem/event",
+      "consumer": "PhishingIntegrationActions",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "POST /phishing/integrations/opencti/indicator",
+      "consumer": "PhishingIntegrationActions",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "AUTH: GET /phishing/campaigns without token → 401",
+      "consumer": "apiClient interceptor",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "DELETE /phishing/templates/:id",
+      "consumer": "TemplatesList / useTemplates",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "DELETE /phishing/landing-pages/:id",
+      "consumer": "LandingPagesList / useLandingPages",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "DELETE /phishing/recipients/:id",
+      "consumer": "RecipientsList / useRecipients",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "DELETE /phishing/campaigns/:id",
+      "consumer": "CampaignList / useCampaigns",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "UI ROUTE /Phishing",
+      "consumer": "Overview",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "UI ROUTE /Phishing/Campaigns",
+      "consumer": "CampaignList",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "UI ROUTE /Phishing/Templates",
+      "consumer": "TemplatesList",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "UI ROUTE /Phishing/LandingPages",
+      "consumer": "LandingPagesList",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "UI ROUTE /Phishing/Recipients",
+      "consumer": "RecipientsList",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "UI ROUTE /Phishing/Reports",
+      "consumer": "ReportViewer",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    },
+    {
+      "endpoint": "UI ROUTE /Phishing/Tracking/Logs",
+      "consumer": "TrackingLogs",
+      "status": "PASS",
+      "error": "",
+      "fix": ""
+    }
+  ]
+}

@@ -12,11 +12,18 @@ export default function LandingPageEditor() {
   const navigate = useNavigate();
   const isNew = id === "new";
   const { page, loading, createLandingPage, updateLandingPage } = useLandingPages(isNew ? null : id);
-  const [form, setForm] = useState({ name: "", url: "", html: "", category: "credential" });
+  const [form, setForm] = useState({ name: "", title: "", htmlContent: "", redirectUrl: "" });
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (page) setForm({ name: page.name, url: page.url, html: page.html ?? "", category: page.category });
+    if (page) {
+      setForm({
+        name: page.name,
+        title: page.title ?? page.name,
+        htmlContent: page.htmlContent ?? page.html ?? "",
+        redirectUrl: page.redirectUrl ?? "",
+      });
+    }
   }, [page]);
 
   const handleSave = async (e) => {
@@ -24,8 +31,8 @@ export default function LandingPageEditor() {
     setError(null);
     try {
       if (isNew) {
-        const res = await createLandingPage(form);
-        navigate(`/Phishing/LandingPages/${res.data?.id}/edit`);
+        const created = await createLandingPage(form);
+        navigate(`/Phishing/LandingPages/${created?.id}/edit`);
       } else {
         await updateLandingPage(id, form);
       }
@@ -46,8 +53,9 @@ export default function LandingPageEditor() {
         <PhishingAlert type="danger" message={error} />
         <form onSubmit={handleSave} className="dashboard-card p-3">
           <div className="mb-3"><label className="text-secondary">Name</label><input className="form-control header-search-input" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required /></div>
-          <div className="mb-3"><label className="text-secondary">URL Path</label><input className="form-control header-search-input" value={form.url} onChange={(e) => setForm({ ...form, url: e.target.value })} placeholder="/lp/example" /></div>
-          <div className="mb-3"><label className="text-secondary">HTML Content</label><textarea className="form-control header-search-input" rows={14} value={form.html} onChange={(e) => setForm({ ...form, html: e.target.value })} /></div>
+          <div className="mb-3"><label className="text-secondary">Page Title</label><input className="form-control header-search-input" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} /></div>
+          <div className="mb-3"><label className="text-secondary">Redirect URL</label><input className="form-control header-search-input" value={form.redirectUrl} onChange={(e) => setForm({ ...form, redirectUrl: e.target.value })} placeholder="https://..." /></div>
+          <div className="mb-3"><label className="text-secondary">HTML Content</label><textarea className="form-control header-search-input" rows={14} value={form.htmlContent} onChange={(e) => setForm({ ...form, htmlContent: e.target.value })} /></div>
           <button type="submit" className="btn add-btn text-white border-0">Save</button>
         </form>
       </div>

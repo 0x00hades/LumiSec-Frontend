@@ -3,12 +3,22 @@ import { Link } from "react-router-dom";
 import PhishingAlert from "../../Components/Shared/PhishingAlert";
 import PhishingLoading from "../../Components/Shared/PhishingLoading";
 import RoleGate from "../../Components/Shared/RoleGate";
-import { canManageCampaigns } from "../../utils/roles";
+import { canDeleteResources, canManageCampaigns, canLaunchCampaigns } from "../../utils/roles";
 import useCampaigns from "../../hooks/useCampaigns";
+import { isCampaignRunning } from "../../utils/normalizers";
 import "../../Components/Shared/PhishingShared.css";
 
 export default function CampaignList() {
-  const { campaigns, loading, error, isMock, reload } = useCampaigns();
+  const { campaigns, loading, error, reload, deleteCampaign } = useCampaigns();
+  const handleDelete = async (id) => {
+    if (!window.confirm("Delete this campaign?")) return;
+    try {
+      await deleteCampaign(id);
+      reload();
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   if (loading) return <PhishingLoading message="Loading campaigns..." skeleton rows={5} />;
 
@@ -26,7 +36,7 @@ export default function CampaignList() {
         </RoleGate>
       </div>
 
-      <PhishingAlert type="danger" message={error} isMock={isMock} onRetry={reload} />
+      <PhishingAlert type="danger" message={error} onRetry={reload} />
 
       <div className="dashboard-card p-0">
         <table className="w-100 discover-tabel">
@@ -45,16 +55,24 @@ export default function CampaignList() {
             {campaigns.map((c) => (
               <tr key={c.id}>
                 <td className="text-white fw-medium">{c.name}</td>
-                <td><span className="badge text-capitalize">{c.status}</span></td>
+                <td><span className="badge text-capitalize">{String(c.status).toLowerCase()}</span></td>
                 <td>{c.sent}</td>
                 <td>{c.opened}</td>
                 <td>{c.clicked}</td>
                 <td className={c.submitted > 10 ? "text-danger fw-bold" : ""}>{c.submitted}</td>
                 <td>
                   <Link to={`/Phishing/Campaigns/${c.id}`} className="btn btn-sm integration-btn me-1">Details</Link>
-                  {c.status === "active" && (
-                    <Link to={`/Phishing/Campaigns/${c.id}/launch`} className="btn btn-sm integration-btn">Console</Link>
-                  )}
+                  <RoleGate allow={canManageCampaigns}>
+                    <Link to={`/Phishing/Campaigns/${c.id}/edit`} className="btn btn-sm integration-btn me-1">Edit</Link>
+                  </RoleGate>
+                  <RoleGate allow={canLaunchCampaigns}>
+                    {(isCampaignRunning(c) || String(c.status).toUpperCase() === "PAUSED") && (
+                      <Link to={`/Phishing/Campaigns/${c.id}/launch`} className="btn btn-sm integration-btn me-1">Console</Link>
+                    )}
+                  </RoleGate>
+                  <RoleGate allow={canDeleteResources}>
+                    <button type="button" className="btn btn-sm integration-btn text-danger" onClick={() => handleDelete(c.id)}>Delete</button>
+                  </RoleGate>
                 </td>
               </tr>
             ))}

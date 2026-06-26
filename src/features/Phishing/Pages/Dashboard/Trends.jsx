@@ -17,7 +17,7 @@ import "../../Components/Shared/PhishingShared.css";
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
 export default function Trends() {
-  const { data, loading, error, isMock, reload } = useDashboardTrends();
+  const { data, loading, error, reload } = useDashboardTrends();
 
   const chartData = useMemo(() => ({
     labels: data?.labels ?? [],
@@ -34,7 +34,7 @@ export default function Trends() {
     <div className="phishing-soc-page">
       <h5 className="text-white">Susceptibility Trends</h5>
       <p className="dashboard-desc">Time-series phishing susceptibility across campaigns</p>
-      <PhishingAlert type="danger" message={error} isMock={isMock} onRetry={reload} />
+      <PhishingAlert type="danger" message={error} onRetry={reload} />
 
       <div className="dashboard-card p-3">
         <div style={{ height: 400 }}>

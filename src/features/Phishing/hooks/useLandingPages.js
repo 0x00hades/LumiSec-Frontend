@@ -12,14 +12,13 @@ export default function useLandingPages(pageId) {
   const [page, setPage] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isMock, setIsMock] = useState(false);
 
   const loadList = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await listLandingPages();
-      setPages(res.data);
-      setIsMock(res.isMock);
+      const data = await listLandingPages();
+      setPages(data);
+      setError(null);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -31,9 +30,9 @@ export default function useLandingPages(pageId) {
     if (!id || id === "new") return;
     setLoading(true);
     try {
-      const res = await getLandingPage(id);
-      setPage(res.data);
-      setIsMock(res.isMock);
+      const data = await getLandingPage(id);
+      setPage(data);
+      setError(null);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -51,7 +50,6 @@ export default function useLandingPages(pageId) {
     page,
     loading,
     error,
-    isMock,
     reload: pageId ? () => loadOne(pageId) : loadList,
     createLandingPage,
     updateLandingPage,

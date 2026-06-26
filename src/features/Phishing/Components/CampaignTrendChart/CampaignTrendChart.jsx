@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -21,16 +21,42 @@ ChartJS.register(
   Legend
 );
 
-export default function CampaignTrendChart() {
-  const data = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-    datasets: [
-      { label: 'Sent', data: [1200, 1400, 1100, 1600, 1900, 2100, 1800, 2400], borderColor: '#3b82f6', tension: 0.4, fill: false },
-      { label: 'Clicked', data: [500, 550, 400, 550, 600, 620, 500, 620], borderColor: '#f59e0b', tension: 0.4, fill: false },
-      { label: 'Submitted', data: [120, 150, 100, 150, 150, 150, 100, 120], borderColor: '#ef4444', tension: 0.4, fill: false },
-      { label: 'Reported', data: [100, 150, 120, 200, 300, 350, 300, 450], borderColor: '#10b981', tension: 0.4, fill: false },
-    ],
-  };
+export default function CampaignTrendChart({ trends }) {
+  const chartData = useMemo(() => {
+    const labels = trends?.labels?.length ? trends.labels : ['—'];
+    return {
+      labels,
+      datasets: [
+        {
+          label: 'Sent',
+          data: trends?.sent?.length ? trends.sent : [0],
+          borderColor: '#3b82f6',
+          tension: 0.4,
+          fill: false,
+        },
+        {
+          label: 'Clicked',
+          data: trends?.clicked?.length ? trends.clicked : [0],
+          borderColor: '#f59e0b',
+          tension: 0.4,
+          fill: false,
+        },
+        {
+          label: 'Submitted',
+          data: trends?.submitted?.length ? trends.submitted : [0],
+          borderColor: '#ef4444',
+          tension: 0.4,
+          fill: false,
+        },
+      ],
+    };
+  }, [trends]);
+
+  const maxValue = useMemo(() => {
+    const values = chartData.datasets.flatMap((d) => d.data);
+    const max = Math.max(...values, 0);
+    return max > 0 ? Math.ceil(max * 1.2) : 100;
+  }, [chartData]);
 
   const options = {
     responsive: true,
@@ -45,36 +71,33 @@ export default function CampaignTrendChart() {
           usePointStyle: true,
           pointStyle: 'line',
           boxWidth: 20,
-          padding: 20
-        }
+          padding: 20,
+        },
       },
     },
     scales: {
       y: {
         min: 0,
-        max: 2400,
-        ticks: { stepSize: 600, color: '#475569' },
-        grid: { color: '#1e293b' }
+        max: maxValue,
+        ticks: { color: '#475569' },
+        grid: { color: '#1e293b' },
       },
       x: {
         grid: { display: false },
-        ticks: { color: '#475569' }
+        ticks: { color: '#475569' },
       },
     },
-    elements: { point: { radius: 0 } }
+    elements: { point: { radius: 0 } },
   };
 
   return (
     <div style={{ height: '400px', backgroundColor: '#0f172a', padding: '24px', borderRadius: '12px' }}>
-      {/* قسم العنوان منفصل تماماً عن الرسم */}
       <div style={{ marginBottom: '16px' }}>
         <h2 style={{ color: '#ffffff', fontSize: '18px', fontWeight: 'bold', margin: '0' }}>Campaign Trend</h2>
-        <p style={{ color: '#64748b', fontSize: '12px', margin: '4px 0 0' }}>Monthly email activity & threat indicators</p>
+        <p style={{ color: '#64748b', fontSize: '12px', margin: '4px 0 0' }}>Email activity from live dashboard API</p>
       </div>
-      
-      {/* الرسم البياني فقط */}
       <div style={{ height: '300px' }}>
-        <Line data={data} options={options} />
+        <Line data={chartData} options={options} />
       </div>
     </div>
   );

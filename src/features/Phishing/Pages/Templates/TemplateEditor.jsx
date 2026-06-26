@@ -12,12 +12,21 @@ export default function TemplateEditor() {
   const navigate = useNavigate();
   const isNew = id === "new";
   const { template, loading, createTemplate, updateTemplate } = useTemplates(isNew ? null : id);
-  const [form, setForm] = useState({ name: "", subject: "", body: "", category: "credential" });
+  const [form, setForm] = useState({ name: "", subject: "", htmlBody: "", textBody: "", category: "credential", language: "en" });
   const [error, setError] = useState(null);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    if (template) setForm({ name: template.name, subject: template.subject, body: template.body ?? "", category: template.category });
+    if (template) {
+      setForm({
+        name: template.name,
+        subject: template.subject,
+        htmlBody: template.htmlBody ?? template.body ?? "",
+        textBody: template.textBody ?? "",
+        category: template.category,
+        language: template.language ?? "en",
+      });
+    }
   }, [template]);
 
   const handleSave = async (e) => {
@@ -26,8 +35,8 @@ export default function TemplateEditor() {
     setError(null);
     try {
       if (isNew) {
-        const res = await createTemplate(form);
-        navigate(`/Phishing/Templates/${res.data?.id ?? res.data?.template?.id}/edit`);
+        const created = await createTemplate(form);
+        navigate(`/Phishing/Templates/${created?.id}/edit`);
       } else {
         await updateTemplate(id, form);
       }
@@ -68,7 +77,7 @@ export default function TemplateEditor() {
           </div>
           <div className="mb-3">
             <label className="text-secondary">HTML Body</label>
-            <textarea className="form-control header-search-input" rows={12} value={form.body} onChange={(e) => setForm({ ...form, body: e.target.value })} />
+            <textarea className="form-control header-search-input" rows={12} value={form.htmlBody} onChange={(e) => setForm({ ...form, htmlBody: e.target.value })} />
           </div>
           <button type="submit" className="btn add-btn text-white border-0" disabled={saving}>
             {saving ? "Saving..." : "Save Template"}

@@ -8,9 +8,10 @@ import useRecipients from "../../hooks/useRecipients";
 import "../../Components/Shared/PhishingShared.css";
 
 export default function RecipientsList() {
-  const { recipients, loading, error, isMock, search, setSearch, reload, deleteRecipient } = useRecipients();
+  const { recipients, loading, error, search, setSearch, reload, deleteRecipient } = useRecipients();
 
   const handleDelete = async (id) => {
+    if (!window.confirm("Delete this recipient?")) return;
     await deleteRecipient(id);
     reload();
   };
@@ -28,7 +29,7 @@ export default function RecipientsList() {
           <Link to="/Phishing/Recipients/import" className="btn integration-btn me-2">Import CSV</Link>
         </RoleGate>
       </div>
-      <PhishingAlert type="danger" message={error} isMock={isMock} onRetry={reload} />
+      <PhishingAlert type="danger" message={error} onRetry={reload} />
 
       <div className="search-container mb-3">
         <i className="fa-brands fa-sistrix discover-search-icon" />
@@ -37,17 +38,34 @@ export default function RecipientsList() {
 
       <div className="dashboard-card p-0">
         <table className="w-100 discover-tabel">
-          <thead><tr><th>Name</th><th>Email</th><th>Department</th><th>Valid</th><th>Actions</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Department</th>
+              <th>Risk</th>
+              <th>Tracking</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
           <tbody>
             {recipients.map((r) => (
               <tr key={r.id}>
                 <td className="text-white">{r.name}</td>
                 <td>{r.email}</td>
                 <td>{r.department}</td>
-                <td>{r.valid ? <span className="phishing-risk-low px-2 rounded">Valid</span> : <span className="phishing-risk-high px-2 rounded">Invalid</span>}</td>
+                <td>{r.riskScore}</td>
+                <td className="text-secondary small">
+                  {r.emailSent && "Sent "}
+                  {r.opened && "Opened "}
+                  {r.clicked && "Clicked "}
+                  {r.submitted && <span className="text-danger">Submitted</span>}
+                </td>
                 <td>
+                  <Link to={`/Phishing/Recipients/${r.id}`} className="btn btn-sm integration-btn me-1">Details</Link>
                   <RoleGate allow={canManageRecipients}>
-                    <button type="button" className="btn btn-sm integration-btn" onClick={() => handleDelete(r.id)}>Delete</button>
+                    <Link to={`/Phishing/Recipients/${r.id}/edit`} className="btn btn-sm integration-btn me-1">Edit</Link>
+                    <button type="button" className="btn btn-sm integration-btn text-danger" onClick={() => handleDelete(r.id)}>Delete</button>
                   </RoleGate>
                 </td>
               </tr>

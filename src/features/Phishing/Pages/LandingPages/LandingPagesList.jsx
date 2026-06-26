@@ -8,7 +8,7 @@ import useLandingPages from "../../hooks/useLandingPages";
 import "../../Components/Shared/PhishingShared.css";
 
 export default function LandingPagesList() {
-  const { pages, loading, error, isMock, reload, deleteLandingPage } = useLandingPages();
+  const { pages, loading, error, reload, deleteLandingPage } = useLandingPages();
 
   const handleDelete = async (id) => {
     if (!window.confirm("Delete landing page?")) return;
@@ -26,17 +26,17 @@ export default function LandingPagesList() {
           <Link to="/Phishing/LandingPages/new/edit" className="btn add-btn text-white border-0">Create Page</Link>
         </RoleGate>
       </div>
-      <PhishingAlert type="danger" message={error} isMock={isMock} onRetry={reload} />
+      <PhishingAlert type="danger" message={error} onRetry={reload} />
 
       <div className="dashboard-card p-0">
         <table className="w-100 discover-tabel">
-          <thead><tr><th>Name</th><th>URL</th><th>Category</th><th>Actions</th></tr></thead>
+          <thead><tr><th>Name</th><th>Title</th><th>Redirect URL</th><th>Actions</th></tr></thead>
           <tbody>
             {pages.map((p) => (
               <tr key={p.id}>
                 <td className="text-white">{p.name}</td>
-                <td className="text-secondary">{p.url}</td>
-                <td>{p.category}</td>
+                <td className="text-secondary">{p.title}</td>
+                <td className="text-secondary">{p.redirectUrl || "—"}</td>
                 <td>
                   <Link to={`/Phishing/LandingPages/${p.id}/edit`} className="btn btn-sm integration-btn me-1">Edit</Link>
                   <RoleGate allow={canEditTemplates}>

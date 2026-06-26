@@ -17,7 +17,7 @@ import "../../Components/Shared/PhishingShared.css";
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
 
 export default function Departments() {
-  const { data, loading, error, isMock, reload } = useDashboardDepartments();
+  const { data, loading, error, reload } = useDashboardDepartments();
 
   if (loading) return <PhishingLoading message="Loading department breakdown..." />;
 
@@ -35,7 +35,7 @@ export default function Departments() {
     <div className="phishing-soc-page">
       <h5 className="text-white">Department Breakdown</h5>
       <p className="dashboard-desc">Vulnerability per department — HR, IT, Finance, etc.</p>
-      <PhishingAlert type="danger" message={error} isMock={isMock} onRetry={reload} />
+      <PhishingAlert type="danger" message={error} onRetry={reload} />
 
       <div className="row g-3">
         <div className="col-lg-8 dashboard-card p-3">
@@ -45,7 +45,7 @@ export default function Departments() {
           </div>
         </div>
         <div className="col-lg-4 dashboard-card p-3">
-          <DepartmentRisk />
+          <DepartmentRisk departments={data} />
         </div>
       </div>
 

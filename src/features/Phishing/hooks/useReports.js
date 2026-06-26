@@ -1,19 +1,24 @@
 import { useCallback, useEffect, useState } from "react";
-import { downloadReport, generateReport, getReport, getReportStats } from "../services/phishingApi";
+import {
+  downloadReport,
+  generateReport,
+  getReportStats,
+  listCampaigns,
+  saveReportBlob,
+} from "../services/phishingApi";
 
-export default function useReports(reportId) {
+export default function useReports(campaignId) {
   const [stats, setStats] = useState(null);
-  const [report, setReport] = useState(null);
+  const [campaigns, setCampaigns] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isMock, setIsMock] = useState(false);
 
-  const loadStats = useCallback(async () => {
+  const loadCampaigns = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await getReportStats();
-      setStats(res.data);
-      setIsMock(res.isMock);
+      const data = await listCampaigns();
+      setCampaigns(data);
+      setError(null);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -21,34 +26,45 @@ export default function useReports(reportId) {
     }
   }, []);
 
-  const loadReport = useCallback(async (id) => {
-    if (!id) return;
+  const loadStats = useCallback(async (id) => {
+    if (!id) return null;
     setLoading(true);
     try {
-      const res = await getReport(id);
-      setReport(res.data);
-      setIsMock(res.isMock);
+      const data = await getReportStats(id);
+      setStats(data);
+      setError(null);
+      return data;
     } catch (err) {
       setError(err.message);
+      throw err;
     } finally {
       setLoading(false);
     }
   }, []);
 
-  const download = async (id) => {
+  const generate = useCallback(async (id) => {
+    const report = await generateReport(id);
+    return report;
+  }, []);
+
+  const download = useCallback(async (id) => {
     const res = await downloadReport(id);
-    const url = window.URL.createObjectURL(new Blob([res.data]));
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `phishing-report-${id}.pdf`;
-    a.click();
-    window.URL.revokeObjectURL(url);
-  };
+    saveReportBlob(id, res.data);
+  }, []);
 
   useEffect(() => {
-    if (reportId) loadReport(reportId);
-    else loadStats();
-  }, [reportId, loadReport, loadStats]);
+    if (campaignId) loadStats(campaignId);
+    else loadCampaigns();
+  }, [campaignId, loadStats, loadCampaigns]);
 
-  return { stats, report, loading, error, isMock, reload: loadStats, generateReport, download };
+  return {
+    stats,
+    campaigns,
+    loading,
+    error,
+    reload: campaignId ? () => loadStats(campaignId) : loadCampaigns,
+    loadStats,
+    generateReport: generate,
+    download,
+  };
 }

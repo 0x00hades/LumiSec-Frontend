@@ -1,18 +1,28 @@
 import React, { useEffect, useRef } from "react";
+import { EVENT_TYPE_LABELS } from "../../utils/normalizers";
 import "./PhishingShared.css";
 
 const TYPE_LABELS = {
+  email_sent: "Email Sent",
   open: "Email Opened",
   click: "Link Clicked",
   visit: "Landing Page Visit",
   submit: "Credential Submission",
   download: "Attachment Download",
+  qr_scanned: "QR Scanned",
 };
 
 function eventClass(event) {
   if (event.severity === "critical" || event.type === "submit") return "siem-event-critical";
   if (event.severity === "warning" || event.type === "click" || event.type === "visit") return "siem-event-warning";
   return "siem-event-info";
+}
+
+function labelForEvent(event) {
+  if (event.eventType && EVENT_TYPE_LABELS[event.eventType]) {
+    return EVENT_TYPE_LABELS[event.eventType];
+  }
+  return TYPE_LABELS[event.type] ?? event.type;
 }
 
 export default function EventTimeline({ events = [], live = false }) {
@@ -44,7 +54,7 @@ export default function EventTimeline({ events = [], live = false }) {
             {new Date(ev.timestamp).toLocaleTimeString()}
           </span>
           <span className={`siem-event-type siem-event-type-${ev.type}`}>
-            {TYPE_LABELS[ev.type] ?? ev.type}
+            {labelForEvent(ev)}
           </span>
           <span className="text-white flex-grow-1">
             {ev.email}

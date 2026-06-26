@@ -6,7 +6,7 @@ import { riskLevelClass } from "../../utils/normalizers";
 import "../../Components/Shared/PhishingShared.css";
 
 export default function Risks() {
-  const { data, loading, error, isMock, reload } = useDashboardRisks();
+  const { data, loading, error, reload } = useDashboardRisks();
 
   if (loading) return <PhishingLoading message="Loading risk scores..." skeleton rows={5} />;
 
@@ -14,7 +14,7 @@ export default function Risks() {
     <div className="phishing-soc-page">
       <h5 className="text-white">Risk Dashboard</h5>
       <p className="dashboard-desc">User susceptibility heatmap — high risk users highlighted</p>
-      <PhishingAlert type="danger" message={error} isMock={isMock} onRetry={reload} />
+      <PhishingAlert type="danger" message={error} onRetry={reload} />
 
       <div className="row g-3 mb-4">
         {data.map((user) => (

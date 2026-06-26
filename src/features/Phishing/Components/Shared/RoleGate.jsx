@@ -1,8 +1,10 @@
 import React from "react";
-import { getPhishingRole } from "../../utils/roles";
+import { useAuth } from "../../../auth/context/AuthContext";
+import { resolvePhishingRole } from "../../utils/roles";
 
 export default function RoleGate({ allow, children, fallback = null }) {
-  const role = getPhishingRole();
+  const { user } = useAuth();
+  const role = resolvePhishingRole(user);
   if (!allow(role)) return fallback;
   return children;
 }

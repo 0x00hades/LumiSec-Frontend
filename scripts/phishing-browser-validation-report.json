@@ -1,0 +1,105 @@
+{
+  "summary": {
+    "passed": 16,
+    "failed": 0,
+    "total": 16
+  },
+  "results": [
+    {
+      "route": "/",
+      "action": "Login",
+      "status": "PASS",
+      "error": ""
+    },
+    {
+      "route": "/Phishing",
+      "action": "Load Dashboard Overview",
+      "status": "PASS",
+      "error": ""
+    },
+    {
+      "route": "/Phishing/Templates",
+      "action": "Load Templates",
+      "status": "PASS",
+      "error": ""
+    },
+    {
+      "route": "/Phishing/LandingPages",
+      "action": "Load Landing Pages",
+      "status": "PASS",
+      "error": ""
+    },
+    {
+      "route": "/Phishing/Recipients",
+      "action": "Load Recipients",
+      "status": "PASS",
+      "error": ""
+    },
+    {
+      "route": "/Phishing/Campaigns",
+      "action": "Load Campaigns",
+      "status": "PASS",
+      "error": ""
+    },
+    {
+      "route": "/Phishing/Reports",
+      "action": "Load Reports",
+      "status": "PASS",
+      "error": ""
+    },
+    {
+      "route": "/Phishing/Tracking/Logs",
+      "action": "Load Tracking Logs",
+      "status": "PASS",
+      "error": ""
+    },
+    {
+      "route": "/Phishing/Dashboard/Risks",
+      "action": "Load Risks",
+      "status": "PASS",
+      "error": ""
+    },
+    {
+      "route": "/Phishing/Dashboard/Departments",
+      "action": "Load Departments",
+      "status": "PASS",
+      "error": ""
+    },
+    {
+      "route": "/Phishing/Dashboard/Trends",
+      "action": "Load Trends",
+      "status": "PASS",
+      "error": ""
+    },
+    {
+      "route": "/Phishing/Campaigns",
+      "action": "New Campaign button",
+      "status": "PASS",
+      "error": ""
+    },
+    {
+      "route": "/Phishing/Templates",
+      "action": "Create Template button",
+      "status": "PASS",
+      "error": ""
+    },
+    {
+      "route": "/Phishing/LandingPages",
+      "action": "Create Page button",
+      "status": "PASS",
+      "error": ""
+    },
+    {
+      "route": "/Phishing/Recipients",
+      "action": "Import CSV button",
+      "status": "PASS",
+      "error": ""
+    },
+    {
+      "route": "console",
+      "action": "No JS errors",
+      "status": "PASS",
+      "error": ""
+    }
+  ]
+}
