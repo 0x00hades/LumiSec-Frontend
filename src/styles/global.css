@@ -10,6 +10,109 @@ body {
     overflow-x: hidden;
 }
 
+/* Icon + title inline alignment (use across app) */
+.icon-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.icon-title > svg,
+.icon-title > img,
+.icon-title > figure,
+.icon-title > .icon-title__icon,
+.icon-title > [class*="__icon"] {
+    flex-shrink: 0;
+}
+
+.icon-title > h1,
+.icon-title > h2,
+.icon-title > h3,
+.icon-title > h4,
+.icon-title > h5,
+.icon-title > h6,
+.icon-title > p,
+.icon-title > span:not([class*="__icon"]):not(.icon-title__icon) {
+    margin: 0;
+    min-width: 0;
+    line-height: 1.3;
+}
+
+.icon-title--block {
+    display: flex;
+}
+
+.icon-title--lg {
+    gap: 12px;
+}
+
+.icon-title--lg > svg {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+}
+
+.dashboard-card-inline-icon {
+    width: 28px;
+    min-width: 28px;
+    height: 28px;
+    margin: 0;
+}
+
+.dashboard-card-inline-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Scroll-triggered reveal (landing + welcome trusted sections) */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+        opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
+        transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scroll-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.scroll-reveal__item {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+        opacity 480ms cubic-bezier(0.22, 1, 0.36, 1),
+        transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scroll-reveal.is-visible .scroll-reveal__item {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.scroll-reveal.is-visible .scroll-reveal__item:nth-child(1) { transition-delay: 60ms; }
+.scroll-reveal.is-visible .scroll-reveal__item:nth-child(2) { transition-delay: 120ms; }
+.scroll-reveal.is-visible .scroll-reveal__item:nth-child(3) { transition-delay: 180ms; }
+.scroll-reveal.is-visible .scroll-reveal__item:nth-child(4) { transition-delay: 240ms; }
+.scroll-reveal.is-visible .scroll-reveal__item:nth-child(5) { transition-delay: 300ms; }
+.scroll-reveal.is-visible .scroll-reveal__item:nth-child(6) { transition-delay: 360ms; }
+.scroll-reveal.is-visible .scroll-reveal__item:nth-child(7) { transition-delay: 420ms; }
+.scroll-reveal.is-visible .scroll-reveal__item:nth-child(8) { transition-delay: 480ms; }
+
+@media (prefers-reduced-motion: reduce) {
+    .scroll-reveal,
+    .scroll-reveal__item {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
 .w-35{
     width: 35%;
 }

@@ -1,9 +1,10 @@
-import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AuthProvider } from "./features/auth/context/AuthContext";
 import { ToastProvider } from "./components/toast/ToastContext";
 import ProtectedRoute, { PublicOnlyRoute } from "./features/auth/components/ProtectedRoute";
 import MainLayout from "./components/layout/MainLayout";
 import ToolRoute from "./components/rbac/ToolRoute";
+import NotFound from "./pages/NotFound/NotFound";
 
 // Public pages
 import LandingPage from "./features/landing/LandingPage";
@@ -127,11 +128,11 @@ const myRouter = createBrowserRouter([
 
       // SIEM
       { path: "SIEMIntegration", element: <SIEMIntegration /> },
-
-      // Unknown protected paths
-      { path: "*", element: <Navigate to="/welcome" replace /> },
     ],
   },
+
+  // Standalone 404 — no sidebar, topbar, or auth shell
+  { path: "*", element: <NotFound /> },
 ]);
 
 export default function App() {

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bell, ChevronDown, LogOut, Shield } from 'lucide-react';
+import logo from '../../assets/LumiSecLogoB 1@3x.png';
 import { useAuth } from '../../features/auth/context/AuthContext';
 import { usePermissions, setDevRole, DEV_ROLE_KEY } from '../rbac/usePermissions';
 import { useActiveTool } from '../context/ToolContext';
@@ -53,10 +54,12 @@ export default function Topbar() {
 
       {/* ── Brand ── */}
       <div className="ls-topbar__brand">
-        <div className="ls-topbar__logo-icon">
-          <Shield size={15} />
-        </div>
-        <span className="ls-topbar__wordmark">LumiSec</span>
+        <img
+          src={logo}
+          alt="LumiSec"
+          className="ls-topbar__logo-img"
+        />
+        <h1 className="ls-topbar__wordmark mb-0">LumiSec</h1>
       </div>
 
       {/* Active module breadcrumb */}

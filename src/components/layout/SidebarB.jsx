@@ -75,7 +75,10 @@ export default function SidebarB() {
                 title={item.name}
                 aria-label={item.name}
               >
-                {getIcon(item.icon)}
+                <span className="ls-sidebar-b__icon" aria-hidden="true">
+                  {getIcon(item.icon)}
+                </span>
+                <span className="ls-sidebar-b__label">{item.name}</span>
               </NavLink>
             );
           })}

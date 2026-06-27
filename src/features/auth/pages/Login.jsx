@@ -194,7 +194,7 @@ export default function Login() {
                     "Sign in"
                   )}
                 </button>
-                <button
+                {/* <button
                   type="button"
                   className="create-account-btn text-white w-100 pt-3 p-2 rounded-3 mb-3"
                   onClick={handleCreateAccount}
@@ -213,7 +213,7 @@ export default function Login() {
                 >
                   <img className="mx-3 w-4" src={icon} alt="icon" />
                   SSO
-                </button>
+                </button> */}
               </form>
               <p className="text-secondary">
                 By signing in you agree to our <span className="text-purple">Terms</span> &{" "}

@@ -50,18 +50,18 @@ export const tools = [
       { id: 'playbook',    name: 'Playbook Builder',     path: '/SOAR/playbook',           icon: 'wrench'        },
     ],
   },
-  {
-    id: 'threat-intel',
-    name: 'Threat Intelligence',
-    path: '/ThreatIntel',
-    icon: 'crosshair',
-    roles: ['GLOBAL_ADMIN', 'BLUE_TEAM', 'SOC_ANALYST'],
-    features: [
-      { id: 'feeds',      name: 'Feeds',      path: '/ThreatIntel/Feeds',      icon: 'rss'       },
-      { id: 'indicators', name: 'Indicators', path: '/ThreatIntel/Indicators', icon: 'target'    },
-      { id: 'reports',    name: 'Reports',    path: '/ThreatIntel/Reports',    icon: 'file-text' },
-    ],
-  },
+  // {
+  //   id: 'threat-intel',
+  //   name: 'Threat Intelligence',
+  //   path: '/ThreatIntel',
+  //   icon: 'crosshair',
+  //   roles: ['GLOBAL_ADMIN', 'BLUE_TEAM', 'SOC_ANALYST'],
+  //   features: [
+  //     { id: 'feeds',      name: 'Feeds',      path: '/ThreatIntel/Feeds',      icon: 'rss'       },
+  //     { id: 'indicators', name: 'Indicators', path: '/ThreatIntel/Indicators', icon: 'target'    },
+  //     { id: 'reports',    name: 'Reports',    path: '/ThreatIntel/Reports',    icon: 'file-text' },
+  //   ],
+  // },
   {
     id: 'phishing',
     name: 'Phishing Simulator',

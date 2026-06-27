@@ -9,9 +9,9 @@ return<>
 
         <div className='rounded-4 dashboard-card p-3 py-4 h-100'>
 
-            <div className='d-flex justify-content-between align-items-center mb-2'>
+            <div className='icon-title icon-title--block mb-2'>
+                <span className='icon-title__icon'>{icon}</span>
                 <p className='mb-0'>{title}</p>
-                <i className='me-2'>{icon}</i>
             </div>
 
             <div className='overflow-hidden'>

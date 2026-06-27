@@ -10,11 +10,11 @@ return<>
 
         <div className='rounded-4 dashboard-card p-2 h-100'>
 
-            <div className='d-flex justify-content-between align-items-center'>
-                <p className='mb-0'>{title}</p>
-                <figure>
-                    <img className='w-100 mt-2' src={icon} alt="icon" />
+            <div className='icon-title icon-title--block mb-2'>
+                <figure className='icon-title__icon mb-0 dashboard-card-inline-icon'>
+                    <img className='w-100' src={icon} alt="" aria-hidden="true" />
                 </figure>
+                <p className='mb-0'>{title}</p>
             </div>
 
             <div className='overflow-hidden'>

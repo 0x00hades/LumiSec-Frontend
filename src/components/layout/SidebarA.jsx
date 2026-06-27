@@ -96,8 +96,8 @@ export default function SidebarA() {
       {activeTool && (
         <>
           {/* Tool header */}
-          <div className="ls-sidebar-a__header">
-            <div className="ls-sidebar-a__tool-icon">
+          <div className="ls-sidebar-a__header icon-title icon-title--block">
+            <div className="ls-sidebar-a__tool-icon icon-title__icon">
               {TOOL_HEADER_ICONS[activeTool.icon] ?? <ShieldCheck size={16} />}
             </div>
             <span className="ls-sidebar-a__tool-name">{activeTool.name}</span>
@@ -111,10 +111,10 @@ export default function SidebarA() {
                 to={feature.path}
                 end={feature.path === activeTool.path}
                 className={({ isActive }) =>
-                  `ls-sidebar-a__link${isActive ? ' active' : ''}`
+                  `ls-sidebar-a__link icon-title icon-title--block${isActive ? ' active' : ''}`
                 }
               >
-                <span className="ls-sidebar-a__link-icon">
+                <span className="ls-sidebar-a__link-icon icon-title__icon">
                   {getIcon(feature.icon)}
                 </span>
                 {feature.name}

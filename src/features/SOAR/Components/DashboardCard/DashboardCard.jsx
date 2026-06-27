@@ -32,8 +32,8 @@ return<>
             onMouseLeave={handleMouseLeave}
         >
 
-            <div className='d-flex align-items-center mb-2'>
-                <i className='me-2'>{icon}</i>
+            <div className='icon-title icon-title--block mb-2'>
+                <span className='icon-title__icon'>{icon}</span>
                 <p className='mb-0'>{title}</p>
             </div>
 
