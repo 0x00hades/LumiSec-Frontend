@@ -5,3 +5,8 @@ i.discover-search-icon{
     transform: translateY(-50%);
     color: #64748B;
 }
+
+
+.Discovered-Hosts .form-select{
+    width: 15%;
+}

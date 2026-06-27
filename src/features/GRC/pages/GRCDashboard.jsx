@@ -6,8 +6,10 @@ import TimeIcon from "../../../assets/TimeIcon.png"
 import CommentIcon from "../../../assets/CommentIcon.png"
 import DashboardBarChart from '../components/DashboardBarChart/DashboardBarChart'
 import DashboardPieChart from '../components/DashboardPieChart/DashboardPieChart'
+import useDashboard from '../hooks/useDashboard'
 
 export default function GRCDashboard() {
+    const { overview, tasksChart, complianceChart, loading } = useDashboard()
 
 return <>
     
@@ -21,25 +23,25 @@ return <>
 
         <DashboardCard
             icon={checkIcon}
-            Statistics={"84%"}
+            Statistics={loading ? "—" : overview?.overallCompliance ?? "0%"}
             text={"Overall Compliance"}
         />
 
         <DashboardCard
             icon={crossIcon}
-            Statistics={"23"}
+            Statistics={loading ? "—" : String(overview?.nonCompliantControls ?? 0)}
             text={"Non-Compliant Controls"}
         />
 
         <DashboardCard
             icon={TimeIcon}
-            Statistics={"12"}
+            Statistics={loading ? "—" : String(overview?.remediationTasks ?? 0)}
             text={"Remediation Tasks"}
         />
 
         <DashboardCard
             icon={CommentIcon}
-            Statistics={"4"}
+            Statistics={loading ? "—" : String(overview?.activeAudits ?? 0)}
             text={"Active Audits"}
         />
 
@@ -49,13 +51,13 @@ return <>
 
         <div className='col-12 col-lg-6'>
             <div className='dashboard-card h-100 p-3 rounded-4'>
-                <DashboardBarChart />
+                <DashboardBarChart chartData={tasksChart} />
             </div>
         </div>
 
         <div className='col-12 col-lg-5'>
             <div className='dashboard-card h-100 d-flex justify-content-center align-items-center p-3 rounded-4'>
-                <DashboardPieChart />
+                <DashboardPieChart chartData={complianceChart} />
             </div>
         </div>
 

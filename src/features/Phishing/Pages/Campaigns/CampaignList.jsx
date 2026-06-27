@@ -42,7 +42,7 @@ export default function CampaignList() {
         <table className="w-100 discover-tabel">
           <thead>
             <tr>
-              <th>Name</th>
+              <th className='p-3 '>Name</th>
               <th>Status</th>
               <th>Sent</th>
               <th>Opened</th>

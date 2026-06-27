@@ -155,7 +155,7 @@ export default function Dashboard() {
           <i className="fa-solid fa-triangle-exclamation text-danger me-2" />
           <h6 className="text-white mb-0">Misconfiguration Alerts</h6>
         </div>
-        <MisconfigurationsTabel items={misconfigPreview} loading={loading} />
+        <MisconfigurationsTabel className="row" items={misconfigPreview} loading={loading} />
       </div>
     </>
   );

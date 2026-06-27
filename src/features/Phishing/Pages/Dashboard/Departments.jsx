@@ -38,13 +38,13 @@ export default function Departments() {
       <PhishingAlert type="danger" message={error} onRetry={reload} />
 
       <div className="row g-3">
-        <div className="col-lg-8 dashboard-card p-3">
+        <div className="col-8 mx-2 dashboard-card p-3">
           <h6 className="text-white mb-3">Department Vulnerability</h6>
           <div style={{ height: 320 }}>
             <Bar data={chartData} options={{ responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }} />
           </div>
         </div>
-        <div className="col-lg-4 dashboard-card p-3">
+        <div className="col dashboard-card p-3">
           <DepartmentRisk departments={data} />
         </div>
       </div>

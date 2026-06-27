@@ -1,4 +1,10 @@
 import React, { useState } from "react";
+import { useToast } from "../../../../components/toast/ToastContext";
+import {
+  DEFAULT_ERROR,
+  extractApiMessage,
+  resolveResponseToastType,
+} from "../../../../components/toast/toastMessages";
 import {
   buildIntegrationPayload,
   sendToGrc,
@@ -17,24 +23,42 @@ const ACTIONS = [
   { key: "uctc", label: "UCTC Gap", icon: "fa-shield-halved", className: "integration-btn-cti", fn: sendToUctc },
 ];
 
+const TOAST_HANDLERS = {
+  success: (toast, message) => toast.success(message),
+  error: (toast, message) => toast.error(message),
+  warning: (toast, message) => toast.warning(message),
+  info: (toast, message) => toast.info(message),
+};
+
+function showToast(toast, type, message) {
+  const handler = TOAST_HANDLERS[type] ?? toast.info;
+  handler(toast, message);
+}
+
 export default function IntegrationActions({ item, source = "network", compact = false, onSuccess }) {
+  const toast = useToast();
   const [loadingKey, setLoadingKey] = useState(null);
-  const [feedback, setFeedback] = useState(null);
 
   const handleAction = async (action) => {
     setLoadingKey(action.key);
-    setFeedback(null);
     try {
       const payloads = buildIntegrationPayload(source, item);
-      await action.fn(payloads[action.key]);
-      const msg = `${action.label} succeeded`;
-      setFeedback({ type: "success", text: msg });
-      onSuccess?.(action.key, item);
+      const result = await action.fn(payloads[action.key]);
+      const message = extractApiMessage(
+        result,
+        `${action.label} completed successfully.`
+      );
+      const type = resolveResponseToastType(result);
+      showToast(toast, type, message);
+      onSuccess?.(action.key, item, result);
     } catch (err) {
-      setFeedback({ type: "danger", text: err.message });
+      const message = extractApiMessage(
+        err.response?.data ?? err.data ?? err,
+        err.message || DEFAULT_ERROR
+      );
+      showToast(toast, "error", message);
     } finally {
       setLoadingKey(null);
-      setTimeout(() => setFeedback(null), 4000);
     }
   };
 
@@ -44,12 +68,7 @@ export default function IntegrationActions({ item, source = "network", compact =
 
   return (
     <div>
-      {feedback && (
-        <small className={`d-block mb-1 text-${feedback.type === "success" ? "success" : "danger"}`}>
-          {feedback.text}
-        </small>
-      )}
-      <div className="integration-actions">
+      <div className="integration-action col">
         {visibleActions.map((action) => (
           <button
             key={action.key}
@@ -61,7 +80,7 @@ export default function IntegrationActions({ item, source = "network", compact =
             {loadingKey === action.key ? (
               <i className="fa-solid fa-spinner fa-spin me-1" />
             ) : (
-              <i className={`fa-solid ${action.icon} me-1`} />
+              <i className={`fa-solid text-white ${action.icon} me-1`} />
             )}
             {action.label}
           </button>

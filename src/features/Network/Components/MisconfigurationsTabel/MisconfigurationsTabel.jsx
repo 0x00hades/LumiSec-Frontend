@@ -15,11 +15,11 @@ export default function MisconfigurationsTabel({ items = [], loading = false }) 
   if (loading) return <NetworkLoading skeleton rows={5} />;
 
   if (!items.length) {
-    return <p className="text-secondary p-3 mb-0">No misconfigurations detected.</p>;
+    return <p className="text-secondary p-3 mb-0 misconfigurations-tabel__empty">No misconfigurations detected.</p>;
   }
 
   return (
-    <div className="table-responsive-wrapper">
+    <div className="table-responsive-wrapper misconfigurations-tabel">
       <table className="w-100 discover-tabel">
         <thead>
           <tr>
@@ -58,8 +58,8 @@ export default function MisconfigurationsTabel({ items = [], loading = false }) 
                 {item.status === "fixed" ? (
                   <i className="fa-solid fa-circle-check fixed-icon fs-5" />
                 ) : (
-                  <div>
-                    <button type="button" className="btn mb-2 fix rounded-3 text-white">
+                  <div className="row">
+                    <button type="button" className=" col-2 btn mb-2 fix rounded-3 text-white">
                       <i className="fa-solid fa-wrench text-white me-1" />
                       Fix
                     </button>

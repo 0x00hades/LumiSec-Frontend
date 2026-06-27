@@ -1,70 +1,298 @@
-.table-responsive-wrapper{
-    border-top-right-radius: 20px;
-    border-top-left-radius: 20px;
-    border:1px solid   #64748B;
+/* ============================================================
+   HostsTabel — scoped enterprise table styles
+   All rules prefixed with .hosts-tabel*
+   ============================================================ */
+
+.hosts-tabel {
+  --ht-border: #2A3042;
+  --ht-border-subtle: #252B3A;
+  --ht-surface: var(--container-background, #1B202D);
+  --ht-header-bg: #252B3A;
+  --ht-text: #E5E7EB;
+  --ht-text-muted: #9CA3AF;
+  --ht-text-dim: #64748B;
+  --ht-accent: #539BFF;
+  --ht-radius: 12px;
+  --ht-transition: 180ms ease;
+  --ht-row-height: 3.25rem;
 }
 
-
-table.discover-tabel {
-    background-color: var(--container-background);
-    width: 100%;
+/* ── Table container & scroll ── */
+.hosts-tabel {
+  margin-top: 1rem;
+  max-height: min(560px, 70vh);
+  overflow: auto;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--ht-border);
+  border-radius: var(--ht-radius);
+  background-color: var(--ht-surface);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
 }
-  
-table.discover-tabel th {
-    background-color: #252B3A;
-    color: #9DA3B0;
-    padding: 20px 10px;
-    text-align: start;
-    font-size: 0.8rem;
+
+.hosts-tabel table.discover-tabel {
+  width: 100%;
+  min-width: 1280px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: transparent;
+  margin-bottom: 0;
+}
+
+/* ── Table header (sticky) ── */
+.hosts-tabel table.discover-tabel thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: var(--ht-header-bg);
+  color: var(--ht-text-muted);
+  padding: 0;
+  text-align: start;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--ht-border);
+  white-space: nowrap;
+  vertical-align: middle;
+  box-shadow: 0 1px 0 var(--ht-border);
+}
+
+.hosts-tabel__sort-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  width: 100%;
+  padding: 14px 16px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
+  text-align: start;
+  cursor: pointer;
+  transition: color var(--ht-transition), background-color var(--ht-transition);
+}
+
+.hosts-tabel__sort-btn:hover {
+  color: var(--ht-text);
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+.hosts-tabel__sort-btn:focus-visible {
+  outline: 2px solid var(--ht-accent);
+  outline-offset: -2px;
+}
+
+.hosts-tabel__sort-btn--active {
+  color: var(--ht-text);
+}
+
+.hosts-tabel__sort-icon {
+  font-size: 0.625rem;
+  opacity: 0.55;
+}
+
+.hosts-tabel__sort-btn--active .hosts-tabel__sort-icon {
+  opacity: 1;
+  color: var(--ht-accent);
+}
+
+/* ── Table body rows ── */
+.hosts-tabel table.discover-tabel tbody tr {
+  height: var(--ht-row-height);
+  transition: background-color var(--ht-transition);
+}
+
+.hosts-tabel table.discover-tabel tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.hosts-tabel table.discover-tabel tbody tr:hover {
+  background-color: rgba(83, 155, 255, 0.06);
+}
+
+.hosts-tabel table.discover-tabel td {
+  padding: 0 16px;
+  height: var(--ht-row-height);
+  border-top: 1px solid var(--ht-border-subtle);
+  vertical-align: middle;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--ht-text);
+}
+
+/* ── Cell typography ── */
+.hosts-tabel__truncate {
+  display: block;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hosts-tabel td:nth-child(1) .hosts-tabel__truncate {
+  max-width: 180px;
+}
+
+.hosts-tabel td:nth-child(4) .hosts-tabel__truncate {
+  max-width: 140px;
+}
+
+.hosts-tabel td:nth-child(9) .hosts-tabel__truncate {
+  max-width: 130px;
+}
+
+.hosts-tabel td:nth-child(10) .hosts-tabel__truncate {
+  max-width: 120px;
+}
+
+.hosts-tabel__cell-primary {
+  color: #F3F4F6;
+  font-weight: 500;
+}
+
+.hosts-tabel__cell-ip {
+  color: #00D4FF;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.hosts-tabel__cell-muted {
+  color: var(--ht-text-dim);
+}
+
+.hosts-tabel__cell-numeric {
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  color: var(--ht-text-muted);
+}
+
+/* ── Status & risk badges ── */
+.hosts-tabel__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.25rem;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.hosts-tabel__badge--critical {
+  color: #FCA5A5;
+  background-color: rgba(239, 68, 68, 0.18);
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.hosts-tabel__badge--high {
+  color: #FB923C;
+  background-color: rgba(249, 115, 22, 0.18);
+  border-color: rgba(249, 115, 22, 0.4);
+}
+
+.hosts-tabel__badge--medium {
+  color: #FCD34D;
+  background-color: rgba(234, 179, 8, 0.18);
+  border-color: rgba(234, 179, 8, 0.4);
+}
+
+.hosts-tabel__badge--low {
+  color: #93C5FD;
+  background-color: rgba(83, 155, 255, 0.15);
+  border-color: rgba(83, 155, 255, 0.35);
+}
+
+.hosts-tabel__badge--neutral {
+  color: var(--ht-text-muted);
+  background-color: rgba(148, 163, 184, 0.12);
+  border-color: rgba(148, 163, 184, 0.3);
+}
+
+.hosts-tabel__badge--active {
+  color: #6EE7B7;
+  background-color: rgba(16, 185, 129, 0.18);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.hosts-tabel__badge--inactive {
+  color: #FCA5A5;
+  background-color: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.35);
+}
+
+.hosts-tabel__badge--unknown {
+  color: #FBBF24;
+  background-color: rgba(245, 158, 11, 0.18);
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+/* ── Empty state ── */
+.hosts-tabel__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  padding: 2.5rem 1.5rem;
+  border: 1px dashed var(--ht-border, #2A3042);
+  border-radius: var(--ht-radius, 12px);
+  background-color: rgba(255, 255, 255, 0.02);
+  text-align: center;
+}
+
+.hosts-tabel__empty-icon {
+  font-size: 1.75rem;
+  color: #64748B;
+  margin-bottom: 0.75rem;
+}
+
+.hosts-tabel__empty-title {
+  margin: 0 0 0.375rem;
+  color: #E5E7EB;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.hosts-tabel__empty-text {
+  margin: 0;
+  color: #9CA3AF;
+  font-size: 0.8125rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 991.98px) {
+  .hosts-tabel {
+    max-height: min(480px, 65vh);
   }
-  
 
-  table.discover-tabel td{
-    border-top: 1px solid #2A3042;
+  .hosts-tabel table.discover-tabel {
+    min-width: 1120px;
   }
-  
+}
 
-  table.discover-tabel td.ip-address {
-    padding: 10px;
+@media (max-width: 575.98px) {
+  .hosts-tabel {
+    margin-top: 0.75rem;
+    border-radius: 10px;
   }
 
-table.discover-tabel .ip-address{
-    color: #00D4FF;
+  .hosts-tabel table.discover-tabel {
+    min-width: 980px;
+  }
+
+  .hosts-tabel__sort-btn {
+    padding: 12px 14px;
+  }
+
+  .hosts-tabel table.discover-tabel td {
+    padding: 0 14px;
+  }
 }
-
-table.discover-tabel .mac-address{
-    color: #64748B;
-}
-
-table.discover-tabel .cisco ,table.discover-tabel .vendor{
-    color: #94A3B8;
-}
-
-table.discover-tabel .last-seen{
-    color: #64748B;
-}
-
-table.discover-tabel .status{
-    color: #10B981;
-    background-color: #10b98140;
-    padding: 5px 20px;
-    border: 2px solid #10B981;
-    position: relative;
-}
-
-table.discover-tabel .status::before{
-    position: absolute;
-    content: "";
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #10B981;
-    top: 12px;
-    left: 8px;
-}
-
-
-
-
-
-

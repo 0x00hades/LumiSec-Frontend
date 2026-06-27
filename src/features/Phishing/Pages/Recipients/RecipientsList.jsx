@@ -36,11 +36,11 @@ export default function RecipientsList() {
         <input className="form-control header-search-input rounded-3" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
       </div>
 
-      <div className="dashboard-card p-0">
+      <div className="dashboard-card p-0 rounded-0">
         <table className="w-100 discover-tabel">
           <thead>
             <tr>
-              <th>Name</th>
+              <th className="px-3 p-2">Name</th>
               <th>Email</th>
               <th>Department</th>
               <th>Risk</th>
@@ -51,7 +51,7 @@ export default function RecipientsList() {
           <tbody>
             {recipients.map((r) => (
               <tr key={r.id}>
-                <td className="text-white">{r.name}</td>
+                <td className="text-white px-3 p-2">{r.name}</td>
                 <td>{r.email}</td>
                 <td>{r.department}</td>
                 <td>{r.riskScore}</td>

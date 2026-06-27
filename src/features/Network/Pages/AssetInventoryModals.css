@@ -1,0 +1,554 @@
+/* ============================================================
+   Asset Inventory modals — scoped UI only
+   Prefix: .asset-inventory-modal
+   ============================================================ */
+
+.asset-inventory-modal {
+  --aim-bg: #1B202D;
+  --aim-bg-elevated: #252B3A;
+  --aim-border: #2A3042;
+  --aim-border-accent: rgba(85, 51, 153, 0.55);
+  --aim-text: #F3F4F6;
+  --aim-text-muted: #9CA3AF;
+  --aim-text-dim: #64748B;
+  --aim-accent: #539BFF;
+  --aim-accent-strong: #553399;
+  --aim-success: #10B981;
+  --aim-danger: #EF4444;
+  --aim-radius: 14px;
+  --aim-radius-sm: 10px;
+  --aim-transition: 200ms ease;
+  --aim-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+}
+
+/* ── Backdrop (sibling element) ── */
+.asset-inventory-modal.show ~ .modal-backdrop {
+  background-color: rgba(8, 12, 22, 0.72);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 1;
+  transition: opacity var(--aim-transition);
+}
+
+/* ── Dialog positioning & animation ── */
+.asset-inventory-modal .modal-dialog {
+  margin: 1.25rem auto;
+  max-width: min(640px, calc(100vw - 2rem));
+  animation: aim-dialog-in 220ms ease-out;
+}
+
+@keyframes aim-dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ── Modal shell ── */
+.asset-inventory-modal .modal-content {
+  display: flex;
+  flex-direction: column;
+  max-height: min(90vh, 760px);
+  overflow: hidden;
+  background-color: var(--aim-bg);
+  border: 1px solid var(--aim-border-accent);
+  border-radius: var(--aim-radius);
+  color: var(--aim-text);
+  box-shadow: var(--aim-shadow);
+}
+
+/* ── Header (sticky) ── */
+.asset-inventory-modal .modal-header {
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background-color: var(--aim-bg);
+  border-bottom: 1px solid var(--aim-border);
+}
+
+.asset-inventory-modal .modal-title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--aim-text);
+  letter-spacing: -0.01em;
+}
+
+.asset-inventory-modal .btn-close {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  margin: 0;
+  border-radius: 8px;
+  opacity: 0.85;
+  transition: opacity var(--aim-transition), background-color var(--aim-transition);
+}
+
+.asset-inventory-modal .btn-close:hover {
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.asset-inventory-modal .btn-close:focus-visible {
+  outline: 2px solid var(--aim-accent);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+/* ── Body (scrollable) ── */
+.asset-inventory-modal .modal-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1.25rem 1.5rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.asset-inventory-modal .modal-body > p.text-secondary {
+  margin: 0;
+  padding: 1.5rem 0;
+  text-align: center;
+  color: var(--aim-text-muted) !important;
+  font-size: 0.875rem;
+}
+
+/* ── Detail rows ── */
+.asset-inventory-modal .asset-detail-row {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, 38%) 1fr;
+  align-items: start;
+  gap: 0.75rem 1rem;
+  padding: 0.875rem 0;
+  border-bottom: 1px solid var(--aim-border);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.asset-inventory-modal .asset-detail-row:last-of-type {
+  border-bottom: none;
+}
+
+.asset-inventory-modal .asset-detail-label {
+  color: var(--aim-text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.asset-inventory-modal .asset-detail-row > span:last-child {
+  color: var(--aim-text);
+  word-break: break-word;
+}
+
+/* ── Content sections ── */
+.asset-inventory-modal .modal-body > .mt-3,
+.asset-inventory-modal .modal-body > .mt-4 {
+  margin-top: 1.25rem !important;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--aim-border);
+}
+
+.asset-inventory-modal .modal-body h6 {
+  margin: 0 0 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--aim-text-muted);
+}
+
+.asset-inventory-modal .modal-body ul {
+  margin: 0;
+  padding-left: 1.125rem;
+  color: var(--aim-text-muted);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.asset-inventory-modal .modal-body ul li {
+  margin-bottom: 0.375rem;
+}
+
+.asset-inventory-modal .modal-body ul li:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Error state ── */
+.asset-inventory-modal .modal-body > .text-danger {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 0 !important;
+  padding: 0.875rem 1rem;
+  border-radius: var(--aim-radius-sm);
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #FCA5A5 !important;
+  font-size: 0.875rem;
+}
+
+/* ── Loading inside modal ── */
+.asset-inventory-modal .modal-body .network-loading {
+  padding: 2rem 0;
+  color: var(--aim-text-muted);
+}
+
+/* ── Actions section (Asset Details modal only) ── */
+.asset-inventory-modal__actions {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--aim-border);
+}
+
+.asset-inventory-modal__actions-heading {
+  margin: 0 0 0.875rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--aim-text-muted);
+}
+
+.asset-inventory-modal__actions .integration-action {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.625rem;
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+/* Override Bootstrap .col inside the actions block */
+.asset-inventory-modal__actions .integration-action.col {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.asset-inventory-modal__actions .integration-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  box-sizing: border-box;
+  min-width: 8.5rem;
+  height: 2.375rem;
+  min-height: 2.375rem;
+  padding: 0 0.875rem;
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  border-radius: 10px;
+  border: 1px solid var(--aim-border);
+  background-color: #10141F;
+  color: var(--aim-text-muted);
+  transition:
+    background-color var(--aim-transition),
+    border-color var(--aim-transition),
+    color var(--aim-transition),
+    box-shadow var(--aim-transition),
+    opacity var(--aim-transition),
+    transform var(--aim-transition);
+}
+
+.asset-inventory-modal__actions .integration-btn .fa-solid {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 0.875rem;
+  min-width: 0.875rem;
+  height: 0.875rem;
+  font-size: 0.8125rem;
+  line-height: 1;
+  margin: 0 !important;
+}
+
+.asset-inventory-modal__actions .integration-btn:hover:not(:disabled) {
+  color: var(--aim-text);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.asset-inventory-modal__actions .integration-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.asset-inventory-modal__actions .integration-btn:focus-visible {
+  outline: 2px solid var(--aim-accent);
+  outline-offset: 2px;
+}
+
+.asset-inventory-modal__actions .integration-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Primary — Send to GRC */
+.asset-inventory-modal__actions .integration-btn-grc {
+  background-color: rgba(127, 86, 217, 0.18);
+  border-color: rgba(127, 86, 217, 0.5);
+  color: #C4B5FD;
+}
+
+.asset-inventory-modal__actions .integration-btn-grc .fa-solid {
+  color: #A78BFA;
+}
+
+.asset-inventory-modal__actions .integration-btn-grc:hover:not(:disabled) {
+  background-color: rgba(127, 86, 217, 0.28);
+  border-color: #7F56D9;
+  color: #EDE9FE;
+}
+
+/* Danger — Create Incident */
+.asset-inventory-modal__actions .integration-btn-soar {
+  background-color: rgba(239, 68, 68, 0.14);
+  border-color: rgba(239, 68, 68, 0.45);
+  color: #FCA5A5;
+}
+
+.asset-inventory-modal__actions .integration-btn-soar .fa-solid {
+  color: #F87171;
+}
+
+.asset-inventory-modal__actions .integration-btn-soar:hover:not(:disabled) {
+  background-color: rgba(239, 68, 68, 0.24);
+  border-color: #EF4444;
+  color: #FEE2E2;
+}
+
+/* Secondary — Send to SIEM */
+.asset-inventory-modal__actions .integration-btn-siem {
+  background-color: rgba(6, 182, 212, 0.12);
+  border-color: rgba(6, 182, 212, 0.4);
+  color: #67E8F9;
+}
+
+.asset-inventory-modal__actions .integration-btn-siem .fa-solid {
+  color: #22D3EE;
+}
+
+.asset-inventory-modal__actions .integration-btn-siem:hover:not(:disabled) {
+  background-color: rgba(6, 182, 212, 0.22);
+  border-color: #06B6D4;
+  color: #CFFAFE;
+}
+
+/* Neutral — Enrich IOC / UCTC */
+.asset-inventory-modal__actions .integration-btn-cti {
+  background-color: rgba(148, 163, 184, 0.1);
+  border-color: rgba(148, 163, 184, 0.35);
+  color: #CBD5E1;
+}
+
+.asset-inventory-modal__actions .integration-btn-cti .fa-solid {
+  color: #94A3B8;
+}
+
+.asset-inventory-modal__actions .integration-btn-cti:hover:not(:disabled) {
+  background-color: rgba(245, 158, 11, 0.16);
+  border-color: #F59E0B;
+  color: #FDE68A;
+}
+
+.asset-inventory-modal__actions .integration-btn-cti:hover:not(:disabled) .fa-solid {
+  color: #FBBF24;
+}
+
+/* ── Form controls (scoped for any fields inside modals) ── */
+.asset-inventory-modal .form-control,
+.asset-inventory-modal .form-select,
+.asset-inventory-modal textarea.form-control {
+  min-height: 2.625rem;
+  padding: 0.5rem 0.875rem;
+  font-size: 0.875rem;
+  color: var(--aim-text);
+  background-color: var(--aim-bg-elevated);
+  border: 1px solid var(--aim-border);
+  border-radius: var(--aim-radius-sm);
+  transition: border-color var(--aim-transition), box-shadow var(--aim-transition);
+}
+
+.asset-inventory-modal .form-control::placeholder {
+  color: var(--aim-text-dim);
+  opacity: 1;
+}
+
+.asset-inventory-modal .form-control:focus,
+.asset-inventory-modal .form-select:focus,
+.asset-inventory-modal textarea.form-control:focus {
+  color: var(--aim-text);
+  background-color: var(--aim-bg-elevated);
+  border-color: var(--aim-accent);
+  box-shadow: 0 0 0 3px rgba(83, 155, 255, 0.2);
+}
+
+.asset-inventory-modal .form-control:disabled,
+.asset-inventory-modal .form-select:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.asset-inventory-modal .form-label {
+  margin-bottom: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--aim-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.asset-inventory-modal .invalid-feedback,
+.asset-inventory-modal .text-danger.small {
+  margin-top: 0.375rem;
+  font-size: 0.8125rem;
+}
+
+/* ── Footer (sticky) ── */
+.asset-inventory-modal .modal-footer {
+  flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.625rem;
+  padding: 1rem 1.5rem;
+  background-color: var(--aim-bg);
+  border-top: 1px solid var(--aim-border);
+}
+
+.asset-inventory-modal .modal-footer .btn {
+  min-height: 2.5rem;
+  padding: 0.5rem 1.125rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: var(--aim-radius-sm);
+  transition: background-color var(--aim-transition), border-color var(--aim-transition),
+    color var(--aim-transition), opacity var(--aim-transition);
+}
+
+.asset-inventory-modal .modal-footer .add-btn {
+  background: linear-gradient(135deg, #553399 0%, #6B46C1 100%);
+  border: 1px solid rgba(107, 70, 193, 0.6) !important;
+  color: #fff !important;
+}
+
+.asset-inventory-modal .modal-footer .add-btn:hover {
+  background: linear-gradient(135deg, #6B46C1 0%, #7C3AED 100%);
+  opacity: 0.95;
+}
+
+.asset-inventory-modal .modal-footer .add-btn:focus-visible {
+  outline: 2px solid var(--aim-accent);
+  outline-offset: 2px;
+}
+
+.asset-inventory-modal .modal-footer .btn-secondary {
+  background-color: transparent;
+  border: 1px solid var(--aim-border) !important;
+  color: var(--aim-text-muted) !important;
+}
+
+.asset-inventory-modal .modal-footer .btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--aim-text) !important;
+}
+
+.asset-inventory-modal .modal-footer .btn-secondary:focus-visible {
+  outline: 2px solid var(--aim-accent);
+  outline-offset: 2px;
+}
+
+.asset-inventory-modal .network-retry-btn {
+  min-height: 2rem;
+  border-radius: 8px;
+}
+
+.asset-inventory-modal .network-retry-btn:focus-visible {
+  outline: 2px solid var(--aim-accent);
+  outline-offset: 2px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 991.98px) {
+  .asset-inventory-modal .modal-dialog {
+    max-width: min(560px, calc(100vw - 1.5rem));
+  }
+}
+
+@media (max-width: 575.98px) {
+  .asset-inventory-modal .modal-dialog {
+    margin: 0.75rem auto;
+    max-width: calc(100vw - 1rem);
+  }
+
+  .asset-inventory-modal .modal-content {
+    max-height: calc(100vh - 1.5rem);
+    border-radius: 12px;
+  }
+
+  .asset-inventory-modal .modal-header,
+  .asset-inventory-modal .modal-body,
+  .asset-inventory-modal .modal-footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .asset-inventory-modal .modal-title {
+    font-size: 1rem;
+  }
+
+  .asset-inventory-modal .asset-detail-row {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
+  .asset-inventory-modal .modal-footer {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .asset-inventory-modal .modal-footer .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .asset-inventory-modal__actions .integration-action {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .asset-inventory-modal__actions .integration-btn {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 399.98px) {
+  .asset-inventory-modal__actions .integration-action {
+    grid-template-columns: 1fr;
+  }
+}

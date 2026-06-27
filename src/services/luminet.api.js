@@ -12,7 +12,7 @@ import { clearAuth, getToken } from "../features/auth/utils/authStorage";
 import { buildNetworkScanPayload } from "../features/Network/utils/portScan";
 
 const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL || "http://localhost:4000";
+  process.env.REACT_APP_API_BASE_URL || "https://lumisec.tech";
 
 const LUMINET_BASE = "/api/luminet";
 

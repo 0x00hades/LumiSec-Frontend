@@ -1,18 +1,29 @@
 import React from "react";
 import IntegrationActions from "./IntegrationActions";
+import useModalDismiss from "./useModalDismiss";
+import "../../Pages/AssetInventoryModals.css";
 import "./NetworkShared.css";
 
 export default function AssetDetailModal({ asset, details, loading, onClose, onContextLookup }) {
+  const { modalRef, handleBackdropClick } = useModalDismiss(onClose);
+
   if (!asset) return null;
 
   const data = details ?? asset;
 
   return (
   <>
-    <div className="modal fade show asset-modal d-block" tabIndex="-1" role="dialog">
-      <div className="modal-dialog modal-lg modal-dialog-scrollable">
+    <div
+      ref={modalRef}
+      className="modal fade show asset-inventory-modal d-block"
+      tabIndex="-1"
+      role="dialog"
+      aria-modal="true"
+      onClick={handleBackdropClick}
+    >
+      <div className="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div className="modal-content">
-          <div className="modal-header">
+          <div className="d-flex justify-content-between modal-header">
             <h5 className="modal-title text-white">
               Asset Details — {data.hostname ?? asset.hostname}
             </h5>
@@ -57,7 +68,8 @@ export default function AssetDetailModal({ asset, details, loading, onClose, onC
                     </ul>
                   </div>
                 )}
-                <div className="mt-4">
+                <div className="asset-inventory-modal__actions">
+                  <h6 className="asset-inventory-modal__actions-heading">Actions</h6>
                   <IntegrationActions item={data} source="asset-inventory" compact />
                 </div>
               </>

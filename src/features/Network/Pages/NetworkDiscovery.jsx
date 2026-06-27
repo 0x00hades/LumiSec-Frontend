@@ -67,7 +67,7 @@ export default function NetworkDiscovery() {
       )}
 
       <div className="dashboard-card mb-3">
-        <div className="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+        <div className="">
           <div className="d-flex align-items-center">
             <figure className="mb-1 me-2">
               <img src={squareIcon} className="w-100" alt="hosts" />
@@ -75,28 +75,31 @@ export default function NetworkDiscovery() {
             <h6 className="text-white mb-0">Discovered Hosts ({hosts.length})</h6>
           </div>
 
-          <div className="d-flex flex-wrap gap-2 align-items-center">
-            <div className="search-container">
-              <i className="fa-brands fa-sistrix discover-search-icon" />
-              <input
-                type="text"
-                className="form-control header-search-input rounded-3"
-                placeholder="Search..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-            </div>
+
+
+          <div className="row flex-wrap Discovered-Hosts gap-2 align-items-center">
+
+            <div className="search-container col-6 my-3">
+                <i className="fa-brands fa-sistrix discover-search-icon" />
+                <input
+                  type="text"
+                  className="form-control header-search-input rounded-3"
+                  placeholder="Search..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </div>
+              <select
+                className="form-select col-2 scanType-select border-0"
+                value={osFilter}
+                onChange={(e) => setOsFilter(e.target.value)}
+              >
+                {osOptions.map((opt) => (
+                  <option key={opt} value={opt}>{opt === "all" ? "All OS" : opt}</option>
+                ))}
+              </select>
             <select
-              className="form-select scanType-select border-0"
-              value={osFilter}
-              onChange={(e) => setOsFilter(e.target.value)}
-            >
-              {osOptions.map((opt) => (
-                <option key={opt} value={opt}>{opt === "all" ? "All OS" : opt}</option>
-              ))}
-            </select>
-            <select
-              className="form-select scanType-select border-0"
+              className="form-select col-2 scanType-select border-0"
               value={subnetFilter}
               onChange={(e) => setSubnetFilter(e.target.value)}
             >
@@ -105,7 +108,7 @@ export default function NetworkDiscovery() {
               ))}
             </select>
             <select
-              className="form-select scanType-select border-0"
+              className="form-select col-2 scanType-select border-0"
               value={riskFilter}
               onChange={(e) => setRiskFilter(e.target.value)}
             >

@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AuthProvider } from './features/auth/context/AuthContext';
+import { ToastProvider } from './components/toast/ToastContext';
 import ProtectedRoute, { PublicOnlyRoute } from './features/auth/components/ProtectedRoute';
 import MainLayout from './components/layout/MainLayout';
 import ToolRoute from './components/rbac/ToolRoute';
@@ -130,7 +131,9 @@ const myRouter = createBrowserRouter([
 export default function App() {
   return (
     <AuthProvider>
-      <RouterProvider router={myRouter} />
+      <ToastProvider>
+        <RouterProvider router={myRouter} />
+      </ToastProvider>
     </AuthProvider>
   );
 }

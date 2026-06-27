@@ -1,36 +1,463 @@
-.fix{
-    background-color: #06B6D4 !important;
-    padding: 5px 20px;
-    font-size: 0.8rem;
+/* ============================================================
+   MisconfigurationsTabel — scoped enterprise table styles
+   All rules prefixed with .misconfigurations-tabel*
+   ============================================================ */
+
+/* ── Design tokens (local scope) ── */
+.misconfigurations-tabel {
+  --mct-border: #2A3042;
+  --mct-border-subtle: #252B3A;
+  --mct-surface: var(--container-background, #1B202D);
+  --mct-header-bg: #252B3A;
+  --mct-text: #E5E7EB;
+  --mct-text-muted: #9CA3AF;
+  --mct-text-dim: #64748B;
+  --mct-accent: #539BFF;
+  --mct-radius: 12px;
+  --mct-transition: 180ms ease;
 }
 
-
-.assets , .assets-desc , .type , .description , .critical{
-    font-size: 0.8rem;
+/* ── Table container & scroll ── */
+.misconfigurations-tabel {
+  max-height: min(560px, 70vh);
+  overflow: auto;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--mct-border);
+  border-radius: var(--mct-radius);
+  background-color: var(--mct-surface);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
 }
 
-.critical{
-    color: #EF4444 !important;
-    background-color: #EF444440;
-    padding: 5px 15px;
+.misconfigurations-tabel table.discover-tabel {
+  width: 100%;
+  min-width: 1120px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: transparent;
+  margin-bottom: 0;
 }
 
-.fixed{
-    color: #10B981 !important;
-    background-color: #10b98140;
+/* ── Table header (sticky) ── */
+.misconfigurations-tabel table.discover-tabel thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: var(--mct-header-bg);
+  color: var(--mct-text-muted);
+  padding: 14px 16px;
+  text-align: start;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--mct-border);
+  white-space: nowrap;
+  vertical-align: middle;
+  box-shadow: 0 1px 0 var(--mct-border);
 }
 
-.fixed-icon{
-    color: #10B981 !important;
+/* ── Table body rows ── */
+.misconfigurations-tabel table.discover-tabel tbody tr {
+  transition: background-color var(--mct-transition);
 }
 
-.high-sevarity{
-    color: #F97316 !important;
-    background-color: #F9731640;
+.misconfigurations-tabel table.discover-tabel tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
+.misconfigurations-tabel table.discover-tabel tbody tr:hover {
+  background-color: rgba(83, 155, 255, 0.06);
+}
 
-.medium-sevarity{
-    color: #EAB308 !important;
-    background-color: #EAB30840;
+.misconfigurations-tabel table.discover-tabel td {
+  padding: 14px 16px;
+  border-top: 1px solid var(--mct-border-subtle);
+  vertical-align: middle;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--mct-text);
+}
+
+.misconfigurations-tabel table.discover-tabel td:first-child {
+  padding-left: 16px;
+}
+
+/* ── Cell typography ── */
+.misconfigurations-tabel .assets,
+.misconfigurations-tabel .type,
+.misconfigurations-tabel .description,
+.misconfigurations-tabel .critical,
+.misconfigurations-tabel .high-sevarity,
+.misconfigurations-tabel .medium-sevarity,
+.misconfigurations-tabel .fixed {
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+.misconfigurations-tabel .assets {
+  color: #F3F4F6 !important;
+  font-weight: 500;
+  margin-bottom: 0.25rem !important;
+}
+
+.misconfigurations-tabel .assets-desc {
+  color: var(--mct-text-dim) !important;
+  font-size: 0.75rem;
+  margin-bottom: 0 !important;
+}
+
+.misconfigurations-tabel .type {
+  color: var(--mct-text) !important;
+  margin-bottom: 0 !important;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.misconfigurations-tabel .description {
+  color: var(--mct-text-muted) !important;
+  margin-bottom: 0 !important;
+  max-width: 280px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.misconfigurations-tabel .assets {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+/* ── Status badges (shared pill base) ── */
+.misconfigurations-tabel tbody td:nth-child(3) > p,
+.misconfigurations-tabel tbody td:nth-child(5) > p {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.25rem;
+  margin-bottom: 0 !important;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  transition: opacity var(--mct-transition);
+}
+
+/* Severity: Critical */
+.misconfigurations-tabel tbody td:nth-child(3) > p.critical {
+  color: #FCA5A5 !important;
+  background-color: rgba(239, 68, 68, 0.18) !important;
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+/* Severity: High */
+.misconfigurations-tabel .high-sevarity {
+  color: #FB923C !important;
+  background-color: rgba(249, 115, 22, 0.18) !important;
+  border-color: rgba(249, 115, 22, 0.4);
+}
+
+/* Severity: Medium */
+.misconfigurations-tabel .medium-sevarity {
+  color: #FCD34D !important;
+  background-color: rgba(234, 179, 8, 0.18) !important;
+  border-color: rgba(234, 179, 8, 0.4);
+}
+
+/* Severity: Low (no severity class) */
+.misconfigurations-tabel tbody td:nth-child(3) > p:not(.critical):not(.high-sevarity):not(.medium-sevarity) {
+  color: #93C5FD !important;
+  background-color: rgba(83, 155, 255, 0.15) !important;
+  border-color: rgba(83, 155, 255, 0.35);
+}
+
+/* Status: Fixed */
+.misconfigurations-tabel tbody td:nth-child(5) > p.fixed {
+  color: #6EE7B7 !important;
+  background-color: rgba(16, 185, 129, 0.18) !important;
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+/* Status: Open / Pending (uses .critical in status column) */
+.misconfigurations-tabel tbody td:nth-child(5) > p.critical {
+  color: #FBBF24 !important;
+  background-color: rgba(245, 158, 11, 0.18) !important;
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.misconfigurations-tabel .fixed-icon {
+  color: #10B981 !important;
+  transition: transform var(--mct-transition);
+}
+
+.misconfigurations-tabel tbody tr:hover .fixed-icon {
+  transform: scale(1.08);
+}
+
+/* ── Actions column ── */
+.misconfigurations-tabel table.discover-tabel th:last-child,
+.misconfigurations-tabel table.discover-tabel td:last-child {
+  min-width: 38.5rem;
+  width: 38.5rem;
+  max-width: 38.5rem;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.misconfigurations-tabel table.discover-tabel td:last-child:has(.fixed-icon) {
+  text-align: center;
+}
+
+.misconfigurations-tabel table.discover-tabel td:last-child .fixed-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1.125rem;
+  line-height: 1;
+  margin: 0;
+}
+
+/* Flatten Bootstrap row + IntegrationActions wrappers into one flex row */
+.misconfigurations-tabel td:last-child > .row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.375rem;
+  margin: 0 !important;
+  padding: 0;
+  min-height: 2rem;
+  --bs-gutter-x: 0;
+  --bs-gutter-y: 0;
+}
+
+.misconfigurations-tabel td:last-child > .row > div {
+  display: contents;
+}
+
+.misconfigurations-tabel td:last-child .integration-actions {
+  display: contents;
+}
+
+.misconfigurations-tabel td:last-child > .row > div > small {
+  flex: 0 0 auto;
+  max-width: 8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.625rem;
+  line-height: 1.2;
+  margin: 0;
+  padding: 0 0.25rem;
+}
+
+/* Override Bootstrap grid classes inside Actions column */
+.misconfigurations-tabel td:last-child .col-2 {
+  flex: 0 0 auto !important;
+  width: 7.25rem !important;
+  max-width: 7.25rem !important;
+  padding: 0 !important;
+}
+
+/* Unified action button sizing */
+.misconfigurations-tabel td:last-child .fix,
+.misconfigurations-tabel td:last-child .integration-btn {
+  display: inline-flex !important;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: 7.25rem;
+  min-width: 7.25rem;
+  max-width: 7.25rem;
+  height: 2rem;
+  min-height: 2rem;
+  max-height: 2rem;
+  margin: 0 !important;
+  padding: 0 0.5rem !important;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: 8px;
+  transition:
+    background-color var(--mct-transition),
+    border-color var(--mct-transition),
+    color var(--mct-transition),
+    box-shadow var(--mct-transition),
+    opacity var(--mct-transition);
+}
+
+.misconfigurations-tabel td:last-child .fix .fa-solid,
+.misconfigurations-tabel td:last-child .integration-btn .fa-solid {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 0.875rem;
+  min-width: 0.875rem;
+  height: 0.875rem;
+  font-size: 0.75rem;
+  line-height: 1;
+  margin: 0 0.25rem 0 0 !important;
+}
+
+/* Fix button */
+.misconfigurations-tabel td:last-child .fix {
+  background-color: #06B6D4 !important;
+  border: 1px solid rgba(6, 182, 212, 0.5) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 1px 4px rgba(6, 182, 212, 0.25);
+}
+
+.misconfigurations-tabel td:last-child .fix:hover:not(:disabled) {
+  background-color: #0891B2 !important;
+  border-color: rgba(6, 182, 212, 0.7) !important;
+  box-shadow: 0 2px 8px rgba(6, 182, 212, 0.35);
+  color: #FFFFFF !important;
+}
+
+.misconfigurations-tabel td:last-child .fix:active:not(:disabled) {
+  background-color: #0E7490 !important;
+  box-shadow: none;
+}
+
+.misconfigurations-tabel td:last-child .fix:focus-visible {
+  outline: 2px solid #539BFF;
+  outline-offset: 2px;
+}
+
+.misconfigurations-tabel td:last-child .fix:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.misconfigurations-tabel td:last-child .fix .fa-solid {
+  color: #FFFFFF;
+}
+
+/* Integration buttons */
+.misconfigurations-tabel td:last-child .integration-btn {
+  border: 1px solid var(--mct-border);
+  background-color: #10141F;
+  color: var(--mct-text-muted);
+}
+
+.misconfigurations-tabel td:last-child .integration-btn:hover:not(:disabled) {
+  color: #FFFFFF;
+  border-color: var(--mct-accent);
+  background-color: #1a2235;
+}
+
+.misconfigurations-tabel td:last-child .integration-btn:active:not(:disabled) {
+  background-color: #0f1419;
+}
+
+.misconfigurations-tabel td:last-child .integration-btn:focus-visible {
+  outline: 2px solid #539BFF;
+  outline-offset: 2px;
+}
+
+.misconfigurations-tabel td:last-child .integration-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.misconfigurations-tabel td:last-child .integration-btn-grc:hover:not(:disabled) {
+  border-color: #7F56D9;
+}
+
+.misconfigurations-tabel td:last-child .integration-btn-soar:hover:not(:disabled) {
+  border-color: #EF4444;
+}
+
+.misconfigurations-tabel td:last-child .integration-btn-siem:hover:not(:disabled) {
+  border-color: #06B6D4;
+}
+
+.misconfigurations-tabel td:last-child .integration-btn-cti:hover:not(:disabled) {
+  border-color: #F59E0B;
+}
+
+/* ── Empty state ── */
+.misconfigurations-tabel__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 200px;
+  margin: 0 !important;
+  padding: 2.5rem 1.5rem !important;
+  color: var(--mct-text-muted, #9CA3AF) !important;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  background-color: var(--mct-surface, #1B202D);
+  border: 1px dashed var(--mct-border, #2A3042);
+  border-radius: var(--mct-radius, 12px);
+}
+
+.misconfigurations-tabel__empty::before {
+  content: "✓";
+  display: block;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #10B981;
+  opacity: 0.9;
+  margin-bottom: 0.75rem;
+  line-height: 1;
+}
+
+/* ── Responsive: tablet & desktop ── */
+@media screen and (max-width: 991px) {
+  .misconfigurations-tabel {
+    max-height: min(480px, 65vh);
+  }
+
+  .misconfigurations-tabel table.discover-tabel {
+    min-width: 1120px;
+  }
+
+  .misconfigurations-tabel .description {
+    max-width: 200px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .misconfigurations-tabel table.discover-tabel thead th,
+  .misconfigurations-tabel table.discover-tabel td {
+    padding: 12px 14px;
+    font-size: 0.75rem;
+  }
+
+  .misconfigurations-tabel__empty {
+    min-height: 160px;
+    font-size: 0.875rem;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .misconfigurations-tabel {
+    border-radius: 10px;
+  }
+
+  .misconfigurations-tabel table.discover-tabel {
+    min-width: 1120px;
+  }
 }

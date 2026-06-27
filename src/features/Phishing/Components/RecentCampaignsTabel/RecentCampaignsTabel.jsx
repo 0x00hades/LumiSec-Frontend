@@ -28,7 +28,7 @@ export default function RecentCampaignsTabel({ campaigns = [] }) {
         <table className="w-100 recent-campigns discover-tabel">
           <thead>
             <tr>
-              <th>Campaign</th>
+              <th className='p-3'>Campaign</th>
               <th>Sent</th>
               <th>Open Rate</th>
               <th>Click Rate</th>

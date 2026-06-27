@@ -1,6 +1,6 @@
 import React from 'react'
 import "./AuditCard.css"
-export default function AuditCard({title , desc , progrssText}) {
+export default function AuditCard({title , desc , progrssText, progressPercent = 65, onSaveProgress, saving = false}) {
 
 return <>
 
@@ -29,7 +29,7 @@ return <>
                     <div
                         className="progress-bar"
                         role="progressbar"
-                        style={{width: "65%"}}
+                        style={{width: `${progressPercent}%`}}
                         aria-valuenow="15"
                         aria-valuemin="0"
                         aria-valuemax="100"
@@ -41,7 +41,12 @@ return <>
 
             <div className='col-12 col-md-4 col-lg-3 d-flex justify-content-md-end px-2'>
 
-                <button className='save-btn p-2 px-3 rounded-3 text-white border-0 w-100 w-md-auto'>
+                <button
+                    type="button"
+                    className='save-btn p-2 px-3 rounded-3 text-white border-0 w-100 w-md-auto'
+                    onClick={onSaveProgress}
+                    disabled={!onSaveProgress || saving}
+                >
 
                     <i className="fa-solid fa-download pe-2"></i>
 

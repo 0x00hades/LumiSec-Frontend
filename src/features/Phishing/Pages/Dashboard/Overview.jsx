@@ -42,9 +42,9 @@ export default function Overview() {
           <p className="dashboard-desc mb-0">SOC dashboard — live campaign metrics</p>
         </div>
         <div className="d-flex gap-2">
-          <Link to="/Phishing/Dashboard/Risks" className="btn btn-sm integration-btn">Risks</Link>
-          <Link to="/Phishing/Dashboard/Departments" className="btn btn-sm integration-btn">Departments</Link>
-          <Link to="/Phishing/Dashboard/Trends" className="btn btn-sm integration-btn">Trends</Link>
+          <Link to="/Phishing/Dashboard/Risks" className="btn btn-sm text-white integration-btn">Risks</Link>
+          <Link to="/Phishing/Dashboard/Departments" className="btn btn-sm text-white integration-btn">Departments</Link>
+          <Link to="/Phishing/Dashboard/Trends" className="btn btn-sm text-white integration-btn">Trends</Link>
         </div>
       </div>
 

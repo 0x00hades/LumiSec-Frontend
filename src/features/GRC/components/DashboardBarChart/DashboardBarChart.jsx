@@ -21,19 +21,14 @@ ChartJS.register(
     Legend
 );
 
-export default function DashboardBarChart() {
+const emptyChartData = {
+    labels: [],
+    datasets: [{ label: "Tasks", data: [], backgroundColor: "#4F46E5" }],
+};
 
-    const data = {
-        labels: ["Jan", "Feb", "Mar", "Apr"],
+export default function DashboardBarChart({ chartData }) {
 
-        datasets: [
-            {
-                label: "Audits",
-                data: [12, 19, 3, 5],
-                backgroundColor: "#4F46E5",
-            },
-        ],
-    };
+    const data = chartData?.labels?.length ? chartData : emptyChartData;
 
 return <>
     

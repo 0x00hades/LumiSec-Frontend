@@ -1,16 +1,27 @@
 import React from "react";
 import NetworkLoading from "./NetworkLoading";
+import useModalDismiss from "./useModalDismiss";
+import "../../Pages/AssetInventoryModals.css";
 import "./NetworkShared.css";
 
 export default function AssetContextModal({ ip, context, loading, error, onClose, onRetry }) {
+  const { modalRef, handleBackdropClick } = useModalDismiss(onClose);
+
   if (!ip) return null;
 
   return (
   <>
-    <div className="modal fade show asset-modal d-block" tabIndex="-1">
-      <div className="modal-dialog modal-lg">
+    <div
+      ref={modalRef}
+      className="modal fade show asset-inventory-modal d-block"
+      tabIndex="-1"
+      role="dialog"
+      aria-modal="true"
+      onClick={handleBackdropClick}
+    >
+      <div className="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div className="modal-content">
-          <div className="modal-header">
+          <div className="modal-header d-flex justify-content-between">
             <h5 className="modal-title text-white">Context Lookup — {ip}</h5>
             <button type="button" className="btn-close btn-close-white" onClick={onClose} />
           </div>

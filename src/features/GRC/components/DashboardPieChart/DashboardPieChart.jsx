@@ -17,29 +17,14 @@ ChartJS.register(
     Legend
 );
 
-export default function DashboardPieChart() {
-
-const data = {
-
-    labels: ["Jan", "Feb", "Mar", "Apr"],
-
-    datasets: [
-        {
-            label: "Audits",
-
-            data: [12, 19, 3, 5],
-
-            backgroundColor: [
-                "#4F46E5",
-                "#22C55E",
-                "#F59E0B",
-                "#EF4444",
-            ],
-
-            borderWidth: 1,
-        },
-    ],
+const emptyChartData = {
+    labels: [],
+    datasets: [{ label: "Compliance", data: [], backgroundColor: [], borderWidth: 1 }],
 };
+
+export default function DashboardPieChart({ chartData }) {
+
+const data = chartData?.labels?.length ? chartData : emptyChartData;
 
 return (
 <>

@@ -27,10 +27,7 @@ export default function AssetsTabel({
       <table className="w-100 discover-tabel">
         <thead>
           <tr>
-            <th className="text-center">
-              <input type="checkbox" className="assets-select" readOnly />
-            </th>
-            <th>IP Address</th>
+            <th className="p-2">IP Address</th>
             <th>MAC</th>
             <th>OS Guess</th>
             <th>Services</th>
@@ -41,10 +38,7 @@ export default function AssetsTabel({
         <tbody>
           {assets.map((asset) => (
             <tr key={asset.id}>
-              <td className="text-center">
-                <input type="checkbox" className="assets-select" readOnly />
-              </td>
-              <td className="ip-address fw-medium">
+              <td className="ip-address p-2 fw-medium">
                 <div className="d-flex align-items-center">
                   <figure className="me-3 mb-0">
                     <img src={globalIcon} className="w-100" alt="" />

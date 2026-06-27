@@ -42,7 +42,7 @@ export default function ServiceDistribution({ results = [], protocols = null }) 
   const total = services.reduce((sum, s) => sum + s.value, 0);
 
   return (
-    <div className="service-card">
+    <div className="service-card mx-auto">
       <div className="chart-container">
         <svg viewBox="0 0 300 300">
           <path d="M120 30 Q150 20 180 30 L165 100 Q150 95 135 100 Z" className="segment" fill="#697A96" />

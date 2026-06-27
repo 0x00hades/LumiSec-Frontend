@@ -5,6 +5,7 @@ import { NavLink, Outlet , Link } from 'react-router-dom'
 
 import "./GRC.css"
 import HeaderUserMenu from "../../auth/components/HeaderUserMenu";
+import useNotifications from "../hooks/useNotifications";
 
 import {
     CircleCheck,
@@ -18,6 +19,7 @@ import {
 export default function GRC() {
 
     const [collapsed, setCollapsed] = useState(false)
+    const { unreadCount, markAllRead } = useNotifications()
 
     return (
         <>
@@ -66,7 +68,14 @@ export default function GRC() {
                 {/* RIGHT */}
                 <div className='right-section'>
 
-                    <i className="fa-regular fa-bell notification-icon fs-5"></i>
+                    <i
+                        className="fa-regular fa-bell notification-icon fs-5"
+                        title={unreadCount ? `${unreadCount} unread notifications` : "Notifications"}
+                        onClick={() => unreadCount > 0 && markAllRead()}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => e.key === "Enter" && unreadCount > 0 && markAllRead()}
+                    />
 
                     <HeaderUserMenu />
 

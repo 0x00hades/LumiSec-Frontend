@@ -20,7 +20,7 @@ export default function TemplatesList() {
 
   return (
     <div className="phishing-soc-page">
-      <div className="d-flex justify-content-between mb-3">
+      <div className="d-flex justify-content-between align-items-center mb-3">
         <div>
           <h5 className="text-white">Email Templates</h5>
           <p className="dashboard-desc">{templates.length} templates available</p>

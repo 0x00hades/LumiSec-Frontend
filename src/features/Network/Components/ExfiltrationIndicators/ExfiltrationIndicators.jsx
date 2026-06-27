@@ -4,7 +4,8 @@ import "./ExfiltrationIndicators.css";
 export default function ExfiltrationIndicators({ indicators = [] }) {
   return (
     <div className="dashboard-card">
-      <div className="d-flex align-items-center mb-4">
+      <div className="row justify-content-between align-items-center p-2">
+      <div className="col-12 d-flex align-items-center mb-3 mx-0 p-0">
         <i className="fa-solid fa-arrow-up-right-from-square me-2" style={{ color: "#F97316" }} />
         <h6 className="text-white m-0">Data Exfiltration Indicators</h6>
       </div>
@@ -33,6 +34,7 @@ export default function ExfiltrationIndicators({ indicators = [] }) {
           </div>
         </div>
       ))}
+      </div>
     </div>
   );
 }

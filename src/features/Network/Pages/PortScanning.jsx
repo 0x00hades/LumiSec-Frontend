@@ -78,7 +78,7 @@ export default function PortScanning() {
 
       <div className="row g-3 justify-content-between align-items-stretch mb-4 mb-lg-5 px-2 mt-0">
 
-        <div className="col-8 dashboard-card me-2">
+        <div className="col-7 dashboard-card me-2">
 
           <div className="d-flex justify-content-between align-items-center mb-3">
 

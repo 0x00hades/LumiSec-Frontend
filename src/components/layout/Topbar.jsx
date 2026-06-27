@@ -70,7 +70,7 @@ export default function Topbar() {
       <div className="ls-topbar__spacer" />
 
       {/* ── Search ── */}
-      <div className="ls-topbar__search">
+      {/* <div className="ls-topbar__search">
         <span className="ls-topbar__search-icon">
           <Search size={14} />
         </span>
@@ -79,7 +79,7 @@ export default function Topbar() {
           className="ls-topbar__search-input"
           placeholder="Search LumiSec..."
         />
-      </div>
+      </div> */}
 
       <div className="ls-topbar__actions">
 

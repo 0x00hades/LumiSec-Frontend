@@ -196,31 +196,6 @@
   color: #A5B4FC;
 }
 
-.asset-modal .modal-content {
-  background-color: #1B202D;
-  border: 3px solid #553399;
-  color: white;
-}
-
-.asset-modal .modal-header {
-  border-bottom: 1px solid #2A3042;
-}
-
-.asset-modal .modal-footer {
-  border-top: 1px solid #2A3042;
-}
-
-.asset-detail-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 0;
-  border-bottom: 1px solid #2A3042;
-}
-
-.asset-detail-label {
-  color: #9DA3B0;
-}
-
 .spike-highlight {
   color: #EF4444 !important;
   font-weight: 600;
