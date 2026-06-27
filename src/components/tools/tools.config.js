@@ -47,6 +47,7 @@ export const tools = [
       { id: 'analytics',   name: 'Analytics & Reports',  path: '/SOAR',                    icon: 'bar-chart-2'   },
       { id: 'incidents',   name: 'Incidents Queue',      path: '/SOAR/IncidentsQueue',     icon: 'triangle-alert' },
       { id: 'management',  name: 'Incident Management',  path: '/SOAR/IncidentManagement', icon: 'folder-open'   },
+      { id: 'playbook',    name: 'Playbook Builder',     path: '/SOAR/playbook',           icon: 'wrench'        },
     ],
   },
   {

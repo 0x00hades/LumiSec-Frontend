@@ -52,7 +52,7 @@ function handleError(error) {
 
   if (status === 401) {
     clearAuth();
-    window.location.href = "/?session=expired";
+    window.location.href = "/login?session=expired";
     return Promise.reject(
       new GrcApiError("Session expired", { status })
     );

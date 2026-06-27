@@ -5,10 +5,20 @@ import icon from "../../../assets/Vector.png";
 import "./login.css";
 import "../../../styles/global.css";
 import { useAuth } from "../context/AuthContext";
-import { AuthApiError } from "../../../services/auth.api";
+import { getAllowedTools } from "../../../components/rbac/rbac";
+import { normalizeBackendRole } from "../../../components/rbac/roleMap";
+
+function resolvePostLoginPath(returnUrl, role) {
+  if (returnUrl && returnUrl.startsWith("/")) {
+    return returnUrl;
+  }
+  const normalizedRole = normalizeBackendRole(role);
+  const allowedTools = getAllowedTools(normalizedRole);
+  return allowedTools[0]?.path ?? "/welcome";
+}
 
 export default function Login() {
-  const { login } = useAuth();
+  const { demoLogin, login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -16,7 +26,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [notice, setNotice] = useState(null);
 
   const params = new URLSearchParams(location.search);
   const sessionExpired = params.get("session") === "expired";
@@ -24,31 +34,42 @@ export default function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setError(null);
+    setNotice(null);
     setLoading(true);
 
     try {
-      await login(email.trim(), password, rememberMe);
-      const destination =
-        returnUrl && returnUrl.startsWith("/") ? returnUrl : "/GRC";
-      navigate(destination, { replace: true });
+      let destinationRole = "admin";
+      if (email.trim() && password) {
+        const result = await login(email.trim(), password, rememberMe);
+        destinationRole = result.user?.role ?? destinationRole;
+      } else {
+        const result = demoLogin(email, rememberMe);
+        destinationRole = result.user?.role ?? destinationRole;
+      }
+      navigate(resolvePostLoginPath(returnUrl, destinationRole), { replace: true });
     } catch (err) {
-      const authError =
-        err instanceof AuthApiError
-          ? err
-          : new AuthApiError(err.message || "Login failed");
-      setError(authError);
+      setNotice({
+        type: "danger",
+        message: err.message || "Login failed. Try demo mode with any password.",
+      });
     } finally {
       setLoading(false);
     }
   };
 
-  const errorClass =
-    error?.status === 403
-      ? "auth-alert-warning"
-      : error?.status >= 500
-        ? "auth-alert-incident"
-        : "auth-alert-danger";
+  const handleCreateAccount = () => {
+    setNotice(null);
+    const result = demoLogin(email, rememberMe);
+    navigate(resolvePostLoginPath(null, result.user?.role ?? "admin"), { replace: true });
+  };
+
+  const handleForgotPassword = () => {
+    const targetEmail = email.trim() || "your account email";
+    setNotice({
+      type: "info",
+      message: `Password reset is enabled for demo mode. Use any password to continue as ${targetEmail}.`,
+    });
+  };
 
   return (
     <div className="login-body pb-5">
@@ -99,16 +120,13 @@ export default function Login() {
                 </div>
               )}
 
-              {error && (
-                <div className={`auth-alert ${errorClass} mb-3`} role="alert">
-                  {error.status === 401 && <strong>Invalid credentials. </strong>}
-                  {error.status === 403 && <strong>Access denied. </strong>}
-                  {error.status >= 500 && <strong>Server error. </strong>}
-                  {error.message}
+              {notice && (
+                <div className={`auth-alert auth-alert-${notice.type} mb-3`} role="alert">
+                  {notice.message}
                 </div>
               )}
 
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} noValidate>
                 <div className="mb-4">
                   <label className="text-secondary" htmlFor="email">
                     Email
@@ -120,7 +138,6 @@ export default function Login() {
                     placeholder="you@organization.org"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    required
                     autoComplete="email"
                     disabled={loading}
                   />
@@ -136,7 +153,6 @@ export default function Login() {
                     id="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    required
                     autoComplete="current-password"
                     disabled={loading}
                   />
@@ -152,10 +168,17 @@ export default function Login() {
                       disabled={loading}
                     />
                     <label className="rememberMe-label" htmlFor="rememberMe">
-                      Remember me
+                    Remember me
                     </label>
                   </div>
-                  <span className="text-purple text-decoration-none">Forgot password?</span>
+                  <button
+                    type="button"
+                    className="link-action text-purple"
+                    onClick={handleForgotPassword}
+                    disabled={loading}
+                  >
+                    Forgot password?
+                  </button>
                 </div>
                 <button
                   type="submit"
@@ -170,6 +193,14 @@ export default function Login() {
                   ) : (
                     "Sign in"
                   )}
+                </button>
+                <button
+                  type="button"
+                  className="create-account-btn text-white w-100 pt-3 p-2 rounded-3 mb-3"
+                  onClick={handleCreateAccount}
+                  disabled={loading}
+                >
+                  Create account
                 </button>
                 <p className="text-secondary text-center position-relative sepration-text">
                   or continue with

@@ -667,3 +667,39 @@
   color: var(--ls-text-secondary);
   max-width: 420px;
 }
+
+/* ────────────────────────────────────────────────────────────────
+   MODULE PAGE SUB-HEADERS (inside shared layout)
+   Hide legacy chrome duplicated by the global topbar/sidebars.
+   ──────────────────────────────────────────────────────────────── */
+.lumisec-content .soar-analytics-page,
+.lumisec-content .incident-queue-page,
+.lumisec-content .incident-management-page {
+  min-height: auto !important;
+}
+
+.lumisec-content .soar-analytics-topbar,
+.lumisec-content .incident-queue-topbar,
+.lumisec-content .incident-management-topbar {
+  position: sticky !important;
+  top: calc(-1 * var(--page-pad)) !important;
+  width: calc(100% + 2 * var(--page-pad)) !important;
+  margin-top: calc(-1 * var(--page-pad)) !important;
+  margin-left: calc(-1 * var(--page-pad)) !important;
+  margin-right: calc(-1 * var(--page-pad)) !important;
+  margin-bottom: var(--page-pad) !important;
+  min-height: 56px !important;
+  z-index: 200 !important;
+}
+
+.lumisec-content .soar-analytics-topbar .soar-analytics-left > .btn,
+.lumisec-content .soar-analytics-topbar .soar-analytics-logo,
+.lumisec-content .soar-analytics-topbar .soar-analytics-profile,
+.lumisec-content .incident-queue-topbar .incident-queue-header-left > .btn,
+.lumisec-content .incident-queue-topbar .incident-queue-logo,
+.lumisec-content .incident-queue-topbar .incident-queue-header-right,
+.lumisec-content .incident-management-topbar .incident-management-header-left > .btn,
+.lumisec-content .incident-management-topbar .incident-management-logo,
+.lumisec-content .incident-management-topbar .incident-management-profile {
+  display: none !important;
+}

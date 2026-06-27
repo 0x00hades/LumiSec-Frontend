@@ -60,7 +60,7 @@ export function generateSidebarSections(role) {
       id: 'main',
       label: null,
       items: [
-        { id: 'home', name: 'Dashboard', path: '/GRC', icon: 'layout-dashboard' },
+        { id: 'home', name: 'Home', path: '/welcome', icon: 'layout-dashboard' },
       ],
     },
     {

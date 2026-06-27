@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Bell, ChevronDown, LogOut, Search, Shield } from 'lucide-react';
+import { Bell, ChevronDown, LogOut, Shield } from 'lucide-react';
 import { useAuth } from '../../features/auth/context/AuthContext';
 import { usePermissions, setDevRole, DEV_ROLE_KEY } from '../rbac/usePermissions';
 import { useActiveTool } from '../context/ToolContext';
@@ -31,7 +31,7 @@ export default function Topbar() {
 
   function handleLogout() {
     logout();
-    navigate('/');
+    navigate('/login');
   }
 
   function handleRoleChange(newRole) {

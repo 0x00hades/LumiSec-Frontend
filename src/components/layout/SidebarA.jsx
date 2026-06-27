@@ -4,6 +4,7 @@ import {
   Activity,
   AlertCircle,
   BarChart2,
+  Building2,
   ClipboardCheck,
   Crosshair,
   Eye,
@@ -11,8 +12,10 @@ import {
   FileText,
   FolderOpen,
   GitBranch,
+  Globe,
   LayoutDashboard,
   LayoutGrid,
+  List,
   Network,
   Rss,
   ScanLine,
@@ -23,6 +26,7 @@ import {
   Shield,
   ShieldCheck,
   Target,
+  TrendingUp,
   TriangleAlert,
   Users,
   Wrench,
@@ -58,6 +62,10 @@ const ICON_MAP = {
   'server':           <Server size={16} />,
   'git-branch':       <GitBranch size={16} />,
   'shield':           <Shield size={16} />,
+  'building-2':       <Building2 size={16} />,
+  'trending-up':      <TrendingUp size={16} />,
+  'globe':            <Globe size={16} />,
+  'list':             <List size={16} />,
 };
 
 function getIcon(name) {

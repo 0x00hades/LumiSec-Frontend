@@ -29,6 +29,7 @@ export default function PhishingIntegrationActions({ campaign, compact = false }
     setLoadingKey(action.key);
     try {
       const payloads = buildIntegrationPayload(campaign);
+      if (!payloads[action.key]) throw new Error("This integration needs more backend context first.");
       await action.fn(payloads);
       setFeedback({ type: "success", text: `${action.label} queued` });
     } catch (err) {
@@ -47,7 +48,7 @@ export default function PhishingIntegrationActions({ campaign, compact = false }
         </small>
       )}
       <div className="integration-actions">
-        {ACTIONS.map((action) => (
+        {ACTIONS.filter((action) => buildIntegrationPayload(campaign)[action.key]).map((action) => (
           <button
             key={action.key}
             type="button"

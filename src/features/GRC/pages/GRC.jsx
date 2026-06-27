@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-import { NavLink, Outlet , Link } from 'react-router-dom'
-
-
+import { NavLink, Outlet, Link } from 'react-router-dom'
 
 import "./GRC.css"
 import HeaderUserMenu from "../../auth/components/HeaderUserMenu";
@@ -23,66 +21,6 @@ export default function GRC() {
 
     return (
         <>
-
-            {/* ================= HEADER ================= */}
-            <header className='topbar'>
-
-            <div className='left-section'>
-
-                {/* Mobile open sidebar */}
-                <button
-                    className='btn text-white border-0 p-0 d-lg-none'
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#mobileSidebar"
-                >
-                    <Menu size={28} />
-                </button>
-
-                {/* Desktop collapse */}
-                <button
-                    className='btn text-white border-0 p-0 d-none d-lg-block'
-                    onClick={() => setCollapsed(!collapsed)}
-                >
-                    <Menu size={28} />
-                </button>
-
-                <Link to="/GRC" className="text-decoration-none">
-                    <h1 className="logo m-0">LumiSec</h1>
-                </Link>
-
-            </div>
-
-                {/* SEARCH */}
-                <div className='search-container'>
-
-                    <i className="fa-brands fa-sistrix search-icon"></i>
-
-                    <input
-                        type="text"
-                        className='form-control header-search-input rounded-5'
-                        placeholder='Search tasks...'
-                    />
-
-                </div>
-
-                {/* RIGHT */}
-                <div className='right-section'>
-
-                    <i
-                        className="fa-regular fa-bell notification-icon fs-5"
-                        title={unreadCount ? `${unreadCount} unread notifications` : "Notifications"}
-                        onClick={() => unreadCount > 0 && markAllRead()}
-                        role="button"
-                        tabIndex={0}
-                        onKeyDown={(e) => e.key === "Enter" && unreadCount > 0 && markAllRead()}
-                    />
-
-                    <HeaderUserMenu />
-
-                </div>
-
-            </header>
-
             {/* ================= LAYOUT ================= */}
             <div className='main-layout'>
 
@@ -99,6 +37,64 @@ export default function GRC() {
 
                 {/* CONTENT */}
                 <main className='content'>
+                    {/* ================= HEADER ================= */}
+                    <header className='topbar'>
+
+                        <div className='left-section'>
+
+                            {/* Mobile open sidebar */}
+                            <button
+                                className='btn text-white border-0 p-0 d-lg-none'
+                                data-bs-toggle="offcanvas"
+                                data-bs-target="#mobileSidebar"
+                            >
+                                <Menu size={28} />
+                            </button>
+
+                            {/* Desktop collapse */}
+                            <button
+                                className='btn text-white border-0 p-0 d-none d-lg-block'
+                                onClick={() => setCollapsed(!collapsed)}
+                            >
+                                <Menu size={28} />
+                            </button>
+
+                            <Link to="/GRC" className="text-decoration-none">
+                                <h1 className="logo m-0">LumiSec</h1>
+                            </Link>
+
+                        </div>
+
+                        {/* SEARCH */}
+                        <div className='search-container'>
+
+                            <i className="fa-brands fa-sistrix search-icon"></i>
+
+                            <input
+                                type="text"
+                                className='form-control header-search-input rounded-5'
+                                placeholder='Search tasks...'
+                            />
+
+                        </div>
+
+                        {/* RIGHT */}
+                        <div className='right-section'>
+
+                            <i
+                                className="fa-regular fa-bell notification-icon fs-5"
+                                title={unreadCount ? `${unreadCount} unread notifications` : "Notifications"}
+                                onClick={() => unreadCount > 0 && markAllRead()}
+                                role="button"
+                                tabIndex={0}
+                                onKeyDown={(e) => e.key === "Enter" && unreadCount > 0 && markAllRead()}
+                            />
+
+                            <HeaderUserMenu />
+
+                        </div>
+
+                    </header>
                     <Outlet />
                 </main>
 

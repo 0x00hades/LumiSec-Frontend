@@ -62,7 +62,10 @@ export default function SidebarB() {
           {si > 0 && <div className="ls-sidebar-b__divider" />}
 
           {section.items.map(item => {
-            const isActive = pathname === item.path || pathname.startsWith(item.path + '/');
+            const isActive =
+              item.id === 'home'
+                ? pathname === item.path
+                : pathname === item.path || pathname.startsWith(`${item.path}/`);
             return (
               <NavLink
                 key={item.id}

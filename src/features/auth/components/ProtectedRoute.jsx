@@ -26,7 +26,7 @@ export default function ProtectedRoute({ children }) {
     const returnUrl = encodeURIComponent(
       location.pathname + location.search
     );
-    return <Navigate to={`/?returnUrl=${returnUrl}`} replace />;
+    return <Navigate to={`/login?returnUrl=${returnUrl}`} replace />;
   }
 
   return children;
