@@ -85,23 +85,23 @@ export default function PhishingDashboard() {
           />
     </div>
 
-    <div className='row justify-content-between m-0'>
-      <div className='col-7 dashboard-card mb-3'>
+    <div className='row justify-content-between g-3 m-0'>
+      <div className='col-12 col-lg-7 dashboard-card mb-3'>
         <CampaignTrendChart />
       </div>
 
-      <div className='col dashboard-card mb-3 ms-2'>
+      <div className='col-12 col-lg dashboard-card mb-3'>
         <CampaignFunnel />
       </div>
     </div>
 
 
-    <div className='row justify-content-between m-0'>
-      <div className='col-4 dashboard-card mb-3'>
+    <div className='row justify-content-between g-3 m-0'>
+      <div className='col-12 col-lg-4 dashboard-card mb-3'>
         <DepartmentRisk />
       </div>
 
-      <div className='col dashboard-card mb-3 mx-3'>
+      <div className='col-12 col-lg dashboard-card mb-3'>
         <RecentCampaignsTabel />
       </div>
     </div>

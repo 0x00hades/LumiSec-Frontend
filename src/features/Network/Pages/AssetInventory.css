@@ -1,3 +1,177 @@
+/* ============================================================
+   Asset Inventory page — responsive layout (scoped)
+   Prefix: .asset-inventory-page
+   ============================================================ */
+
+.asset-inventory-page {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: clip;
+}
+
+/* ── Toolbar: search, filters, refresh ── */
+.asset-inventory-page .asset-inventory-toolbar {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.asset-inventory-page .asset-inventory-toolbar .search-container {
+  flex: 1 1 auto;
+  max-width: 100%;
+  width: 100%;
+  margin: 0;
+  min-width: 0;
+}
+
+.asset-inventory-page .asset-inventory-toolbar .header-search-input.assets {
+  width: 100%;
+  min-width: 0;
+}
+
+.asset-inventory-page .asset-inventory-toolbar .form-select,
+.asset-inventory-page .asset-inventory-toolbar .start-btn {
+  min-height: 42px;
+}
+
+.asset-inventory-page .asset-inventory-toolbar .start-btn {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+/* ── Card header ── */
+.asset-inventory-page .asset-inventory-card {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.asset-inventory-page .asset-inventory-card-header {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.asset-inventory-page .asset-inventory-card-icon {
+  width: 28px;
+  flex-shrink: 0;
+}
+
+.asset-inventory-page .asset-inventory-card-header h6 {
+  min-width: 0;
+  word-break: break-word;
+}
+
+/* ── Table wrapper ── */
+.asset-inventory-page .assets-tabel {
+  min-width: 0;
+}
+
+.asset-inventory-page .assets-tabel .table-responsive-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.asset-inventory-page .assets-tabel table.discover-tabel {
+  width: 100%;
+  min-width: 920px;
+  margin-bottom: 0;
+}
+
+.asset-inventory-page .assets-tabel .ip-address figure {
+  width: 28px;
+  flex-shrink: 0;
+}
+
+.asset-inventory-page .assets-tabel .ip-address .d-flex {
+  min-width: 0;
+}
+
+.asset-inventory-page .assets-tabel .ip-address p {
+  min-width: 0;
+  word-break: break-word;
+}
+
+.asset-inventory-page .assets-tabel .mac-address {
+  word-break: break-all;
+}
+
+.asset-inventory-page .assets-tabel .operating-system {
+  max-width: 100%;
+}
+
+.asset-inventory-page .assets-tabel .vendor {
+  white-space: nowrap;
+}
+
+.asset-inventory-page .assets-tabel .vendor .btn {
+  min-width: 2.25rem;
+  min-height: 2.25rem;
+  padding: 0.25rem 0.5rem;
+}
+
+/* ── Tablet ── */
+@media (max-width: 991.98px) {
+  .asset-inventory-page .asset-inventory-toolbar .start-btn {
+    justify-content: center;
+  }
+
+  .asset-inventory-page .assets-tabel .table-responsive-wrapper {
+    max-height: min(520px, 62vh);
+  }
+
+  .asset-inventory-page .assets-tabel table.discover-tabel {
+    min-width: 880px;
+  }
+}
+
+/* ── Large mobile ── */
+@media (max-width: 767.98px) {
+  .asset-inventory-page .asset-inventory-toolbar {
+    --bs-gutter-y: 0.75rem;
+  }
+
+  .asset-inventory-page .asset-inventory-card {
+    padding: 0.75rem;
+  }
+
+  .asset-inventory-page .assets-tabel table.discover-tabel thead th,
+  .asset-inventory-page .assets-tabel table.discover-tabel td {
+    padding: 12px 10px;
+  }
+
+  .asset-inventory-page .assets-tabel .operating-system {
+    padding: 4px 12px;
+  }
+
+  .asset-inventory-page .assets-tabel .risk-score {
+    padding: 4px 12px;
+    white-space: nowrap;
+  }
+}
+
+/* ── Small mobile ── */
+@media (max-width: 575.98px) {
+  .asset-inventory-page .asset-inventory-card-icon {
+    width: 24px;
+  }
+
+  .asset-inventory-page .assets-tabel .table-responsive-wrapper {
+    border-radius: 10px;
+    max-height: min(460px, 58vh);
+  }
+
+  .asset-inventory-page .assets-tabel table.discover-tabel {
+    min-width: 840px;
+  }
+
+  .asset-inventory-page .assets-tabel .ip-address figure {
+    width: 22px;
+    margin-right: 0.5rem !important;
+  }
+}
+
 .header-search-input.assets{
     height: 42px;
     padding-left: 42px !important;

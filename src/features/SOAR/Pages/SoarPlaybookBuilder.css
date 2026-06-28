@@ -660,14 +660,46 @@
 
 @media (max-width: 1180px) {
   .soar-platform {
-    overflow: auto;
+    overflow: hidden;
   }
 
   .soar-platform-header {
-    min-width: 1180px;
+    min-width: 0;
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 54px;
+    padding: 10px 16px;
+    row-gap: 10px;
+  }
+
+  .soar-title,
+  .soar-actions {
+    flex-wrap: wrap;
+    gap: 10px;
   }
 
   .soar-workspace {
-    width: 1180px;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .canvas-viewport {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .soar-playbook-name-input {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .soar-title strong {
+    font-size: 20px;
+  }
+
+  .soar-title p {
+    font-size: 14px;
   }
 }

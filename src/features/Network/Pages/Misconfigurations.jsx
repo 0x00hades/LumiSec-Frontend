@@ -62,8 +62,8 @@ export default function Misconfigurations() {
         />
       </div>
 
-      <div className="row m-0">
-        <div className="col-9 mb-0 p-0">
+      <div className="row g-3 m-0">
+        <div className="col-12 col-lg-9 mb-0 p-0">
           <div className="dashboard-card">
             <div className="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
               <div className="d-flex align-items-center">
@@ -93,7 +93,7 @@ export default function Misconfigurations() {
           </div>
         </div>
 
-        <div className="col-3 mb-3">
+        <div className="col-12 col-lg-3 mb-3">
           <div className="d-flex flex-column gap-3 mb-3">
             <div className="dashboard-card">
               <div className="d-flex align-items-center mb-0">

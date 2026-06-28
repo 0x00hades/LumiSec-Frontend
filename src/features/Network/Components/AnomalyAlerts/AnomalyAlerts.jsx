@@ -21,13 +21,13 @@ export default function AnomalyAlerts({ anomalies = [] }) {
         )}
 
         {anomalies.map((alert) => (
-          <div key={alert.id} className="row justify-content-between align-items-center mb-4 p-0 w-100">
-            <div className="col-2">
+          <div key={alert.id} className="row g-2 justify-content-between align-items-center mb-4 p-0 w-100">
+            <div className="col-12 col-sm-2">
               <p className={`rounded-3 w-fit-content mb-0 text-capitalize ${severityBadgeClass(alert.severity)}`}>
                 {alert.severity}
               </p>
             </div>
-            <div className="col-7 p-0">
+            <div className="col-12 col-sm-7 p-0">
               <p className={`text-white mb-0 ${alert.isSpike ? "spike-highlight" : ""}`}>{alert.type}</p>
               <div className="d-flex justify-content-between align-items-center p-0 flex-wrap">
                 <p className="mb-0">
@@ -38,7 +38,7 @@ export default function AnomalyAlerts({ anomalies = [] }) {
                 </p>
               </div>
             </div>
-            <div className="col-2 p-0">
+            <div className="col-12 col-sm-3 p-0">
               <p className="mb-0">{alert.timestamp}</p>
             </div>
           </div>

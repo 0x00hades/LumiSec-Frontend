@@ -22,8 +22,15 @@
 .dark-background{
     background-color: #111827b5;
     border: 2px solid #1F2937;
-    width: 85%;
+    width: 100%;
+    max-width: 100%;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+@media (min-width: 992px) {
+  .dark-background {
+    width: 85%;
+  }
 }
 
 

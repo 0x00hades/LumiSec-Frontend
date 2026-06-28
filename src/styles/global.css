@@ -10,6 +10,14 @@ body {
     overflow-x: hidden;
 }
 
+
+.integration-btn{
+    background-color: #252B3A;
+    color: white;
+    border: none;
+}
+
+
 /* Icon + title inline alignment (use across app) */
 .icon-title {
     display: inline-flex;
@@ -128,4 +136,62 @@ body {
 
 .w-fit-content{
     width: fit-content;
+}
+
+/* ── Responsive layout utilities ── */
+.ls-table-scroll {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.ls-table-scroll > table {
+    width: 100%;
+    min-width: 560px;
+}
+
+.ls-nav-tabs-scroll {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    flex-wrap: nowrap;
+}
+
+.ls-nav-tabs-scroll .nav-item {
+    flex-shrink: 0;
+}
+
+.ls-nav-tabs-scroll .nav-link {
+    white-space: nowrap;
+}
+
+.ls-stack-gap {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+@media (max-width: 991px) {
+    .w-35 {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 767px) {
+    .phishing-soc-page,
+    .network-soc-page {
+        padding: 12px;
+    }
+
+    .wizard-steps {
+        flex-direction: column;
+    }
+
+    .wizard-step {
+        flex: none;
+        width: 100%;
+    }
 }

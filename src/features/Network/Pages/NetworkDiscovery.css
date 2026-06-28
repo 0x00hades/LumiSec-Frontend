@@ -8,5 +8,12 @@ i.discover-search-icon{
 
 
 .Discovered-Hosts .form-select{
-    width: 15%;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+  .Discovered-Hosts .form-select{
+      width: auto;
+      min-width: 140px;
+  }
 }

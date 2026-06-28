@@ -22,9 +22,9 @@ export default function ScanConfiguration({ onScan, loading = false, defaults = 
         <h6 className="text-white mb-0">Scan Configuration</h6>
       </div>
 
-      <form onSubmit={handleSubmit}>
-        <div className="row justify-content-between align-items-center mb-3">
-          <div className="col-3">
+      <form onSubmit={handleSubmit} className="ls-config-form">
+        <div className="row g-3 align-items-end mb-3">
+          <div className="col-12 col-md-6 col-xl-3">
             <label htmlFor="subnet" className="d-block">Subnet</label>
             <input
               type="text"
@@ -37,7 +37,7 @@ export default function ScanConfiguration({ onScan, loading = false, defaults = 
             />
           </div>
 
-          <div className="col-3">
+          <div className="col-12 col-md-6 col-xl-3">
             <label htmlFor="scanType" className="d-block">Scan Type</label>
             <select name="scanType" id="scanType" className="form-select scanType-select border-0" defaultValue="both">
               <option value="both">Both</option>
@@ -46,7 +46,7 @@ export default function ScanConfiguration({ onScan, loading = false, defaults = 
             </select>
           </div>
 
-          <div className="col-3">
+          <div className="col-12 col-md-6 col-xl-3">
             <label htmlFor="timeout" className="d-block">Timeout (ms)</label>
             <input
               type="number"
@@ -58,11 +58,11 @@ export default function ScanConfiguration({ onScan, loading = false, defaults = 
             />
           </div>
 
-          <div className="col-3">
+          <div className="col-12 col-md-6 col-xl-3">
             <button
               type="submit"
               disabled={loading}
-              className="btn start-btn border-0 rounded-3 text-black fw-medium me-3 ps-0 d-flex justify-content-between align-items-center mt-4"
+              className="btn start-btn border-0 rounded-3 text-black fw-medium ps-0 d-flex justify-content-between align-items-center"
             >
               {loading ? (
                 <i className="fa-solid fa-spinner fa-spin mx-2 text-dark" />

@@ -36,12 +36,12 @@ export default function Overview() {
 
   return (
     <div className="phishing-soc-page">
-      <div className="d-flex justify-content-between align-items-center mb-3">
+        <div className="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
         <div>
           <h5 className="text-white mb-1">Phishing Simulation — Overview</h5>
           <p className="dashboard-desc mb-0">SOC dashboard — live campaign metrics</p>
         </div>
-        <div className="d-flex gap-2">
+        <div className="d-flex flex-wrap gap-2">
           <Link to="/Phishing/Dashboard/Risks" className="btn btn-sm text-white integration-btn">Risks</Link>
           <Link to="/Phishing/Dashboard/Departments" className="btn btn-sm text-white integration-btn">Departments</Link>
           <Link to="/Phishing/Dashboard/Trends" className="btn btn-sm text-white integration-btn">Trends</Link>
@@ -50,7 +50,7 @@ export default function Overview() {
 
       <PhishingAlert type="danger" message={error} onRetry={reload} />
 
-      <div className="row justify-content-between align-items-center mb-3">
+      <div className="row justify-content-between align-items-center gy-3 mb-3">
         <DashboardCard4 title="Active Campaigns" icon={analysisIcon} Statistics={formatNumber(data?.activeCampaigns)} text2={`Success rate: ${formatPercent(data?.successRate)}`} />
         <DashboardCard4 title="Emails Sent" icon={sendIcon} Statistics={formatNumber(data?.emailsSent)} text2="across all campaigns" />
         <DashboardCard4 title="Open Rate" icon={emailIcon} Statistics={formatPercent(data?.openRate)} text2={`Industry avg: ${data?.industryOpenAvg ?? 0}%`} />
@@ -59,12 +59,12 @@ export default function Overview() {
         <DashboardCard4 title="Risks Created" icon={infoIcon} Statistics={formatNumber(data?.risksCreated)} text2="In GRC pipeline" />
       </div>
 
-      <div className="row justify-content-between m-0">
-        <div className="col-7 dashboard-card mb-3"><CampaignTrendChart trends={data?.trends ?? trends} /></div>
-        <div className="col dashboard-card mb-3 ms-2"><CampaignFunnel funnel={funnel} overview={data} /></div>
+      <div className="row justify-content-between gy-3 mb-3 m-0">
+        <div className="col-12 col-lg-7 dashboard-card mb-3 mb-lg-0"><CampaignTrendChart trends={data?.trends ?? trends} /></div>
+        <div className="col-12 col-lg dashboard-card mx-lg-2"><CampaignFunnel funnel={funnel} overview={data} /></div>
       </div>
 
-      <div className="col dashboard-card mb-3"><RecentCampaignsTabel campaigns={recentCampaigns} /></div>
+      <div className="col-12 dashboard-card mb-3"><RecentCampaignsTabel campaigns={recentCampaigns} /></div>
     </div>
   );
 }

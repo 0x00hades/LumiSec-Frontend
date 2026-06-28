@@ -4,9 +4,9 @@ import "./CampaignsTabel.css"
 export default function CampaignsTabel() {
   return <>
   
-  <div className='d-flex justify-content-between align-items-center search-container mb-3'>
+  <div className='row g-2 align-items-center search-container mb-3'>
     
-    <div className='col-9 me-4'>
+    <div className='col-12 col-lg-9'>
         <i className="fa-brands fa-sistrix discover-search-icon"></i>
 
         <input
@@ -15,7 +15,7 @@ export default function CampaignsTabel() {
             placeholder='Search...'
         />
     </div>
-    <div className='col-3 d-flex justify-content-between align-items-center'>
+    <div className='col-12 col-lg-3 d-flex flex-wrap gap-2 justify-content-lg-end align-items-center'>
         <button className='all rounded-5 mb-0 me-2 btn'>All</button>
         <button className='inActive-btn rounded-5 mb-0 me-2 btn'>Active</button>
         <button className='inActive-btn rounded-5 mb-0 me-2 btn'>Paused</button>

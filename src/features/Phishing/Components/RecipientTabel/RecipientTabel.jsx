@@ -5,17 +5,14 @@ export default function RecipientTabel() {
   return <>
 
 <div className='px-2'>
-  <div className='search-container mb-3 mx-0'>
-      
-      <div className='col-9 me-4'>
+  <div className='search-container mb-3 mx-0 w-100'>
           <i className="fa-brands fa-sistrix discover-search-icon"></i>
 
           <input
               type="text"
-              className='form-control header-search-input rounded-3'
+              className='form-control header-search-input rounded-3 w-100'
               placeholder='Search...'
           />
-      </div>
 
     </div>
 

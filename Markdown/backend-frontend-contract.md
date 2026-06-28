@@ -40,6 +40,47 @@ Base path: `/api/auth`
 | Login | `POST /login` | `{ email, password }` -> `{ user, token }` |
 | Current profile | `GET /profile` | token required -> user |
 
+### User Administration
+
+Admin role required. Base path remains `/api/auth`.
+
+Use:
+- `GET /users?page&limit&sort&search&role&status`
+- `POST /signup` — create user (same payload as Signup row)
+- `GET /users/:id`
+- `PATCH /users/:id`
+- `DELETE /users/:id`
+- `PATCH /users/:id/activate`
+- `PATCH /users/:id/deactivate`
+- `POST /users/:id/reset-password` — `{ password }`
+
+User fields:
+- `_id`
+- `name`
+- `email`
+- `role`
+- `department?`
+- `status`: `active | inactive`
+- `createdAt`, `updatedAt`, `lastLoginAt?`
+
+Update user payload (`PATCH /users/:id`):
+
+```json
+{
+  "name": "Jane Analyst",
+  "email": "jane@example.com",
+  "role": "soc_analyst",
+  "department": "SOC"
+}
+```
+
+List query params:
+- `page`, `limit` — pagination
+- `sort` — e.g. `-createdAt`, `name`, `email`
+- `search` — matches name or email
+- `role` — filter by backend role
+- `status` — `active` or `inactive`
+
 Roles from backend:
 `admin`, `soc_analyst`, `soc_manager`, `red_team`, `detection_engineer`, `auditor`, `compliance_manager`, `it_manager`, `assignee`, `grc_manager`, `phishing_operator`, `phishing_manager`, `senior_analyst`, `integration_admin`, `read_only`.
 

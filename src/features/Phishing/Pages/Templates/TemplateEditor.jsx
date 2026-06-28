@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { Formik, Form } from "formik";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import PhishingAlert from "../../Components/Shared/PhishingAlert";
 import PhishingLoading from "../../Components/Shared/PhishingLoading";
 import RoleGate from "../../Components/Shared/RoleGate";
 import { canEditTemplates } from "../../utils/roles";
 import useTemplates from "../../hooks/useTemplates";
+import FormFieldError from "../../../../components/forms/FormFieldError";
 import "../../Components/Shared/PhishingShared.css";
 
 export default function TemplateEditor() {
@@ -12,40 +14,7 @@ export default function TemplateEditor() {
   const navigate = useNavigate();
   const isNew = id === "new";
   const { template, loading, createTemplate, updateTemplate } = useTemplates(isNew ? null : id);
-  const [form, setForm] = useState({ name: "", subject: "", htmlBody: "", textBody: "", category: "credential", language: "en" });
-  const [error, setError] = useState(null);
-  const [saving, setSaving] = useState(false);
-
-  useEffect(() => {
-    if (template) {
-      setForm({
-        name: template.name,
-        subject: template.subject,
-        htmlBody: template.htmlBody ?? template.body ?? "",
-        textBody: template.textBody ?? "",
-        category: template.category,
-        language: template.language ?? "en",
-      });
-    }
-  }, [template]);
-
-  const handleSave = async (e) => {
-    e.preventDefault();
-    setSaving(true);
-    setError(null);
-    try {
-      if (isNew) {
-        const created = await createTemplate(form);
-        navigate(`/Phishing/Templates/${created?.id}/edit`);
-      } else {
-        await updateTemplate(id, form);
-      }
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setSaving(false);
-    }
-  };
+  const [error, setError] = React.useState(null);
 
   if (loading && !isNew) return <PhishingLoading message="Loading template..." />;
 
@@ -58,31 +27,100 @@ export default function TemplateEditor() {
         </div>
         <PhishingAlert type="danger" message={error} />
 
-        <form onSubmit={handleSave} className="dashboard-card p-3">
-          <div className="mb-3">
-            <label className="text-secondary">Name</label>
-            <input className="form-control header-search-input" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
-          </div>
-          <div className="mb-3">
-            <label className="text-secondary">Subject</label>
-            <input className="form-control header-search-input" value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} required />
-          </div>
-          <div className="mb-3">
-            <label className="text-secondary">Category</label>
-            <select className="form-select scanType-select border-0" value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}>
-              <option value="credential">Credential</option>
-              <option value="finance">Finance</option>
-              <option value="delivery">Delivery</option>
-            </select>
-          </div>
-          <div className="mb-3">
-            <label className="text-secondary">HTML Body</label>
-            <textarea className="form-control header-search-input" rows={12} value={form.htmlBody} onChange={(e) => setForm({ ...form, htmlBody: e.target.value })} />
-          </div>
-          <button type="submit" className="btn add-btn text-white border-0" disabled={saving}>
-            {saving ? "Saving..." : "Save Template"}
-          </button>
-        </form>
+        <Formik
+          enableReinitialize
+          initialValues={{
+            name: template?.name ?? "",
+            subject: template?.subject ?? "",
+            htmlBody: template?.htmlBody ?? template?.body ?? "",
+            textBody: template?.textBody ?? "",
+            category: template?.category ?? "credential",
+            language: template?.language ?? "en",
+          }}
+          validate={(values) => {
+            const errors = {};
+            if (!values.name.trim()) errors.name = "Template name is required";
+            if (!values.subject.trim()) errors.subject = "Subject is required";
+            return errors;
+          }}
+          onSubmit={async (values, { setSubmitting }) => {
+            setError(null);
+            setSubmitting(true);
+            try {
+              if (isNew) {
+                const created = await createTemplate(values);
+                navigate(`/Phishing/Templates/${created?.id}/edit`);
+              } else {
+                await updateTemplate(id, values);
+              }
+            } catch (err) {
+              setError(err.message);
+            } finally {
+              setSubmitting(false);
+            }
+          }}
+        >
+          {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => (
+            <Form className="dashboard-card p-3" noValidate>
+              <div className="mb-3">
+                <label className="text-secondary" htmlFor="templateName">Name</label>
+                <FormFieldError name="name" errors={errors} touched={touched} />
+                <input
+                  id="templateName"
+                  name="name"
+                  className="form-control header-search-input"
+                  value={values.name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  aria-invalid={Boolean(touched.name && errors.name)}
+                />
+              </div>
+              <div className="mb-3">
+                <label className="text-secondary" htmlFor="templateSubject">Subject</label>
+                <FormFieldError name="subject" errors={errors} touched={touched} />
+                <input
+                  id="templateSubject"
+                  name="subject"
+                  className="form-control header-search-input"
+                  value={values.subject}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  aria-invalid={Boolean(touched.subject && errors.subject)}
+                />
+              </div>
+              <div className="mb-3">
+                <label className="text-secondary" htmlFor="templateCategory">Category</label>
+                <select
+                  id="templateCategory"
+                  name="category"
+                  className="form-select scanType-select border-0"
+                  value={values.category}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                >
+                  <option value="credential">Credential</option>
+                  <option value="finance">Finance</option>
+                  <option value="delivery">Delivery</option>
+                </select>
+              </div>
+              <div className="mb-3">
+                <label className="text-secondary" htmlFor="templateHtmlBody">HTML Body</label>
+                <textarea
+                  id="templateHtmlBody"
+                  name="htmlBody"
+                  className="form-control header-search-input"
+                  rows={12}
+                  value={values.htmlBody}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </div>
+              <button type="submit" className="btn add-btn text-white border-0" disabled={isSubmitting}>
+                {isSubmitting ? "Saving..." : "Save Template"}
+              </button>
+            </Form>
+          )}
+        </Formik>
       </div>
     </RoleGate>
   );

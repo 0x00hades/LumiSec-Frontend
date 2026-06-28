@@ -27,7 +27,7 @@ export default function Recipients() {
       </div>
 
 
-              <ul className="nav mb-4" id="myTab" role="tablist">
+              <ul className="nav mb-4 ls-nav-tabs-scroll" id="myTab" role="tablist">
             <li className="nav-item">
                 <a className="nav-link active" data-bs-toggle="tab" href="#RecipientsList">Recipients List</a>
             </li>

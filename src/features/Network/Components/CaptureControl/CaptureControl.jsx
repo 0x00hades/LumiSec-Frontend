@@ -30,9 +30,9 @@ export default function CaptureControl({
         <h6 className="text-white mb-0">Capture Controls</h6>
       </div>
 
-      <form onSubmit={handleSubmit}>
-        <div className="row justify-content-between align-items-center mb-3">
-          <div className="col">
+      <form onSubmit={handleSubmit} className="ls-config-form">
+        <div className="row g-3 align-items-end mb-3">
+          <div className="col-12 col-sm-6 col-lg-4 col-xl">
             <label htmlFor="interface" className="d-block mb-1">Interface</label>
             <select name="interface" id="interface" className="form-select ScanType-select border-0" defaultValue="eth0">
               <option value="eth0">eth0</option>
@@ -41,7 +41,7 @@ export default function CaptureControl({
             </select>
           </div>
 
-          <div className="col">
+          <div className="col-12 col-sm-6 col-lg-4 col-xl">
             <label htmlFor="duration" className="d-block mb-1">Duration (sec)</label>
             <input
               type="number"
@@ -53,7 +53,7 @@ export default function CaptureControl({
             />
           </div>
 
-          <div className="col">
+          <div className="col-12 col-sm-6 col-lg-4 col-xl">
             <label htmlFor="bpfFilter" className="d-block mb-1">BPF Filter</label>
             <input
               type="text"
@@ -64,18 +64,18 @@ export default function CaptureControl({
             />
           </div>
 
-          <div className="col">
+          <div className="col-12 col-sm-6 col-lg-4 col-xl">
             <label className="d-block mb-1">Status</label>
             <button type="button" className={`btn border-0 w-100 ${active ? "btn-success" : "btn-secondary text-white"}`}>
               {active ? "Capturing" : "Stopped"}
             </button>
           </div>
 
-          <div className="col">
+          <div className="col-12 col-sm-6 col-lg-4 col-xl">
             <button
               type="submit"
               disabled={loading}
-              className={`btn border-0 rounded-3 text-white fw-medium me-3 ps-0 d-flex justify-content-between align-items-center mt-4 ${active ? "btn-danger" : "start-btn"}`}
+              className={`btn border-0 rounded-3 text-white fw-medium ps-0 d-flex justify-content-between align-items-center w-100 ${active ? "btn-danger" : "start-btn"}`}
             >
               {loading ? (
                 <i className="fa-solid fa-spinner fa-spin mx-2 text-white" />

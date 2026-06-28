@@ -66,6 +66,11 @@
   margin-bottom: 12px;
 }
 
+.asset-inventory-modal{
+  position: absolute;
+  top: 60px !important;
+}
+
 @keyframes network-spin {
   to {
     transform: rotate(360deg);
@@ -199,4 +204,31 @@
 .spike-highlight {
   color: #EF4444 !important;
   font-weight: 600;
+}
+
+/* Scan / capture configuration forms */
+.ls-config-form .row {
+  row-gap: 1rem;
+}
+
+.ls-config-form [class*="col-"] {
+  min-width: 0;
+}
+
+.ls-config-form .form-control,
+.ls-config-form .form-select {
+  width: 100%;
+}
+
+.ls-config-form .start-btn,
+.ls-config-form .btn {
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (min-width: 992px) {
+  .ls-config-form .start-btn,
+  .ls-config-form .btn {
+    width: auto;
+  }
 }

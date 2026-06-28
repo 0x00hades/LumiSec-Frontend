@@ -40,66 +40,74 @@ export default function AssetInventory() {
   const categories = ["all", "network", "servers", "iot", "general"];
 
   return (
-    <>
+    <div className="asset-inventory-page">
       <NetworkAlert error={error} onRetry={reload} />
 
-      <div className="row align-items-center mb-3">
-        <div className="col-6 search-container m-0">
-          <i className="fa-brands mx-2 fa-sistrix discover-search-icon" />
-          <input
-            type="text"
-            className="form-control header-search-input assets rounded-3"
-            placeholder="Search IP, MAC, hostname, OS..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
+      <div className="row g-3 align-items-stretch my-3 asset-inventory-toolbar">
+  {/* Search */}
+  <div className="col-12 col-lg-6">
+    <div className="search-container h-100">
+      <input
+        type="text"
+        className="form-control header-search-input assets rounded-3 h-100"
+        placeholder="Search IP, MAC, hostname, OS..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+    </div>
+  </div>
 
-        <div className="col-4">
-          <select
-            className="form-select Allcategories scanType-select border-0"
-            value={categoryFilter}
-            onChange={(e) => setCategoryFilter(e.target.value)}
-          >
-            {categories.map((cat) => (
-              <option key={cat} value={cat}>
-                {cat === "all" ? "All Categories" : cat.charAt(0).toUpperCase() + cat.slice(1)}
-              </option>
-            ))}
-          </select>
-        </div>
+  {/* Category */}
+  <div className="col-12 col-md-6 col-lg-3">
+    <select
+      className="form-select Allcategories scanType-select border-0 rounded-3 h-100"
+      value={categoryFilter}
+      onChange={(e) => setCategoryFilter(e.target.value)}
+    >
+      {categories.map((cat) => (
+        <option key={cat} value={cat}>
+          {cat === "all"
+            ? "All Categories"
+            : cat.charAt(0).toUpperCase() + cat.slice(1)}
+        </option>
+      ))}
+    </select>
+  </div>
 
-        <div className="col-2">
-          <button
-            type="button"
-            className="btn mx-auto start-btn border-0 rounded-3 text-white fw-medium ps-0 d-flex align-items-center"
-            onClick={reload}
-          >
-            <i className="fa-solid fa-arrow-rotate-right mx-2 text-white" />
-            Refresh
-          </button>
-        </div>
-      </div>
+  {/* Refresh */}
+  <div className="col-12 col-md-6 col-lg-3">
+    <button
+      type="button"
+      className="btn start-btn border-0 rounded-3 text-white fw-medium d-flex align-items-center justify-content-center w-100 h-100"
+      onClick={reload}
+    >
+      <i className="fa-solid fa-arrow-rotate-right me-2"></i>
+      Refresh
+    </button>
+  </div>
+</div>
 
-      <div className="dashboard-card mb-3">
-        <div className="row justify-content-between align-items-center mb-3">
-          <div className="col-9 d-flex align-items-center mb-0">
-            <figure className="mb-0 me-2">
+      <div className="dashboard-card mb-3 asset-inventory-card">
+        <div className="row g-2 align-items-center mb-3 asset-inventory-card-header">
+          <div className="col-12 d-flex align-items-center flex-wrap gap-2 mb-0">
+            <figure className="mb-0 asset-inventory-card-icon">
               <img src={assetsInventoryIcon} className="w-100" alt="inventory" />
             </figure>
             <h6 className="text-white mb-0">Asset Inventory ({assets.length})</h6>
           </div>
         </div>
-        {loading && !assets.length ? (
-          <NetworkLoading skeleton rows={6} />
-        ) : (
-          <AssetsTabel
-            assets={assets}
-            loading={loading}
-            onViewDetails={openDetails}
-            onContextLookup={openContext}
-          />
-        )}
+        <div className="assets-tabel">
+          {loading && !assets.length ? (
+            <NetworkLoading skeleton rows={6} />
+          ) : (
+            <AssetsTabel
+              assets={assets}
+              loading={loading}
+              onViewDetails={openDetails}
+              onContextLookup={openContext}
+            />
+          )}
+        </div>
       </div>
 
       {selectedAsset && (
@@ -122,6 +130,6 @@ export default function AssetInventory() {
           onRetry={() => openContext(contextIp)}
         />
       )}
-    </>
+    </div>
   );
 }

@@ -65,13 +65,13 @@ export default function FlowMonitoring() {
 
       {metrics?.bandwidth && (
         <div className="row g-3 mb-4 px-2">
-          <div className="col-6">
+          <div className="col-12 col-md-6">
             <div className="dashboard-card p-3 rounded-4">
               <p className="text-secondary mb-1">Inbound Bandwidth</p>
               <h4 className="text-white">{formatNumber(metrics.bandwidth.inboundMbps)} Mbps</h4>
             </div>
           </div>
-          <div className="col-6">
+          <div className="col-12 col-md-6">
             <div className="dashboard-card p-3 rounded-4">
               <p className="text-secondary mb-1">Outbound Bandwidth</p>
               <h4 className={`${metrics.bandwidth.outboundMbps > metrics.bandwidth.inboundMbps * 1.2 ? "spike-highlight" : "text-white"}`}>
@@ -92,11 +92,11 @@ export default function FlowMonitoring() {
         <TrafficFlowChart metrics={metrics} />
       </div>
 
-      <div className="row justify-content-between">
-        <div className="col-6">
+      <div className="row g-3 justify-content-between">
+        <div className="col-12 col-lg-6">
           <AnomalyAlerts anomalies={metrics?.anomalies ?? []} />
         </div>
-        <div className="col-6">
+        <div className="col-12 col-lg-6">
           <ExfiltrationIndicators indicators={metrics?.exfiltration ?? []} />
         </div>
       </div>

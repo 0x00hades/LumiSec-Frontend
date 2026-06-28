@@ -40,16 +40,16 @@ export default function SIEMIntegration() {
                     <form action="">
                         <div className='mb-4'>
                             <label className='text-secondary mb-1' htmlFor="Protocol">Protocol</label>
-                            <input className='form-control input-field rounded-3 border-0 mb-3' type="Protocol" id='Protocol' value='HTTPS' />
+                            <input className='form-control input-field rounded-3 border-0 mb-3' type="text" id="Protocol" name="protocol" defaultValue='HTTPS' readOnly />
                         </div>
 
                         <div className='row justify-content-between align-items-center'>
-                            <div className="col-9 mb-1">
+                            <div className="col-12 col-sm-9 mb-1">
                                 <label htmlFor="Host">
                                     Host / IP
                                 </label>
                             </div>
-                            <div className="col-3 mb-1">
+                            <div className="col-12 col-sm-3 mb-1">
                                 <label htmlFor="Port">
                                     Port
                                 </label>
@@ -58,13 +58,13 @@ export default function SIEMIntegration() {
 
 
 
-                        <div className='row justify-content-between align-items-center mb-4'>
-                                <div className='col-9 d-flex'>
-                                    <i class="fa-solid fa-server position-relative server-icon text-white"></i>
-                                    <input className='position-relative siem-local-input form-control header-search-input input-field border-0 me-3 ps-5 mb-0' type="text" value='siem.local or 10.0.0.5' name="" id="Host" />
+                        <div className='row g-2 justify-content-between align-items-center mb-4'>
+                                <div className='col-12 col-sm-9 d-flex'>
+                                    <i className="fa-solid fa-server position-relative server-icon text-white"></i>
+                                    <input className='position-relative siem-local-input form-control header-search-input input-field border-0 me-3 ps-5 mb-0' type="text" defaultValue='siem.local or 10.0.0.5' name="host" id="Host" />
                                 </div>
-                            <div className='col-3'>
-                                <input className='form-control input-field border-0' type="text" value='443' name="" id="Port" />
+                            <div className='col-12 col-sm-3'>
+                                <input className='form-control input-field border-0' type="text" defaultValue='443' name="port" id="Port" />
                             </div>
                         </div>
                         
@@ -72,8 +72,8 @@ export default function SIEMIntegration() {
                         <div className='mb-4'>
                             <label className='text-secondary mb-1' htmlFor="Endpoint">Endpoint (optional)</label>
                             <div className='d-flex justify-content-between align-items-center'>
-                                    <i class="fa-solid fa-link position-relative link-icon text-white"></i>
-                                    <input className='position-relative siem-local-input form-control header-search-input input-field border-0 me-3 ps-5 mb-0' type="text" value='https://siem.example.com/api/collect' name="" id="Endpoint" />
+                                    <i className="fa-solid fa-link position-relative link-icon text-white"></i>
+                                    <input className='position-relative siem-local-input form-control header-search-input input-field border-0 me-3 ps-5 mb-0' type="text" defaultValue='https://siem.example.com/api/collect' name="endpoint" id="Endpoint" />
                             </div>   
                         </div>
 
@@ -81,27 +81,27 @@ export default function SIEMIntegration() {
 
                         <div className='mb-4 Format-container'>
                             <label className='text-secondary mb-1' htmlFor="Format">Format</label>
-                                <input className='position-relative siem-local-input form-control header-search-input input-field border-0 mx-3 ps-5 mb-0' type="text" value='JSON' name="" id="Format" />
+                                <input className='position-relative siem-local-input form-control header-search-input input-field border-0 mx-3 ps-5 mb-0' type="text" defaultValue='JSON' name="format" id="Format" />
                         </div>
 
 
                         <div className='mb-4'>
                             <label className='text-secondary mb-1' htmlFor="APIKey">API Key / Token</label>
                             <div className='d-flex'>
-                                    <i class="fa-solid fa-key position-relative server-icon text-white"></i>
-                                    <input className='position-relative siem-local-input form-control header-search-input input-field border-0 me-3 ps-5 mb-0' type="text" placeholder='Paste API key' name="" id="APIKey" />
+                                    <i className="fa-solid fa-key position-relative server-icon text-white"></i>
+                                    <input className='position-relative siem-local-input form-control header-search-input input-field border-0 me-3 ps-5 mb-0' type="text" placeholder='Paste API key' name="apiKey" id="APIKey" />
                             </div>   
                         </div>
 
-                        <div className='row justify-content-between align-items-center'>
-                            <div className="col-8">
+                        <div className='row g-2 justify-content-between align-items-center'>
+                            <div className="col-12 col-md-8">
                                 <button className='btn connect-btn w-100 text-white rounded-3'>Connect & Test</button>
                             </div>
-                            <div className="col text-center">
-                                <button className='btn px-3 seim-save-btn text-white rounded-3'>Save</button>
+                            <div className="col-6 col-md text-center">
+                                <button className='btn px-3 seim-save-btn text-white rounded-3 w-100'>Save</button>
                             </div>
-                            <div className="col text-center">
-                                <button className='btn px-3 seim-reset-btn text-white rounded-3'>Reset</button>
+                            <div className="col-6 col-md text-center">
+                                <button className='btn px-3 seim-reset-btn text-white rounded-3 w-100'>Reset</button>
                             </div>
                         </div>
                     </form>

@@ -9,6 +9,11 @@
     color: #9DA3B0 !important;
 }
 
+
+.audit-accordion .card-header{
+    border-bottom: 1px solid #9591912d !important;
+}
+
 .p-btn{
     background-color: #F79009 !important;
 }

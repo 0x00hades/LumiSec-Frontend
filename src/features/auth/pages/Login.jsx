@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import { Formik, Form } from "formik";
 import { useLocation, useNavigate } from "react-router-dom";
 import logo from "../../../assets/LumiSecLogoB 1@3x.png";
-import icon from "../../../assets/Vector.png";
 import "./login.css";
 import "../../../styles/global.css";
 import { useAuth } from "../context/AuthContext";
 import { getAllowedTools } from "../../../components/rbac/rbac";
 import { normalizeBackendRole } from "../../../components/rbac/roleMap";
+import FormFieldError from "../../../components/forms/FormFieldError";
+import { isValidEmail } from "../../../utils/formValidation";
 
 function resolvePostLoginPath(returnUrl, role) {
   if (returnUrl && returnUrl.startsWith("/")) {
@@ -22,48 +24,13 @@ export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(true);
-  const [loading, setLoading] = useState(false);
   const [notice, setNotice] = useState(null);
 
   const params = new URLSearchParams(location.search);
   const sessionExpired = params.get("session") === "expired";
   const returnUrl = params.get("returnUrl");
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setNotice(null);
-    setLoading(true);
-
-    try {
-      let destinationRole = "admin";
-      if (email.trim() && password) {
-        const result = await login(email.trim(), password, rememberMe);
-        destinationRole = result.user?.role ?? destinationRole;
-      } else {
-        const result = demoLogin(email, rememberMe);
-        destinationRole = result.user?.role ?? destinationRole;
-      }
-      navigate(resolvePostLoginPath(returnUrl, destinationRole), { replace: true });
-    } catch (err) {
-      setNotice({
-        type: "danger",
-        message: err.message || "Login failed. Try demo mode with any password.",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleCreateAccount = () => {
-    setNotice(null);
-    const result = demoLogin(email, rememberMe);
-    navigate(resolvePostLoginPath(null, result.user?.role ?? "admin"), { replace: true });
-  };
-
-  const handleForgotPassword = () => {
+  const handleForgotPassword = (email) => {
     const targetEmail = email.trim() || "your account email";
     setNotice({
       type: "info",
@@ -126,95 +93,126 @@ export default function Login() {
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} noValidate>
-                <div className="mb-4">
-                  <label className="text-secondary" htmlFor="email">
-                    Email
-                  </label>
-                  <input
-                    className="form-control input-field rounded-3 mb-3"
-                    type="email"
-                    id="email"
-                    placeholder="you@organization.org"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    autoComplete="email"
-                    disabled={loading}
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="text-secondary" htmlFor="password">
-                    Password
-                  </label>
-                  <input
-                    className="form-control mb-3 input-field rounded-3"
-                    placeholder="Your secure password"
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    autoComplete="current-password"
-                    disabled={loading}
-                  />
-                </div>
-                <div className="d-flex justify-content-between mb-4">
-                  <div className="mb-3 d-flex align-items-center">
-                    <input
-                      className="checkbox-input me-2"
-                      type="checkbox"
-                      id="rememberMe"
-                      checked={rememberMe}
-                      onChange={(e) => setRememberMe(e.target.checked)}
-                      disabled={loading}
-                    />
-                    <label className="rememberMe-label" htmlFor="rememberMe">
-                    Remember me
-                    </label>
-                  </div>
-                  <button
-                    type="button"
-                    className="link-action text-purple"
-                    onClick={handleForgotPassword}
-                    disabled={loading}
-                  >
-                    Forgot password?
-                  </button>
-                </div>
-                <button
-                  type="submit"
-                  className="sign-in-btn border-0 text-white w-100 pt-3 p-2 rounded-3 mb-3"
-                  disabled={loading}
-                >
-                  {loading ? (
-                    <>
-                      <i className="fa-solid fa-spinner fa-spin me-2" />
-                      Signing in...
-                    </>
-                  ) : (
-                    "Sign in"
-                  )}
-                </button>
-                {/* <button
-                  type="button"
-                  className="create-account-btn text-white w-100 pt-3 p-2 rounded-3 mb-3"
-                  onClick={handleCreateAccount}
-                  disabled={loading}
-                >
-                  Create account
-                </button>
-                <p className="text-secondary text-center position-relative sepration-text">
-                  or continue with
-                </p>
-                <button
-                  type="button"
-                  className="bg-sso-btn text-white w-100 pt-3 p-2 rounded-3 mb-3"
-                  disabled
-                  title="SSO not configured"
-                >
-                  <img className="mx-3 w-4" src={icon} alt="icon" />
-                  SSO
-                </button> */}
-              </form>
+              <Formik
+                initialValues={{ email: "", password: "", rememberMe: true }}
+                validate={(values) => {
+                  const errors = {};
+                  const email = values.email.trim();
+
+                  if (email && !isValidEmail(email)) {
+                    errors.email = "Enter a valid email address";
+                  }
+
+                  return errors;
+                }}
+                onSubmit={async (values, { setSubmitting }) => {
+                  setNotice(null);
+                  setSubmitting(true);
+
+                  try {
+                    let destinationRole = "admin";
+                    const email = values.email.trim();
+
+                    if (email && values.password) {
+                      const result = await login(email, values.password, values.rememberMe);
+                      destinationRole = result.user?.role ?? destinationRole;
+                    } else {
+                      const result = demoLogin(email, values.rememberMe);
+                      destinationRole = result.user?.role ?? destinationRole;
+                    }
+
+                    navigate(resolvePostLoginPath(returnUrl, destinationRole), { replace: true });
+                  } catch (err) {
+                    setNotice({
+                      type: "danger",
+                      message: err.message || "Login failed. Try demo mode with any password.",
+                    });
+                  } finally {
+                    setSubmitting(false);
+                  }
+                }}
+              >
+                {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => (
+                  <Form noValidate>
+                    <div className="mb-4">
+                      <label className="text-secondary" htmlFor="email">
+                        Email
+                      </label>
+                      <FormFieldError name="email" errors={errors} touched={touched} />
+                      <input
+                        className="form-control input-field rounded-3 mb-1"
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="you@organization.org"
+                        value={values.email}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        autoComplete="email"
+                        disabled={isSubmitting}
+                        aria-invalid={Boolean(touched.email && errors.email)}
+                      />
+                    </div>
+                    <div className="mb-4">
+                      <label className="text-secondary" htmlFor="password">
+                        Password
+                      </label>
+                      <FormFieldError name="password" errors={errors} touched={touched} />
+                      <input
+                        className="form-control mb-1 input-field rounded-3"
+                        placeholder="Your secure password"
+                        type="password"
+                        id="password"
+                        name="password"
+                        value={values.password}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        autoComplete="current-password"
+                        disabled={isSubmitting}
+                        aria-invalid={Boolean(touched.password && errors.password)}
+                      />
+                    </div>
+                    <div className="d-flex justify-content-between mb-4">
+                      <div className="mb-3 d-flex align-items-center">
+                        <input
+                          className="checkbox-input me-2"
+                          type="checkbox"
+                          id="rememberMe"
+                          name="rememberMe"
+                          checked={values.rememberMe}
+                          onChange={handleChange}
+                          disabled={isSubmitting}
+                        />
+                        <label className="rememberMe-label" htmlFor="rememberMe">
+                          Remember me
+                        </label>
+                      </div>
+                      <button
+                        type="button"
+                        className="link-action text-purple"
+                        onClick={() => handleForgotPassword(values.email)}
+                        disabled={isSubmitting}
+                      >
+                        Forgot password?
+                      </button>
+                    </div>
+                    <button
+                      type="submit"
+                      className="sign-in-btn border-0 text-white w-100 pt-3 p-2 rounded-3 mb-3"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <i className="fa-solid fa-spinner fa-spin me-2" />
+                          Signing in...
+                        </>
+                      ) : (
+                        "Sign in"
+                      )}
+                    </button>
+                  </Form>
+                )}
+              </Formik>
               <p className="text-secondary">
                 By signing in you agree to our <span className="text-purple">Terms</span> &{" "}
                 <span className="text-purple">Privacy</span>

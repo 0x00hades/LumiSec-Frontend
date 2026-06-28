@@ -63,13 +63,13 @@ export default function Reports() {
     </div>
 
 
-    <div className='row justify-content-between mb-4'>
-        <div className='col-8'>
+    <div className='row justify-content-between g-3 mb-4'>
+        <div className='col-12 col-lg-8'>
             <div className='dashboard-card'>
                 <CampaignComparisonChart />
             </div>
         </div>
-        <div className='col-4'>
+        <div className='col-12 col-lg-4'>
             <div className='dashboard-card'>
                 <DepartmentRiskChart />
             </div>

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { Formik, Form } from "formik";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import PhishingAlert from "../../Components/Shared/PhishingAlert";
 import PhishingLoading from "../../Components/Shared/PhishingLoading";
@@ -6,6 +7,7 @@ import RoleGate from "../../Components/Shared/RoleGate";
 import { canManageCampaigns } from "../../utils/roles";
 import useCampaigns from "../../hooks/useCampaigns";
 import useTemplates from "../../hooks/useTemplates";
+import FormFieldError from "../../../../components/forms/FormFieldError";
 import "../../Components/Shared/PhishingShared.css";
 
 export default function CampaignEdit() {
@@ -13,33 +15,7 @@ export default function CampaignEdit() {
   const navigate = useNavigate();
   const { campaign, loading, error, updateCampaign } = useCampaigns(id);
   const { templates } = useTemplates();
-  const [form, setForm] = useState({ name: "", description: "", templateId: "" });
-  const [saveError, setSaveError] = useState(null);
-  const [saving, setSaving] = useState(false);
-
-  React.useEffect(() => {
-    if (campaign) {
-      setForm({
-        name: campaign.name ?? "",
-        description: campaign.description ?? "",
-        templateId: campaign.templateId ?? "",
-      });
-    }
-  }, [campaign]);
-
-  const handleSave = async (e) => {
-    e.preventDefault();
-    setSaving(true);
-    setSaveError(null);
-    try {
-      await updateCampaign(id, form);
-      navigate(`/Phishing/Campaigns/${id}`);
-    } catch (err) {
-      setSaveError(err.message);
-    } finally {
-      setSaving(false);
-    }
-  };
+  const [saveError, setSaveError] = React.useState(null);
 
   if (loading) return <PhishingLoading message="Loading campaign..." />;
 
@@ -51,26 +27,84 @@ export default function CampaignEdit() {
           <Link to={`/Phishing/Campaigns/${id}`} className="btn integration-btn">Back</Link>
         </div>
         <PhishingAlert type="danger" message={error || saveError} />
-        <form onSubmit={handleSave} className="dashboard-card p-3">
-          <div className="mb-3">
-            <label className="text-secondary">Campaign Name</label>
-            <input className="form-control header-search-input" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
-          </div>
-          <div className="mb-3">
-            <label className="text-secondary">Description</label>
-            <textarea className="form-control header-search-input" rows={3} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
-          </div>
-          <div className="mb-3">
-            <label className="text-secondary">Email Template</label>
-            <select className="form-select scanType-select border-0" value={form.templateId} onChange={(e) => setForm({ ...form, templateId: e.target.value })} required>
-              <option value="">Select template</option>
-              {templates.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}
-            </select>
-          </div>
-          <button type="submit" className="btn add-btn text-white border-0" disabled={saving}>
-            {saving ? "Saving..." : "Save Changes"}
-          </button>
-        </form>
+
+        <Formik
+          enableReinitialize
+          initialValues={{
+            name: campaign?.name ?? "",
+            description: campaign?.description ?? "",
+            templateId: campaign?.templateId ?? "",
+          }}
+          validate={(values) => {
+            const errors = {};
+            if (!values.name.trim()) errors.name = "Campaign name is required";
+            if (!values.templateId) errors.templateId = "Please select an email template";
+            return errors;
+          }}
+          onSubmit={async (values, { setSubmitting }) => {
+            setSaveError(null);
+            setSubmitting(true);
+            try {
+              await updateCampaign(id, values);
+              navigate(`/Phishing/Campaigns/${id}`);
+            } catch (err) {
+              setSaveError(err.message);
+            } finally {
+              setSubmitting(false);
+            }
+          }}
+        >
+          {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => (
+            <Form className="dashboard-card p-3" noValidate>
+              <div className="mb-3">
+                <label className="text-secondary" htmlFor="campaignName">Campaign Name</label>
+                <FormFieldError name="name" errors={errors} touched={touched} />
+                <input
+                  id="campaignName"
+                  name="name"
+                  className="form-control header-search-input"
+                  value={values.name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  aria-invalid={Boolean(touched.name && errors.name)}
+                />
+              </div>
+              <div className="mb-3">
+                <label className="text-secondary" htmlFor="campaignDescription">Description</label>
+                <textarea
+                  id="campaignDescription"
+                  name="description"
+                  className="form-control header-search-input"
+                  rows={3}
+                  value={values.description}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </div>
+              <div className="mb-3">
+                <label className="text-secondary" htmlFor="campaignTemplate">Email Template</label>
+                <FormFieldError name="templateId" errors={errors} touched={touched} />
+                <select
+                  id="campaignTemplate"
+                  name="templateId"
+                  className="form-select scanType-select border-0"
+                  value={values.templateId}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  aria-invalid={Boolean(touched.templateId && errors.templateId)}
+                >
+                  <option value="">Select template</option>
+                  {templates.map((t) => (
+                    <option key={t.id} value={t.id}>{t.name}</option>
+                  ))}
+                </select>
+              </div>
+              <button type="submit" className="btn add-btn text-white border-0" disabled={isSubmitting}>
+                {isSubmitting ? "Saving..." : "Save Changes"}
+              </button>
+            </Form>
+          )}
+        </Formik>
       </div>
     </RoleGate>
   );

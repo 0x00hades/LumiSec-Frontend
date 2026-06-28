@@ -20,19 +20,19 @@ export default function RecipientsList() {
 
   return (
     <div className="phishing-soc-page">
-      <div className="d-flex justify-content-between mb-3">
+      <div className="d-flex align-items-center justify-content-between mb-3">
         <div>
           <h5 className="text-white">Recipients</h5>
           <p className="dashboard-desc">{recipients.length} recipients</p>
         </div>
         <RoleGate allow={canManageRecipients}>
-          <Link to="/Phishing/Recipients/import" className="btn integration-btn me-2">Import CSV</Link>
+          <Link to="/Phishing/Recipients/import" className="btn btn-dark me-2 ">Import CSV</Link>
         </RoleGate>
       </div>
       <PhishingAlert type="danger" message={error} onRetry={reload} />
 
       <div className="search-container mb-3">
-        <i className="fa-brands fa-sistrix discover-search-icon" />
+        {/* <i className="fa-brands fa-sistrix discover-search-icon" /> */}
         <input className="form-control header-search-input rounded-3" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
       </div>
 

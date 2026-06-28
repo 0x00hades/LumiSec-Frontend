@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Formik, Form } from "formik";
 import { useNavigate } from "react-router-dom";
 import PhishingAlert from "../../Components/Shared/PhishingAlert";
 import useCampaigns from "../../hooks/useCampaigns";
@@ -6,6 +7,7 @@ import useTemplates from "../../hooks/useTemplates";
 import useRecipients from "../../hooks/useRecipients";
 import RoleGate from "../../Components/Shared/RoleGate";
 import { canManageCampaigns } from "../../utils/roles";
+import FormFieldError from "../../../../components/forms/FormFieldError";
 import "../../Components/Shared/PhishingShared.css";
 
 const STEPS = ["Create", "Recipients", "Review"];
@@ -17,7 +19,7 @@ export default function CampaignCreate() {
   const { allRecipients } = useRecipients();
   const [step, setStep] = useState(0);
   const [error, setError] = useState(null);
-  const [form, setForm] = useState({ name: "", description: "", templateId: "" });
+  const [campaignForm, setCampaignForm] = useState({ name: "", description: "", templateId: "" });
   const [selectedRecipients, setSelectedRecipients] = useState([]);
 
   const toggleRecipient = (id) => {
@@ -29,7 +31,7 @@ export default function CampaignCreate() {
   const handleCreate = async () => {
     setError(null);
     try {
-      const created = await createCampaign(form);
+      const created = await createCampaign(campaignForm);
       const campaignId = created?.id;
       const recipientPayload = allRecipients.filter((r) => selectedRecipients.includes(r.id));
       if (recipientPayload.length && campaignId) {
@@ -54,24 +56,76 @@ export default function CampaignCreate() {
         </div>
 
         {step === 0 && (
-          <div className="dashboard-card p-3">
-            <div className="mb-3">
-              <label className="text-secondary">Campaign Name</label>
-              <input className="form-control header-search-input" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-            </div>
-            <div className="mb-3">
-              <label className="text-secondary">Description (optional)</label>
-              <textarea className="form-control header-search-input" rows={2} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
-            </div>
-            <div className="mb-3">
-              <label className="text-secondary">Email Template</label>
-              <select className="form-select scanType-select border-0" value={form.templateId} onChange={(e) => setForm({ ...form, templateId: e.target.value })}>
-                <option value="">Select template</option>
-                {templates.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}
-              </select>
-            </div>
-            <button type="button" className="btn add-btn text-white border-0" onClick={() => setStep(1)} disabled={!form.name || !form.templateId}>Next</button>
-          </div>
+          <Formik
+            initialValues={campaignForm}
+            enableReinitialize
+            validate={(values) => {
+              const errors = {};
+              if (!values.name.trim()) errors.name = "Campaign name is required";
+              if (!values.templateId) errors.templateId = "Please select an email template";
+              return errors;
+            }}
+            onSubmit={(values) => {
+              setCampaignForm(values);
+              setStep(1);
+            }}
+          >
+            {({ values, errors, touched, handleChange, handleBlur, submitForm, setTouched }) => (
+              <Form className="dashboard-card p-3" noValidate>
+                <div className="mb-3">
+                  <label className="text-secondary" htmlFor="createCampaignName">Campaign Name</label>
+                  <FormFieldError name="name" errors={errors} touched={touched} />
+                  <input
+                    id="createCampaignName"
+                    name="name"
+                    className="form-control header-search-input"
+                    value={values.name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    aria-invalid={Boolean(touched.name && errors.name)}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="text-secondary" htmlFor="createCampaignDescription">Description (optional)</label>
+                  <textarea
+                    id="createCampaignDescription"
+                    name="description"
+                    className="form-control header-search-input"
+                    rows={2}
+                    value={values.description}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="text-secondary" htmlFor="createCampaignTemplate">Email Template</label>
+                  <FormFieldError name="templateId" errors={errors} touched={touched} />
+                  <select
+                    id="createCampaignTemplate"
+                    name="templateId"
+                    className="form-select scanType-select border-0"
+                    value={values.templateId}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    aria-invalid={Boolean(touched.templateId && errors.templateId)}
+                  >
+                    <option value="">Select template</option>
+                    {templates.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}
+                  </select>
+                </div>
+                <button
+                  type="button"
+                  className="btn add-btn text-white border-0"
+                  onClick={() => {
+                    setTouched({ name: true, templateId: true });
+                    submitForm();
+                  }}
+                >
+                  Next
+                </button>
+              </Form>
+            )}
+          </Formik>
         )}
 
         {step === 1 && (
@@ -79,8 +133,14 @@ export default function CampaignCreate() {
             <h6 className="text-white mb-3">Attach Recipients</h6>
             <div style={{ maxHeight: 300, overflowY: "auto" }}>
               {allRecipients.map((r) => (
-                <label key={r.id} className="d-flex align-items-center gap-2 mb-2 text-white">
-                  <input type="checkbox" checked={selectedRecipients.includes(r.id)} onChange={() => toggleRecipient(r.id)} />
+                <label key={r.id} className="d-flex align-items-center gap-2 mb-2 text-white" htmlFor={`recipient-${r.id}`}>
+                  <input
+                    id={`recipient-${r.id}`}
+                    name={`recipient-${r.id}`}
+                    type="checkbox"
+                    checked={selectedRecipients.includes(r.id)}
+                    onChange={() => toggleRecipient(r.id)}
+                  />
                   {r.name} — {r.email} ({r.department})
                 </label>
               ))}
@@ -95,7 +155,7 @@ export default function CampaignCreate() {
         {step === 2 && (
           <div className="dashboard-card p-3">
             <h6 className="text-white">Review & Create</h6>
-            <p className="text-secondary">Name: {form.name}</p>
+            <p className="text-secondary">Name: {campaignForm.name}</p>
             <p className="text-secondary">Recipients: {selectedRecipients.length}</p>
             <div className="d-flex gap-2 mt-3">
               <button type="button" className="btn integration-btn" onClick={() => setStep(1)}>Back</button>
