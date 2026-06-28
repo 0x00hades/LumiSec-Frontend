@@ -75,7 +75,7 @@ export default function CaptureControl({
             <button
               type="submit"
               disabled={loading}
-              className={`btn border-0 rounded-3 text-white fw-medium ps-0 d-flex justify-content-between align-items-center w-100 ${active ? "btn-danger" : "start-btn"}`}
+              className={`btn border-0 rounded-3 text-white fw-medium ps-0 d-flex align-items-center w-100 ${active ? "btn-danger" : "start-btn"}`}
             >
               {loading ? (
                 <i className="fa-solid fa-spinner fa-spin mx-2 text-white" />

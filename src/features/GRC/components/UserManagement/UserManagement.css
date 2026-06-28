@@ -53,6 +53,12 @@
   color: #6ee7b7;
 }
 
+
+.CreateUserModal{
+  position: absolute;
+  top: 50px;
+}
+
 .user-management__status--inactive {
   background: rgba(148, 163, 184, 0.15);
   color: #cbd5e1;

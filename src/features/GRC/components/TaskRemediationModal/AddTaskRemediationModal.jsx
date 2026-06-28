@@ -6,8 +6,6 @@ import { toTaskPayload } from "../../utils/normalizers";
 import FormFieldError from "../../../../components/forms/FormFieldError";
 import { hideBootstrapModal } from "../../../../utils/bootstrapModal";
 
-const ADD_TASK_REMEDIATION_MODAL_ID = "AddTaskRemediationModal";
-
 const INITIAL_VALUES = {
   controlId: "",
   riskLevel: "High",
@@ -76,9 +74,9 @@ export default function AddTaskRemediationModal({ onCreate, onUpload, onSuccess 
                     remediationPlan: values.remediationPlan || undefined,
                   })
                 );
-                resetForm();
-                hideBootstrapModal(ADD_TASK_REMEDIATION_MODAL_ID);
+                hideBootstrapModal("AddTaskRemediationModal");
                 onSuccess?.();
+                resetForm();
               } finally {
                 setSubmitting(false);
               }

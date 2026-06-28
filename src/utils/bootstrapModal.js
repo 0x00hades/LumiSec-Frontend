@@ -1,23 +1,16 @@
+import { Modal } from "bootstrap";
+
 export function hideBootstrapModal(modalId) {
   const element = document.getElementById(modalId);
   if (!element) return;
 
-  if (window.bootstrap?.Modal) {
-    const instance =
-      window.bootstrap.Modal.getInstance(element) ??
-      window.bootstrap.Modal.getOrCreateInstance(element);
-    instance.hide();
-    return;
-  }
-
-  const dismissBtn = element.querySelector('[data-bs-dismiss="modal"]');
-  if (dismissBtn) {
-    dismissBtn.click();
-  }
+  const instance = Modal.getInstance(element) ?? Modal.getOrCreateInstance(element);
+  instance.hide();
 }
 
 export function showBootstrapModal(modalId) {
   const element = document.getElementById(modalId);
-  if (!element || !window.bootstrap?.Modal) return;
-  window.bootstrap.Modal.getOrCreateInstance(element).show();
+  if (!element) return;
+
+  Modal.getOrCreateInstance(element).show();
 }

@@ -21,7 +21,7 @@ export default function CreateUserModal({ onCreate, onSuccess }) {
 
   return (
     <div className="modal fade" id={CREATE_USER_MODAL_ID} tabIndex="-1" aria-hidden="true">
-      <div className="modal-dialog modal-dialog-centered modal-lg">
+      <div className="modal-dialog CreateUserModal modal-dialog-centered modal-lg">
         <div className="modal-content">
           <div className="modal-header border-0">
             <h5 className="modal-title text-white">Create User</h5>

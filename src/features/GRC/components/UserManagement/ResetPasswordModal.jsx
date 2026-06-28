@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form } from "formik";
 import FormFieldError from "../../../../components/forms/FormFieldError";
-import { hideBootstrapModal, validateResetPasswordForm } from "../../utils/userNormalizers";
+import { hideBootstrapModal, showBootstrapModal, validateResetPasswordForm } from "../../utils/userNormalizers";
 import "../StandardModal/AddNewStandardModal.css";
 
 export const RESET_PASSWORD_MODAL_ID = "resetPasswordModal";
@@ -16,10 +16,7 @@ export default function ResetPasswordModal({ user, onReset, onSuccess }) {
 
   useEffect(() => {
     if (!user) return;
-    const element = document.getElementById(RESET_PASSWORD_MODAL_ID);
-    if (element && window.bootstrap?.Modal) {
-      window.bootstrap.Modal.getOrCreateInstance(element).show();
-    }
+    showBootstrapModal(RESET_PASSWORD_MODAL_ID);
   }, [user]);
 
   if (!user) return null;

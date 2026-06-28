@@ -6,8 +6,6 @@ import { toControlPayload } from "../../utils/normalizers";
 import FormFieldError from "../../../../components/forms/FormFieldError";
 import { hideBootstrapModal } from "../../../../utils/bootstrapModal";
 
-const ADD_STANDARD_MODAL_ID = "addStandardModal";
-
 export default function AddStandardModal({ onCreate, onSuccess }) {
   const [submitting, setSubmitting] = useState(false);
 
@@ -39,9 +37,9 @@ export default function AddStandardModal({ onCreate, onSuccess }) {
               setSubmitting(true);
               try {
                 await onCreate(toControlPayload({ framework: values.framework }));
-                resetForm();
-                hideBootstrapModal(ADD_STANDARD_MODAL_ID);
+                hideBootstrapModal("addStandardModal");
                 onSuccess?.();
+                resetForm();
               } finally {
                 setSubmitting(false);
               }

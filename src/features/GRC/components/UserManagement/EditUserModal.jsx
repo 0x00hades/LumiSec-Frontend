@@ -4,6 +4,7 @@ import { BACKEND_ROLES } from "../../../../constants/backendRoles";
 import FormFieldError from "../../../../components/forms/FormFieldError";
 import {
   hideBootstrapModal,
+  showBootstrapModal,
   userToEditValues,
   validateUpdateForm,
 } from "../../utils/userNormalizers";
@@ -16,10 +17,7 @@ export default function EditUserModal({ user, onSave, onSuccess }) {
 
   useEffect(() => {
     if (!user) return;
-    const element = document.getElementById(EDIT_USER_MODAL_ID);
-    if (element && window.bootstrap?.Modal) {
-      window.bootstrap.Modal.getOrCreateInstance(element).show();
-    }
+    showBootstrapModal(EDIT_USER_MODAL_ID);
   }, [user]);
 
   if (!user) return null;

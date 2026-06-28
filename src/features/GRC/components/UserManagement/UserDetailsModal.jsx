@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { getUserDetailFields } from "../../utils/userNormalizers";
+import { getUserDetailFields, showBootstrapModal } from "../../utils/userNormalizers";
 import "../StandardModal/AddNewStandardModal.css";
 
 export const USER_DETAILS_MODAL_ID = "userDetailsModal";
@@ -7,10 +7,7 @@ export const USER_DETAILS_MODAL_ID = "userDetailsModal";
 export default function UserDetailsModal({ user, onEdit, onClose }) {
   useEffect(() => {
     if (!user) return;
-    const element = document.getElementById(USER_DETAILS_MODAL_ID);
-    if (element && window.bootstrap?.Modal) {
-      window.bootstrap.Modal.getOrCreateInstance(element).show();
-    }
+    showBootstrapModal(USER_DETAILS_MODAL_ID);
   }, [user]);
 
   if (!user) return null;

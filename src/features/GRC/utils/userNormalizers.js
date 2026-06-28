@@ -1,10 +1,8 @@
 import { BACKEND_ROLE_VALUES } from "../../../constants/backendRoles";
 import {
-  hideBootstrapModal,
-  showBootstrapModal,
+  hideBootstrapModal as hideModal,
+  showBootstrapModal as showModal,
 } from "../../../utils/bootstrapModal";
-
-export { hideBootstrapModal, showBootstrapModal };
 
 const ROLE_LABELS = {
   admin: "Admin",
@@ -186,6 +184,13 @@ export function getUserDetailFields(user) {
   ];
 }
 
+export function hideBootstrapModal(modalId) {
+  hideModal(modalId);
+}
+
+export function showBootstrapModal(modalId) {
+  showModal(modalId);
+}
 
 export function userToEditValues(user) {
   return {

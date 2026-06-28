@@ -5,6 +5,11 @@
     border-radius: 10px;
 }
 
+.AddTaskRemediationModal input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
 
 .sepration-text::before{
     content: "";
